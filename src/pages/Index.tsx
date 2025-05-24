@@ -4,29 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ContactForm } from "@/components/ContactForm";
 import { ServiceCard } from "@/components/ServiceCard";
-import { ImageCarousel } from "@/components/ImageCarousel";
 import { Zap, TrendingUp, Bot, Mail, Calendar } from "lucide-react";
 
 const Index = () => {
   const [isVisible, setIsVisible] = useState<Record<string, boolean>>({});
-
-  const techImages = [
-    "photo-1488590528505-98d2b5aba04b", // laptop
-    "photo-1518770660439-4636190af475", // circuit board
-    "photo-1461749280684-dccba630e2f6", // Java programming
-    "photo-1581091226825-a6a2a5aee158", // woman with laptop
-    "photo-1526374965328-7f61d4dc18c5", // Matrix style
-    "photo-1531297484001-80022131f5a1", // laptop on surface
-  ];
-
-  const marketingImages = [
-    "photo-1487058792275-0ad4aaf24ca7", // colorful code
-    "photo-1605810230434-7631ac76ec81", // video screens
-    "photo-1519389950473-47ba0277781c", // people with laptops
-    "photo-1498050108023-c5249f4df085", // MacBook with code
-    "photo-1649972904349-6e44c42644a7", // woman with laptop
-    "photo-1487887235947-a955ef187fcc", // drone
-  ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -57,7 +38,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen font-sans">
+    <div className="min-h-screen font-playfair">
       {/* Sticky Navigation */}
       <nav className="fixed top-0 w-full bg-white/10 backdrop-blur-md border-b border-white/20 z-50">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -84,7 +65,7 @@ const Index = () => {
           </div>
 
           {/* Company Name - Shorter */}
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
             PulseMint
           </h1>
 
@@ -112,40 +93,37 @@ const Index = () => {
       </section>
 
       {/* Services Overview */}
-      <section id="services" className={`py-20 px-4 bg-gradient-to-br from-slate-50 to-blue-50 transition-all duration-1000 delay-200 ${isVisible.services ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      <section id="services" className={`py-20 px-4 bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900 transition-all duration-1000 delay-200 ${isVisible.services ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-1 gap-12 items-center">
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-16 text-center">
                 What We Do
               </h2>
-              <div className="space-y-8">
+              <div className="grid md:grid-cols-3 gap-8">
                 <ServiceCard
-                  icon={<Bot className="h-12 w-12 text-blue-600" />}
+                  icon={<Bot className="h-12 w-12 text-blue-400" />}
                   title="AI Automation"
                   description="Automate workflows, lead follow-up, and content generation using custom AI tools."
                 />
                 <ServiceCard
-                  icon={<TrendingUp className="h-12 w-12 text-blue-600" />}
+                  icon={<TrendingUp className="h-12 w-12 text-blue-400" />}
                   title="Digital Marketing"
                   description="Campaigns powered by data, not guesswork — SEO, paid ads, and email automation."
                 />
                 <ServiceCard
-                  icon={<Zap className="h-12 w-12 text-blue-600" />}
+                  icon={<Zap className="h-12 w-12 text-blue-400" />}
                   title="Workflow Systems"
                   description="Build backend systems that scale — from CRMs to full customer journeys."
                 />
               </div>
-            </div>
-            <div className="flex justify-center">
-              <ImageCarousel images={techImages} />
             </div>
           </div>
         </div>
       </section>
 
       {/* Why PulseMint */}
-      <section id="why" className={`py-20 px-4 bg-gradient-to-br from-gray-900 to-gray-800 transition-all duration-1000 delay-300 ${isVisible.why ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      <section id="why" className={`py-20 px-4 bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 transition-all duration-1000 delay-300 ${isVisible.why ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-16">
             Why PulseMint?
@@ -171,50 +149,45 @@ const Index = () => {
       </section>
 
       {/* Use Cases */}
-      <section id="cases" className={`py-20 px-4 bg-gradient-to-br from-blue-50 to-indigo-100 transition-all duration-1000 delay-400 ${isVisible.cases ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      <section id="cases" className={`py-20 px-4 bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900 transition-all duration-1000 delay-400 ${isVisible.cases ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-center text-white mb-16">
             How We Help
           </h2>
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="order-2 lg:order-1 flex justify-center">
-              <ImageCarousel images={marketingImages} />
-            </div>
-            <div className="order-1 lg:order-2 space-y-8">
-              <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-lg">
-                <CardContent className="p-8 text-center">
-                  <div className="bg-gradient-to-br from-blue-500 to-blue-700 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <Zap className="h-8 w-8 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Lead Generation Automation</h3>
-                  <p className="text-gray-600 text-lg">From visitor to qualified lead — without manual work.</p>
-                </CardContent>
-              </Card>
-              <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-lg">
-                <CardContent className="p-8 text-center">
-                  <div className="bg-gradient-to-br from-blue-500 to-blue-700 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <Bot className="h-8 w-8 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Content Automation</h3>
-                  <p className="text-gray-600 text-lg">30 posts/month. One input. Zero writer's block.</p>
-                </CardContent>
-              </Card>
-              <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-lg">
-                <CardContent className="p-8 text-center">
-                  <div className="bg-gradient-to-br from-blue-500 to-blue-700 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <TrendingUp className="h-8 w-8 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">CRM Workflows</h3>
-                  <p className="text-gray-600 text-lg">Auto-update, auto-nurture, auto-close.</p>
-                </CardContent>
-              </Card>
-            </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-lg bg-white/10 backdrop-blur-sm">
+              <CardContent className="p-8 text-center">
+                <div className="bg-gradient-to-br from-blue-400 to-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <Zap className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4">Lead Generation Automation</h3>
+                <p className="text-gray-300 text-lg">From visitor to qualified lead — without manual work.</p>
+              </CardContent>
+            </Card>
+            <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-lg bg-white/10 backdrop-blur-sm">
+              <CardContent className="p-8 text-center">
+                <div className="bg-gradient-to-br from-blue-400 to-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <Bot className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4">Content Automation</h3>
+                <p className="text-gray-300 text-lg">30 posts/month. One input. Zero writer's block.</p>
+              </CardContent>
+            </Card>
+            <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-lg bg-white/10 backdrop-blur-sm">
+              <CardContent className="p-8 text-center">
+                <div className="bg-gradient-to-br from-blue-400 to-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <TrendingUp className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4">CRM Workflows</h3>
+                <p className="text-gray-300 text-lg">Auto-update, auto-nurture, auto-close.</p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
       {/* Call to Action */}
-      <section id="cta" className={`py-20 px-4 bg-gradient-to-br from-emerald-500 to-blue-600 transition-all duration-1000 delay-500 ${isVisible.cta ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      <section id="cta" className={`py-20 px-4 bg-gradient-to-br from-emerald-600 via-blue-700 to-purple-800 transition-all duration-1000 delay-500 ${isVisible.cta ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Book a free 15-min discovery call
@@ -232,7 +205,7 @@ const Index = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className={`py-20 px-4 bg-gray-900 transition-all duration-1000 delay-600 ${isVisible.contact ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      <section id="contact" className={`py-20 px-4 bg-gradient-to-br from-gray-900 via-slate-800 to-purple-900 transition-all duration-1000 delay-600 ${isVisible.contact ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-center text-white mb-16">
             Let's Talk
