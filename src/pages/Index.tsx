@@ -53,71 +53,40 @@ const Index = () => {
         </div>
       </nav>
 
-      {/* Hero Section with Gradient Background */}
-      <section id="hero" className={`min-h-screen flex flex-col items-center justify-center px-4 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative overflow-hidden transition-all duration-1000 ${isVisible.hero ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -inset-10 opacity-50">
-            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
-            <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-1000"></div>
-          </div>
-        </div>
-
-        <div className="relative z-10 text-center max-w-5xl mx-auto">
-          {/* Logo Icon */}
+      {/* Hero Section - Carrd Style */}
+      <section id="hero" className={`min-h-screen flex flex-col items-center justify-center px-4 bg-gradient-to-br from-purple-900 via-purple-800 to-blue-900 relative overflow-hidden transition-all duration-1000 ${isVisible.hero ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="relative z-10 text-center max-w-4xl mx-auto">
+          {/* Logo Icon - Centered */}
           <div className="mb-8">
-            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-blue-400 to-purple-500 rounded-2xl flex items-center justify-center transform rotate-3 shadow-2xl">
-              <Zap className="h-12 w-12 text-white" />
+            <div className="w-20 h-20 mx-auto bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl flex items-center justify-center">
+              <Zap className="h-10 w-10 text-white" />
             </div>
           </div>
 
-          {/* Main Logo Text */}
-          <h1 className="text-6xl md:text-8xl font-bold text-white mb-4 tracking-tight">
+          {/* Company Name - Large and Prominent */}
+          <h1 className="text-7xl md:text-8xl font-bold text-white mb-6 tracking-tight">
             PulseMint
           </h1>
 
-          {/* Tagline */}
-          <p className="text-xl md:text-2xl text-blue-100 mb-8 font-light max-w-3xl mx-auto">
+          {/* Tagline - Simple and Clean */}
+          <p className="text-xl md:text-2xl text-white/80 mb-12 font-light max-w-2xl mx-auto">
             Simple, powerful AI automation for pretty much anything.
           </p>
 
-          {/* Main Headline */}
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight max-w-4xl mx-auto">
-            We help growing businesses{' '}
-            <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              automate smarter
-            </span>{' '}
-            and{' '}
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-              market better
-            </span>{' '}
-            using AI.
-          </h2>
-
-          <p className="text-lg md:text-xl text-blue-100/80 mb-12 max-w-3xl mx-auto leading-relaxed">
-            PulseMint combines intelligent automation with result-driven digital marketing to save time and grow faster.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          {/* Action Buttons - Carrd Style */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
             <Button 
               onClick={() => scrollToSection('contact')}
-              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-4 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl border-0"
+              className="bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-4 text-lg rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg border-0 font-semibold"
             >
               Get a Free Consultation
             </Button>
             <Button 
               onClick={() => scrollToSection('services')}
-              className="bg-white/10 hover:bg-white/20 text-white border border-white/30 px-8 py-4 text-lg rounded-full transition-all duration-300 transform hover:scale-105 backdrop-blur-sm"
+              className="bg-transparent hover:bg-white/10 text-white border-2 border-white/30 px-8 py-4 text-lg rounded-lg transition-all duration-300 transform hover:scale-105 backdrop-blur-sm"
             >
               Learn More
             </Button>
-          </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse"></div>
           </div>
         </div>
       </section>
