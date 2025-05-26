@@ -1,34 +1,23 @@
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { ContactForm } from "@/components/ContactForm";
-import { ServiceCard } from "@/components/ServiceCard";
-import { Zap, TrendingUp, Bot, Mail, Calendar } from "lucide-react";
 
 const Index = () => {
-  const [isVisible, setIsVisible] = useState<Record<string, boolean>>({});
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(prev => ({
-              ...prev,
-              [entry.target.id]: true
-            }));
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+    setIsLoaded(true);
+    
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth - 0.5) * 20,
+        y: (e.clientY / window.innerHeight - 0.5) * 20
+      });
+    };
 
-    document.querySelectorAll('[id]').forEach((el) => {
-      observer.observe(el);
-    });
-
-    return () => observer.disconnect();
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   const scrollToSection = (sectionId: string) => {
@@ -38,211 +27,188 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen font-playfair">
-      {/* Sticky Navigation */}
-      <nav className="fixed top-0 w-full bg-white/10 backdrop-blur-md border-b border-white/20 z-50">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="text-2xl font-bold text-white">
-            PulseMint
-          </div>
+    <div className="min-h-screen bg-black text-white overflow-hidden relative font-light">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-black to-black"></div>
+      
+      {/* Animated background particles */}
+      <div className="absolute inset-0">
+        {[...Array(50)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-white/10 rounded-full animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 4}s`
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Header */}
+      <header className="relative z-20 flex justify-between items-center p-8">
+        <div className="text-2xl font-light tracking-wider">PULSEMINT</div>
+        <nav className="flex gap-8">
+          <Button 
+            onClick={() => scrollToSection('services')}
+            className="text-sm tracking-wider border border-white/20 px-4 py-2 bg-transparent hover:bg-white/10 transition-all duration-300 text-white"
+          >
+            [ SERVICES ]
+          </Button>
           <Button 
             onClick={() => scrollToSection('contact')}
-            className="bg-white/20 hover:bg-white/30 text-white border border-white/30 px-6 py-2 rounded-full transition-all duration-300 transform hover:scale-105 backdrop-blur-sm"
+            className="text-sm tracking-wider border border-white/20 px-4 py-2 bg-transparent hover:bg-white/10 transition-all duration-300 text-white"
           >
-            Get Started
+            [ CONTACT ]
           </Button>
-        </div>
-      </nav>
+        </nav>
+      </header>
 
-      {/* Hero Section */}
-      <section id="hero" className={`min-h-screen flex flex-col items-center justify-center px-4 bg-gradient-to-br from-purple-900 via-purple-800 to-blue-900 relative overflow-hidden transition-all duration-1000 ${isVisible.hero ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-        <div className="relative z-10 text-center max-w-4xl mx-auto">
-          {/* Logo Icon */}
-          <div className="mb-6">
-            <div className="w-16 h-16 mx-auto bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl flex items-center justify-center">
-              <Zap className="h-8 w-8 text-white" />
+      {/* Main hero content */}
+      <div className="relative z-10 flex items-center justify-center min-h-[80vh]">
+        <div 
+          className="relative flex items-center justify-center"
+          style={{
+            transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`,
+            transition: 'transform 0.1s ease-out'
+          }}
+        >
+          {/* Product labels */}
+          <div className="absolute -left-48 top-1/2 -translate-y-1/2">
+            <div 
+              className="text-2xl font-light tracking-[0.3em] text-white/80 hover:text-white transition-colors cursor-pointer"
+              onClick={() => scrollToSection('services')}
+            >
+              AI AUTOMATION
+            </div>
+          </div>
+          
+          <div className="absolute -right-48 top-1/2 -translate-y-1/2">
+            <div 
+              className="text-2xl font-light tracking-[0.3em] text-white/80 hover:text-white transition-colors cursor-pointer"
+              onClick={() => scrollToSection('services')}
+            >
+              MARKETING
             </div>
           </div>
 
-          {/* Company Name - Shorter */}
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
-            PulseMint
-          </h1>
-
-          {/* Tagline */}
-          <p className="text-lg md:text-xl text-white/80 mb-10 font-light max-w-2xl mx-auto">
-            Simple, powerful AI automation for pretty much anything.
-          </p>
-
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-            <Button 
-              onClick={() => scrollToSection('contact')}
-              className="bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-3 text-lg rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg border-0 font-semibold"
-            >
-              Get a Free Consultation
-            </Button>
-            <Button 
-              onClick={() => scrollToSection('services')}
-              className="bg-transparent hover:bg-white/10 text-white border-2 border-white/30 px-8 py-3 text-lg rounded-lg transition-all duration-300 transform hover:scale-105 backdrop-blur-sm"
-            >
-              Learn More
-            </Button>
+          {/* Top labels */}
+          <div className="absolute -top-32 left-1/2 -translate-x-1/2">
+            <div className="text-sm tracking-[0.4em] text-white/60 font-light">
+              INTELLIGENT
+            </div>
           </div>
-        </div>
-      </section>
 
-      {/* Services Overview */}
-      <section id="services" className={`py-20 px-4 bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900 transition-all duration-1000 delay-200 ${isVisible.services ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-1 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-16 text-center">
-                What We Do
-              </h2>
-              <div className="grid md:grid-cols-3 gap-8">
-                <ServiceCard
-                  icon={<Bot className="h-12 w-12 text-blue-400" />}
-                  title="AI Automation"
-                  description="Automate workflows, lead follow-up, and content generation using custom AI tools."
-                />
-                <ServiceCard
-                  icon={<TrendingUp className="h-12 w-12 text-blue-400" />}
-                  title="Digital Marketing"
-                  description="Campaigns powered by data, not guesswork — SEO, paid ads, and email automation."
-                />
-                <ServiceCard
-                  icon={<Zap className="h-12 w-12 text-blue-400" />}
-                  title="Workflow Systems"
-                  description="Build backend systems that scale — from CRMs to full customer journeys."
-                />
+          <div className="absolute -bottom-32 left-1/2 -translate-x-1/2">
+            <div className="text-sm tracking-[0.4em] text-white/60 font-light">
+              WORKFLOWS
+            </div>
+          </div>
+
+          {/* Main glowing ring */}
+          <div className="relative w-80 h-80 flex items-center justify-center">
+            {/* Outer glow rings */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-500/30 via-white/40 to-emerald-500/30 animate-pulse blur-xl"></div>
+            <div className="absolute inset-2 rounded-full bg-gradient-to-r from-emerald-400/50 via-white/60 to-emerald-400/50 blur-lg"></div>
+            
+            {/* Main ring structure */}
+            <div className="absolute inset-4 rounded-full bg-gradient-to-r from-emerald-500 via-white to-emerald-500 p-1 glow-ring">
+              <div className="w-full h-full rounded-full bg-gradient-to-br from-emerald-900/90 via-black to-emerald-900/90 backdrop-blur-sm flex items-center justify-center">
+                {/* Inner content */}
+                <div className="text-center">
+                  <div 
+                    className={`text-3xl font-light tracking-[0.4em] text-white transition-all duration-1000 ${
+                      isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                    }`}
+                  >
+                    PULSE
+                  </div>
+                </div>
               </div>
             </div>
+
+            {/* Additional glow effects */}
+            <div className="absolute inset-0 rounded-full bg-gradient-conic from-emerald-500 via-white via-emerald-500 via-white to-emerald-500 opacity-20 animate-spin" style={{animationDuration: '20s'}}></div>
+            
+            {/* Pulsing inner glow */}
+            <div className="absolute inset-8 rounded-full bg-white/5 animate-pulse" style={{animationDuration: '3s'}}></div>
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* Why PulseMint */}
-      <section id="why" className={`py-20 px-4 bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 transition-all duration-1000 delay-300 ${isVisible.why ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-16">
-            Why PulseMint?
-          </h2>
-          <div className="grid md:grid-cols-3 gap-12">
-            <div className="group">
-              <div className="text-5xl mb-6 group-hover:scale-110 transition-transform duration-300">⚡</div>
-              <h3 className="text-2xl font-bold text-white mb-4">Speed</h3>
-              <p className="text-gray-300 text-lg">Launch automations in days, not months</p>
-            </div>
-            <div className="group">
-              <div className="text-5xl mb-6 group-hover:scale-110 transition-transform duration-300">📈</div>
-              <h3 className="text-2xl font-bold text-white mb-4">ROI-Driven</h3>
-              <p className="text-gray-300 text-lg">Always focused on results, not vanity metrics</p>
-            </div>
-            <div className="group">
-              <div className="text-5xl mb-6 group-hover:scale-110 transition-transform duration-300">🤖</div>
-              <h3 className="text-2xl font-bold text-white mb-4">Personalised AI</h3>
-              <p className="text-gray-300 text-lg">Tailored to your business — not one-size-fits-all tools</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Use Cases */}
-      <section id="cases" className={`py-20 px-4 bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900 transition-all duration-1000 delay-400 ${isVisible.cases ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      {/* Services Section */}
+      <section id="services" className="relative z-10 py-20 px-8 bg-gradient-to-br from-purple-900/10 via-black to-emerald-900/10">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center text-white mb-16">
-            How We Help
+          <h2 className="text-4xl font-light tracking-[0.3em] text-center text-white mb-16">
+            [ SERVICES ]
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-lg bg-white/10 backdrop-blur-sm">
-              <CardContent className="p-8 text-center">
-                <div className="bg-gradient-to-br from-blue-400 to-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Zap className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-4">Lead Generation Automation</h3>
-                <p className="text-gray-300 text-lg">From visitor to qualified lead — without manual work.</p>
-              </CardContent>
-            </Card>
-            <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-lg bg-white/10 backdrop-blur-sm">
-              <CardContent className="p-8 text-center">
-                <div className="bg-gradient-to-br from-blue-400 to-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Bot className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-4">Content Automation</h3>
-                <p className="text-gray-300 text-lg">30 posts/month. One input. Zero writer's block.</p>
-              </CardContent>
-            </Card>
-            <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-lg bg-white/10 backdrop-blur-sm">
-              <CardContent className="p-8 text-center">
-                <div className="bg-gradient-to-br from-blue-400 to-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <TrendingUp className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-4">CRM Workflows</h3>
-                <p className="text-gray-300 text-lg">Auto-update, auto-nurture, auto-close.</p>
-              </CardContent>
-            </Card>
+            <div className="border border-white/20 p-8 hover:bg-white/5 transition-all duration-300">
+              <h3 className="text-xl font-light tracking-wider text-white mb-4">AI AUTOMATION</h3>
+              <p className="text-white/70 leading-relaxed">Automate workflows, lead follow-up, and content generation using custom AI tools.</p>
+            </div>
+            <div className="border border-white/20 p-8 hover:bg-white/5 transition-all duration-300">
+              <h3 className="text-xl font-light tracking-wider text-white mb-4">DIGITAL MARKETING</h3>
+              <p className="text-white/70 leading-relaxed">Campaigns powered by data, not guesswork — SEO, paid ads, and email automation.</p>
+            </div>
+            <div className="border border-white/20 p-8 hover:bg-white/5 transition-all duration-300">
+              <h3 className="text-xl font-light tracking-wider text-white mb-4">WORKFLOW SYSTEMS</h3>
+              <p className="text-white/70 leading-relaxed">Build backend systems that scale — from CRMs to full customer journeys.</p>
+            </div>
           </div>
-        </div>
-      </section>
-
-      {/* Call to Action */}
-      <section id="cta" className={`py-20 px-4 bg-gradient-to-br from-emerald-600 via-blue-700 to-purple-800 transition-all duration-1000 delay-500 ${isVisible.cta ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Book a free 15-min discovery call
-          </h2>
-          <p className="text-xl md:text-2xl text-white/90 mb-10 max-w-2xl mx-auto">
-            Let's see how we can automate your growth. No pitch. Just value.
-          </p>
-          <Button 
-            onClick={() => scrollToSection('contact')}
-            className="bg-white hover:bg-gray-100 text-gray-900 px-10 py-4 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl font-semibold"
-          >
-            Book a Call
-          </Button>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className={`py-20 px-4 bg-gradient-to-br from-gray-900 via-slate-800 to-purple-900 transition-all duration-1000 delay-600 ${isVisible.contact ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center text-white mb-16">
-            Let's Talk
+      <section id="contact" className="relative z-10 py-20 px-8 bg-gradient-to-br from-emerald-900/10 via-black to-purple-900/10">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl font-light tracking-[0.3em] text-white mb-8">
+            [ GET STARTED ]
           </h2>
-          <div className="grid md:grid-cols-2 gap-12 items-start">
-            <div>
-              <ContactForm />
-            </div>
-            <div className="text-white space-y-8">
-              <div className="flex items-center space-x-4">
-                <Mail className="h-6 w-6 text-blue-400" />
-                <span className="text-lg">hello@pulsemint.co</span>
-              </div>
-              <div className="flex items-center space-x-4">
-                <Calendar className="h-6 w-6 text-blue-400" />
-                <span className="text-lg">Schedule a call</span>
-              </div>
-              <div className="pt-8">
-                <p className="text-gray-300 text-lg leading-relaxed">
-                  Ready to transform your business with AI automation and smart marketing? 
-                  Fill out the form and we'll get back to you within 24 hours.
-                </p>
-              </div>
-            </div>
-          </div>
+          <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto">
+            Ready to transform your business with AI automation and smart marketing?
+          </p>
+          <Button 
+            className="text-sm tracking-wider border border-white/20 px-8 py-3 bg-transparent hover:bg-white/10 transition-all duration-300 text-white"
+          >
+            [ BOOK CONSULTATION ]
+          </Button>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-950 py-8 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent mb-4">
-            PulseMint
+      <footer className="absolute bottom-0 left-0 right-0 z-20 p-8">
+        <div className="text-center">
+          <div className="text-xs tracking-wider text-white/40 mb-2">
+            PULSEMINT [C] 2024. ALL RIGHTS RESERVED.
           </div>
-          <p className="text-gray-400">© 2024 PulseMint. All rights reserved.</p>
+          <div className="text-xs tracking-wider text-white/30">
+            AI AUTOMATION & DIGITAL MARKETING SOLUTIONS
+          </div>
         </div>
       </footer>
+
+      {/* Custom styles */}
+      <style jsx>{`
+        @keyframes glow {
+          0%, 100% { 
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.5),
+                        0 0 40px rgba(16, 185, 129, 0.3),
+                        0 0 60px rgba(16, 185, 129, 0.1);
+          }
+          50% { 
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.8),
+                        0 0 60px rgba(16, 185, 129, 0.5),
+                        0 0 90px rgba(16, 185, 129, 0.3);
+          }
+        }
+        
+        .glow-ring {
+          animation: glow 3s ease-in-out infinite;
+        }
+      `}</style>
     </div>
   );
 };
