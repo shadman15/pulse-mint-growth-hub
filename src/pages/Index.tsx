@@ -1,15 +1,41 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 
 const Index = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [currentText, setCurrentText] = useState('');
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    setIsLoaded(true);
+    const animateTexts = () => {
+      // Show PULSE
+      setCurrentText('PULSE');
+      setIsVisible(true);
+      
+      // Hide PULSE after 2 seconds
+      setTimeout(() => {
+        setIsVisible(false);
+      }, 2000);
+      
+      // Show MINT after 3 seconds total
+      setTimeout(() => {
+        setCurrentText('MINT');
+        setIsVisible(true);
+      }, 3000);
+      
+      // Hide MINT after 5 seconds total
+      setTimeout(() => {
+        setIsVisible(false);
+      }, 5000);
+    };
+
+    // Start initial animation
+    const initialTimer = setTimeout(animateTexts, 500);
     
-    const handleMouseMove = (e: MouseEvent) => {
+    // Set up continuous loop every 6 seconds
+    const interval = setInterval(animateTexts, 6000);
+    
+    const handleMouseMove = (e) => {
       setMousePosition({
         x: (e.clientX / window.innerWidth - 0.5) * 20,
         y: (e.clientY / window.innerHeight - 0.5) * 20
@@ -17,10 +43,15 @@ const Index = () => {
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    
+    return () => {
+      clearTimeout(initialTimer);
+      clearInterval(interval);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
+  const scrollToSection = (sectionId) => {
     document.getElementById(sectionId)?.scrollIntoView({
       behavior: 'smooth'
     });
@@ -116,14 +147,14 @@ const Index = () => {
             {/* Main ring structure */}
             <div className="absolute inset-4 rounded-full bg-gradient-to-r from-emerald-500 via-white to-emerald-500 p-1 glow-ring">
               <div className="w-full h-full rounded-full bg-gradient-to-br from-emerald-900/90 via-black to-emerald-900/90 backdrop-blur-sm flex items-center justify-center">
-                {/* Inner content */}
+                {/* Inner content with animated text */}
                 <div className="text-center">
                   <div 
                     className={`text-3xl font-light tracking-[0.4em] text-white transition-all duration-1000 ${
-                      isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                      isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                     }`}
                   >
-                    PULSE
+                    {currentText}
                   </div>
                 </div>
               </div>
