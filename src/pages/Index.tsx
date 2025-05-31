@@ -20,8 +20,14 @@ const Index = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
+  const scrollToSection = (sectionId: string) => {
+    document.getElementById(sectionId)?.scrollIntoView({
+      behavior: 'smooth'
+    });
+  };
+
   return (
-    <div className="min-h-screen bg-black text-white overflow-hidden relative">
+    <div className="min-h-screen bg-black text-white overflow-hidden relative font-light">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-black to-black"></div>
       
@@ -45,16 +51,22 @@ const Index = () => {
       <header className="relative z-20 flex justify-between items-center p-8">
         <div className="text-2xl font-light tracking-wider">PULSEMINT</div>
         <nav className="flex gap-8">
-          <Button className="text-sm tracking-wider border border-white/20 px-4 py-2 bg-transparent hover:bg-white/10 transition-all duration-300 text-white">
-            [ ABOUT US ]
+          <Button 
+            onClick={() => scrollToSection('services')}
+            className="text-sm tracking-wider border border-white/20 px-4 py-2 bg-transparent hover:bg-white/10 transition-all duration-300 text-white"
+          >
+            [ SERVICES ]
           </Button>
-          <Button className="text-sm tracking-wider border border-white/20 px-4 py-2 bg-transparent hover:bg-white/10 transition-all duration-300 text-white">
-            [ DOCUMENTATION ]
+          <Button 
+            onClick={() => scrollToSection('contact')}
+            className="text-sm tracking-wider border border-white/20 px-4 py-2 bg-transparent hover:bg-white/10 transition-all duration-300 text-white"
+          >
+            [ CONTACT ]
           </Button>
         </nav>
       </header>
 
-      {/* Main content */}
+      {/* Main hero content */}
       <div className="relative z-10 flex items-center justify-center min-h-[80vh]">
         <div 
           className="relative flex items-center justify-center"
@@ -65,13 +77,19 @@ const Index = () => {
         >
           {/* Product labels */}
           <div className="absolute -left-48 top-1/2 -translate-y-1/2">
-            <div className="text-2xl font-light tracking-[0.3em] text-white/80 hover:text-white transition-colors cursor-pointer">
+            <div 
+              className="text-2xl font-light tracking-[0.3em] text-white/80 hover:text-white transition-colors cursor-pointer"
+              onClick={() => scrollToSection('services')}
+            >
               AI AUTOMATION
             </div>
           </div>
           
           <div className="absolute -right-48 top-1/2 -translate-y-1/2">
-            <div className="text-2xl font-light tracking-[0.3em] text-white/80 hover:text-white transition-colors cursor-pointer">
+            <div 
+              className="text-2xl font-light tracking-[0.3em] text-white/80 hover:text-white transition-colors cursor-pointer"
+              onClick={() => scrollToSection('services')}
+            >
               MARKETING
             </div>
           </div>
@@ -101,7 +119,7 @@ const Index = () => {
                 {/* Inner content */}
                 <div className="text-center">
                   <div 
-                    className={`text-4xl font-light tracking-[0.4em] text-white transition-all duration-1000 ${
+                    className={`text-3xl font-light tracking-[0.4em] text-white transition-all duration-1000 ${
                       isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                     }`}
                   >
@@ -120,6 +138,46 @@ const Index = () => {
         </div>
       </div>
 
+      {/* Services Section */}
+      <section id="services" className="relative z-10 py-20 px-8 bg-gradient-to-br from-purple-900/10 via-black to-emerald-900/10">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-light tracking-[0.3em] text-center text-white mb-16">
+            [ SERVICES ]
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="border border-white/20 p-8 hover:bg-white/5 transition-all duration-300">
+              <h3 className="text-xl font-light tracking-wider text-white mb-4">AI AUTOMATION</h3>
+              <p className="text-white/70 leading-relaxed">Automate workflows, lead follow-up, and content generation using custom AI tools.</p>
+            </div>
+            <div className="border border-white/20 p-8 hover:bg-white/5 transition-all duration-300">
+              <h3 className="text-xl font-light tracking-wider text-white mb-4">DIGITAL MARKETING</h3>
+              <p className="text-white/70 leading-relaxed">Campaigns powered by data, not guesswork — SEO, paid ads, and email automation.</p>
+            </div>
+            <div className="border border-white/20 p-8 hover:bg-white/5 transition-all duration-300">
+              <h3 className="text-xl font-light tracking-wider text-white mb-4">WORKFLOW SYSTEMS</h3>
+              <p className="text-white/70 leading-relaxed">Build backend systems that scale — from CRMs to full customer journeys.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="relative z-10 py-20 px-8 bg-gradient-to-br from-emerald-900/10 via-black to-purple-900/10">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl font-light tracking-[0.3em] text-white mb-8">
+            [ GET STARTED ]
+          </h2>
+          <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto">
+            Ready to transform your business with AI automation and smart marketing?
+          </p>
+          <Button 
+            className="text-sm tracking-wider border border-white/20 px-8 py-3 bg-transparent hover:bg-white/10 transition-all duration-300 text-white"
+          >
+            [ BOOK CONSULTATION ]
+          </Button>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="absolute bottom-0 left-0 right-0 z-20 p-8">
         <div className="text-center">
@@ -133,7 +191,7 @@ const Index = () => {
       </footer>
 
       {/* Custom styles */}
-      <style>{`
+      <style jsx>{`
         @keyframes glow {
           0%, 100% { 
             box-shadow: 0 0 20px rgba(16, 185, 129, 0.5),
