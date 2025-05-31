@@ -112,7 +112,7 @@ const Index = () => {
               className="text-2xl font-light tracking-[0.3em] text-white/80 hover:text-white transition-colors cursor-pointer"
               onClick={() => scrollToSection('services')}
             >
-              AI 
+              AUTOMATION
             </div>
           </div>
           
@@ -128,7 +128,7 @@ const Index = () => {
           {/* Top labels */}
           <div className="absolute -top-32 left-1/2 -translate-x-1/2">
             <div className="text-sm tracking-[0.4em] text-white/60 font-light">
-              Automation
+              INTELLEGENT
             </div>
           </div>
 
