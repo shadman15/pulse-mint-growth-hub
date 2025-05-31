@@ -5,6 +5,35 @@ const Index = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [currentText, setCurrentText] = useState('');
   const [isVisible, setIsVisible] = useState(false);
+  const [showBookingForm, setShowBookingForm] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    businessType: '',
+    service: '',
+    otherService: '',
+    selectedDate: '',
+    selectedTime: ''
+  });
+
+  // Sample available dates and times (in real implementation, this would come from Cal.com API)
+  const availableDates = [
+    '2025-06-02',
+    '2025-06-03',
+    '2025-06-04',
+    '2025-06-05',
+    '2025-06-09',
+    '2025-06-10'
+  ];
+
+  const availableTimes = [
+    '09:00 AM',
+    '10:00 AM',
+    '11:00 AM',
+    '02:00 PM',
+    '03:00 PM',
+    '04:00 PM'
+  ];
 
   useEffect(() => {
     const animateTexts = () => {
@@ -57,6 +86,222 @@ const Index = () => {
     });
   };
 
+  const handleInputChange = (field, value) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleFormSubmit = () => {
+    // Validate required fields
+    if (!formData.name || !formData.email || !formData.businessType || !formData.service || !formData.selectedDate || !formData.selectedTime) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+    
+    if (formData.service === 'other' && !formData.otherService) {
+      alert('Please describe your specific needs.');
+      return;
+    }
+    
+    // Here you would integrate with Cal.com API or your booking system
+    console.log('Booking data:', formData);
+    alert('Thank you! Your booking request has been submitted. We will confirm your appointment shortly.');
+  };
+
+  if (showBookingForm) {
+    return (
+      <div className="min-h-screen bg-black text-white relative font-light">
+        {/* Background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-black to-emerald-900/20"></div>
+        
+        {/* Animated background particles */}
+        <div className="absolute inset-0">
+          {[...Array(30)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-1 h-1 bg-white/10 rounded-full animate-pulse"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 3}s`,
+                animationDuration: `${2 + Math.random() * 4}s`
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Header */}
+        <header className="relative z-20 flex justify-between items-center p-8">
+          <div 
+            className="text-2xl font-light tracking-wider cursor-pointer hover:text-emerald-400 transition-colors"
+            onClick={() => setShowBookingForm(false)}
+          >
+            PULSEMINT
+          </div>
+          <Button 
+            onClick={() => setShowBookingForm(false)}
+            className="text-sm tracking-wider border border-white/20 px-4 py-2 bg-transparent hover:bg-white/10 transition-all duration-300 text-white"
+          >
+            ← BACK
+          </Button>
+        </header>
+
+        {/* Booking Form */}
+        <div className="relative z-10 flex items-center justify-center min-h-[80vh] px-8">
+          <div className="max-w-2xl w-full">
+            <div className="text-center mb-12">
+              <h1 className="text-4xl font-light tracking-[0.3em] text-white mb-4">
+                BOOK A CALL
+              </h1>
+              <p className="text-white/70 text-lg">
+                Let's discuss how we can transform your business
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              {/* Name */}
+              <div>
+                <label className="block text-white/80 text-sm tracking-wider mb-2">NAME</label>
+                <input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => handleInputChange('name', e.target.value)}
+                  className="w-full bg-transparent border border-white/20 px-4 py-3 text-white placeholder-white/50 focus:border-emerald-400 focus:outline-none transition-colors"
+                  placeholder="Your full name"
+                />
+              </div>
+
+              {/* Email */}
+              <div>
+                <label className="block text-white/80 text-sm tracking-wider mb-2">EMAIL</label>
+                <input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => handleInputChange('email', e.target.value)}
+                  className="w-full bg-transparent border border-white/20 px-4 py-3 text-white placeholder-white/50 focus:border-emerald-400 focus:outline-none transition-colors"
+                  placeholder="your@email.com"
+                />
+              </div>
+
+              {/* Business Type */}
+              <div>
+                <label className="block text-white/80 text-sm tracking-wider mb-2">BUSINESS TYPE</label>
+                <input
+                  type="text"
+                  value={formData.businessType}
+                  onChange={(e) => handleInputChange('businessType', e.target.value)}
+                  className="w-full bg-transparent border border-white/20 px-4 py-3 text-white placeholder-white/50 focus:border-emerald-400 focus:outline-none transition-colors"
+                  placeholder="What Business You Are Currently In?"
+                />
+              </div>
+
+              {/* Service Selection */}
+              <div>
+                <label className="block text-white/80 text-sm tracking-wider mb-2">WHAT SERVICE YOU ARE LOOKING FOR</label>
+                <select
+                  value={formData.service}
+                  onChange={(e) => handleInputChange('service', e.target.value)}
+                  className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-emerald-400 focus:outline-none transition-colors"
+                >
+                  className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-emerald-400 focus:outline-none transition-colors"
+                >
+                  <option value="">Select a service</option>
+                  <option value="chatbot-building">Chatbot Building</option>
+                  <option value="ai-appointment-setting">AI Appointment Setting</option>
+                  <option value="ai-calling-agent">AI Calling Agent</option>
+                  <option value="website-building">Website Building</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              {/* Other Service Details */}
+              {formData.service === 'other' && (
+                <div>
+                  <label className="block text-white/80 text-sm tracking-wider mb-2">SPECIFIC NEEDS</label>
+                  <textarea
+                    value={formData.otherService}
+                    onChange={(e) => handleInputChange('otherService', e.target.value)}
+                    maxLength={1000}
+                    rows={4}
+                    className="w-full bg-transparent border border-white/20 px-4 py-3 text-white placeholder-white/50 focus:border-emerald-400 focus:outline-none transition-colors resize-none"
+                    placeholder="Please describe your specific needs (max 1000 characters)"
+                  />
+                  <div className="text-white/40 text-xs mt-1">
+                    {formData.otherService.length}/1000 characters
+                  </div>
+                </div>
+              )}
+
+              {/* Date Selection */}
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-white/80 text-sm tracking-wider mb-2">SELECT DATE</label>
+                  <select
+                    required
+                    value={formData.selectedDate}
+                    onChange={(e) => handleInputChange('selectedDate', e.target.value)}
+                    className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-emerald-400 focus:outline-none transition-colors"
+                  >
+                    <option value="">Choose a date</option>
+                    {availableDates.map(date => (
+                      <option key={date} value={date}>
+                        {new Date(date).toLocaleDateString('en-US', { 
+                          weekday: 'long', 
+                          year: 'numeric', 
+                          month: 'long', 
+                          day: 'numeric' 
+                        })}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-white/80 text-sm tracking-wider mb-2">SELECT TIME</label>
+                  <select
+                    required
+                    value={formData.selectedTime}
+                    onChange={(e) => handleInputChange('selectedTime', e.target.value)}
+                    className="w-full bg-black border border-white/20 px-4 py-3 text-white focus:border-emerald-400 focus:outline-none transition-colors"
+                    disabled={!formData.selectedDate}
+                  >
+                    <option value="">Choose a time</option>
+                    {availableTimes.map(time => (
+                      <option key={time} value={time}>
+                        {time} (30 min)
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Submit Button with Animation */}
+              <div className="pt-8 text-center">
+                <div className="relative inline-block">
+                  {/* Animated glow ring around button */}
+                  <div className="absolute -inset-2 rounded-lg bg-gradient-to-r from-emerald-500/30 via-white/20 to-emerald-500/30 blur-lg animate-pulse"></div>
+                  <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-emerald-400/50 via-white/30 to-emerald-400/50 blur animate-pulse" style={{animationDelay: '0.5s'}}></div>
+                  
+                  <Button
+                    onClick={handleFormSubmit}
+                    className="relative bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white px-12 py-4 text-lg tracking-wider transition-all duration-300 transform hover:scale-105 border-0"
+                  >
+                    BOOK A CALL
+                  </Button>
+                </div>
+                <p className="text-white/60 text-sm mt-4">
+                  We'll confirm your appointment within 24 hours
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden relative font-light">
       {/* Background gradient */}
@@ -88,12 +333,18 @@ const Index = () => {
           >
             [ SERVICES ]
           </Button>
-          <Button 
-            onClick={() => scrollToSection('contact')}
-            className="text-sm tracking-wider border border-white/20 px-4 py-2 bg-transparent hover:bg-white/10 transition-all duration-300 text-white"
-          >
-            [ CONTACT ]
-          </Button>
+          <div className="relative inline-block">
+            {/* Animated glow ring around button */}
+            <div className="absolute -inset-1 rounded bg-gradient-to-r from-emerald-500/20 via-white/10 to-emerald-500/20 blur animate-pulse"></div>
+            <div className="absolute -inset-0.5 rounded bg-gradient-to-r from-emerald-400/30 via-white/15 to-emerald-400/30 blur-sm animate-pulse" style={{animationDelay: '0.3s'}}></div>
+            
+            <Button 
+              onClick={() => setShowBookingForm(true)}
+              className="relative bg-gradient-to-r from-emerald-600/80 to-emerald-500/80 hover:from-emerald-500 hover:to-emerald-400 text-white px-4 py-2 text-sm tracking-wider transition-all duration-300 transform hover:scale-105 border-0"
+            >
+              BOOK A CALL
+            </Button>
+          </div>
         </nav>
       </header>
 
@@ -128,7 +379,7 @@ const Index = () => {
           {/* Top labels */}
           <div className="absolute -top-32 left-1/2 -translate-x-1/2">
             <div className="text-sm tracking-[0.4em] text-white/60 font-light">
-              INTELLEGENT
+              INTELLIGENT
             </div>
           </div>
 
@@ -201,11 +452,20 @@ const Index = () => {
           <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto">
             Ready to transform your business with AI automation and smart marketing?
           </p>
-          <Button 
-            className="text-sm tracking-wider border border-white/20 px-8 py-3 bg-transparent hover:bg-white/10 transition-all duration-300 text-white"
-          >
-            [ BOOK CONSULTATION ]
-          </Button>
+          
+          {/* Animated Book a Call Button */}
+          <div className="relative inline-block">
+            {/* Animated glow ring around button */}
+            <div className="absolute -inset-2 rounded-lg bg-gradient-to-r from-emerald-500/30 via-white/20 to-emerald-500/30 blur-lg animate-pulse"></div>
+            <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-emerald-400/50 via-white/30 to-emerald-400/50 blur animate-pulse" style={{animationDelay: '0.5s'}}></div>
+            
+            <Button 
+              onClick={() => setShowBookingForm(true)}
+              className="relative bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white px-8 py-3 text-sm tracking-wider transition-all duration-300 transform hover:scale-105 border-0"
+            >
+              BOOK A CALL
+            </Button>
+          </div>
         </div>
       </section>
 
