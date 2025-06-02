@@ -13,8 +13,8 @@ const Logo = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-lg blur-sm opacity-50"></div>
       </div>
       
-      {/* Logo Text */}
-      <div className="text-xl md:text-2xl font-light tracking-wider text-white">
+      {/* Logo Text - Hidden on mobile */}
+      <div className="hidden md:block text-xl md:text-2xl font-light tracking-wider text-white">
         PULSE<span className="text-emerald-400">MINT</span>
       </div>
     </div>
