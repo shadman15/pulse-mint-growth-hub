@@ -265,18 +265,18 @@ const Index = () => {
       </div>
 
       {/* Header */}
-      <header className="relative z-20 flex justify-between items-center p-8">
-        <div className="text-2xl font-light tracking-wider">PULSEMINT</div>
-        <nav className="flex gap-8">
+      <header className="relative z-20 flex justify-between items-center p-4 md:p-8">
+        <div className="text-xl md:text-2xl font-light tracking-wider">PULSEMINT</div>
+        <nav className="flex gap-3 md:gap-8">
           <button 
             onClick={() => scrollToSection('services')}
-            className="text-sm tracking-wider border border-white/20 px-4 py-2 bg-transparent hover:bg-white/10 transition-all duration-300 text-white rounded"
+            className="text-xs md:text-sm tracking-wider border border-white/20 px-3 py-2 md:px-4 md:py-2 bg-transparent hover:bg-white/10 transition-all duration-300 text-white rounded"
           >
              SERVICES 
           </button>
           <button 
             onClick={() => setShowBookingForm(true)}
-            className="text-sm tracking-wider border border-white/20 px-4 py-2 bg-transparent hover:bg-white/10 transition-all duration-300 text-white rounded"
+            className="text-xs md:text-sm tracking-wider border border-white/20 px-3 py-2 md:px-4 md:py-2 bg-transparent hover:bg-white/10 transition-all duration-300 text-white rounded whitespace-nowrap"
           >
             BOOK A CALL
           </button>
@@ -292,8 +292,8 @@ const Index = () => {
             transition: 'transform 0.1s ease-out'
           }}
         >
-          {/* Product labels */}
-          <div className="absolute -left-48 top-1/2 -translate-y-1/2">
+          {/* Product labels - Hidden on mobile */}
+          <div className="absolute -left-48 top-1/2 -translate-y-1/2 hidden lg:block">
             <div 
               className="text-2xl font-light tracking-[0.3em] text-white/80 hover:text-white transition-colors cursor-pointer"
               onClick={() => scrollToSection('services')}
@@ -302,7 +302,7 @@ const Index = () => {
             </div>
           </div>
           
-          <div className="absolute -right-48 top-1/2 -translate-y-1/2">
+          <div className="absolute -right-48 top-1/2 -translate-y-1/2 hidden lg:block">
             <div 
               className="text-2xl font-light tracking-[0.3em] text-white/80 hover:text-white transition-colors cursor-pointer"
               onClick={() => scrollToSection('services')}
@@ -311,8 +311,8 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Top labels */}
-          <div className="absolute -top-32 left-1/2 -translate-x-1/2">
+          {/* Top labels - Hidden on mobile */}
+          <div className="absolute -top-32 left-1/2 -translate-x-1/2 hidden lg:block">
             <div className="text-sm tracking-[0.4em] text-white/60 font-light">
               In
             </div>
@@ -325,7 +325,7 @@ const Index = () => {
           </div>
 
           {/* Main glowing ring */}
-          <div className="relative w-80 h-80 flex items-center justify-center">
+          <div className="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center">
             {/* Outer glow rings */}
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-500/30 via-white/40 to-emerald-500/30 animate-pulse blur-xl"></div>
             <div className="absolute inset-2 rounded-full bg-gradient-to-r from-emerald-400/50 via-white/60 to-emerald-400/50 blur-lg"></div>
