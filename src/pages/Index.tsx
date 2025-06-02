@@ -1,5 +1,7 @@
+
 import React, { useState, useEffect } from 'react';
 import { Bot, Zap, Globe, Clock, CheckCircle, ArrowRight, Star } from 'lucide-react';
+import Logo from '../components/Logo';
 
 const Index = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -266,7 +268,7 @@ const Index = () => {
 
       {/* Header */}
       <header className="relative z-20 flex justify-between items-center p-4 md:p-8">
-        <div className="text-xl md:text-2xl font-light tracking-wider">PULSEMINT</div>
+        <Logo />
         <nav className="flex gap-3 md:gap-8">
           <button 
             onClick={() => scrollToSection('services')}
