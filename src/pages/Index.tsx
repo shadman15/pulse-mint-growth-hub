@@ -272,7 +272,7 @@ const Index = () => {
             onClick={() => scrollToSection('services')}
             className="text-sm tracking-wider border border-white/20 px-4 py-2 bg-transparent hover:bg-white/10 transition-all duration-300 text-white rounded"
           >
-            [ SERVICES ]
+             SERVICES 
           </button>
           <button 
             onClick={() => setShowBookingForm(true)}
