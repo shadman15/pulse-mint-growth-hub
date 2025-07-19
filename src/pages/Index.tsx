@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect } from 'react';
-import { Squares } from '../components/ui/Squares'
 import { Bot, Zap, Globe, Clock, CheckCircle, ArrowRight, Star } from 'lucide-react';
 import Logo from '../components/Logo';
 
@@ -93,20 +92,10 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen text-white overflow-hidden relative font-light">
-      {/* ◀ REPLACED: Instead of gradient, use Squares */}
-      <Squares
-        direction="diagonal"
-        speed={0.5}
-        borderColor="rgba(255,255,255,0.1)"
-        squareSize={50}
-        hoverFillColor="rgba(255,255,255,0.05)"
-        className="absolute inset-0"
-      />
-
+    <div className="min-h-screen bg-black text-white overflow-hidden relative font-light">
       {/* Booking Form Modal */}
       {showBookingForm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-transparent/90 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm">
           <div className="relative w-full max-w-2xl mx-4 bg-gradient-to-br from-gray-900/95 via-black/95 to-emerald-900/95 border border-emerald-500/30 rounded-lg p-8 max-h-[90vh] overflow-y-auto">
             {/* Close button */}
             <button
@@ -129,7 +118,7 @@ const Index = () => {
                   required
                   value={formData.name}
                   onChange={(e) => handleInputChange('name', e.target.value)}
-                  className="w-full bg-transparent/50 border border-white/20 rounded px-4 py-3 text-white focus:border-emerald-500/50 focus:outline-none transition-colors"
+                  className="w-full bg-black/50 border border-white/20 rounded px-4 py-3 text-white focus:border-emerald-500/50 focus:outline-none transition-colors"
                 />
               </div>
               
@@ -141,7 +130,7 @@ const Index = () => {
                   required
                   value={formData.email}
                   onChange={(e) => handleInputChange('email', e.target.value)}
-                  className="w-full bg-transparent/50 border border-white/20 rounded px-4 py-3 text-white focus:border-emerald-500/50 focus:outline-none transition-colors"
+                  className="w-full bg-black/50 border border-white/20 rounded px-4 py-3 text-white focus:border-emerald-500/50 focus:outline-none transition-colors"
                 />
               </div>
               
@@ -154,7 +143,7 @@ const Index = () => {
                   placeholder="What Business You Are Currently In?"
                   value={formData.businessType}
                   onChange={(e) => handleInputChange('businessType', e.target.value)}
-                  className="w-full bg-transparent/50 border border-white/20 rounded px-4 py-3 text-white placeholder-white/40 focus:border-emerald-500/50 focus:outline-none transition-colors"
+                  className="w-full bg-black/50 border border-white/20 rounded px-4 py-3 text-white placeholder-white/40 focus:border-emerald-500/50 focus:outline-none transition-colors"
                 />
               </div>
               
@@ -165,7 +154,7 @@ const Index = () => {
                   required
                   value={formData.service}
                   onChange={(e) => handleInputChange('service', e.target.value)}
-                  className="w-full bg-transparent/50 border border-white/20 rounded px-4 py-3 text-white focus:border-emerald-500/50 focus:outline-none transition-colors"
+                  className="w-full bg-black/50 border border-white/20 rounded px-4 py-3 text-white focus:border-emerald-500/50 focus:outline-none transition-colors"
                 >
                   <option value="">Select a service...</option>
                   <option value="chatbot">Chatbot Building</option>
@@ -185,7 +174,7 @@ const Index = () => {
                     value={formData.customNeeds}
                     onChange={(e) => handleInputChange('customNeeds', e.target.value)}
                     placeholder="Describe your specific needs (max 1000 characters)"
-                    className="w-full bg-transparent/50 border border-white/20 rounded px-4 py-3 text-white placeholder-white/40 focus:border-emerald-500/50 focus:outline-none transition-colors h-32 resize-none"
+                    className="w-full bg-black/50 border border-white/20 rounded px-4 py-3 text-white placeholder-white/40 focus:border-emerald-500/50 focus:outline-none transition-colors h-32 resize-none"
                   />
                   <div className="text-xs text-white/40 text-right mt-1">
                     {formData.customNeeds.length}/1000
@@ -204,7 +193,7 @@ const Index = () => {
                       handleInputChange('selectedDate', e.target.value);
                       handleInputChange('selectedTime', ''); // Reset time when date changes
                     }}
-                    className="w-full bg-transparent/50 border border-white/20 rounded px-4 py-3 text-white focus:border-emerald-500/50 focus:outline-none transition-colors"
+                    className="w-full bg-black/50 border border-white/20 rounded px-4 py-3 text-white focus:border-emerald-500/50 focus:outline-none transition-colors"
                   >
                     <option value="">Choose date...</option>
                     {availableDates.map((dateOption) => (
@@ -226,7 +215,7 @@ const Index = () => {
                     required
                     value={formData.selectedTime}
                     onChange={(e) => handleInputChange('selectedTime', e.target.value)}
-                    className="w-full bg-transparent/50 border border-white/20 rounded px-4 py-3 text-white focus:border-emerald-500/50 focus:outline-none transition-colors"
+                    className="w-full bg-black/50 border border-white/20 rounded px-4 py-3 text-white focus:border-emerald-500/50 focus:outline-none transition-colors"
                     disabled={!formData.selectedDate}
                   >
                     <option value="">Choose time...</option>
