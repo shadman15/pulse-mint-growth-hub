@@ -1,13 +1,189 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { Bot, Zap, Globe, Clock, CheckCircle, ArrowRight, Star, Settings } from 'lucide-react';
 
-import React, { useState, useEffect } from 'react';
-import { Bot, Zap, Globe, Clock, CheckCircle, ArrowRight, Star } from 'lucide-react';
-import Logo from '../components/Logo';
+// Logo Component
+const Logo = () => (
+  <div className="flex items-center">
+    <div className="text-xl font-light tracking-[0.3em] text-white">
+      PULSE<span className="text-emerald-400">MINT</span>
+    </div>
+  </div>
+);
+
+// Squares Background Component
+const Squares = ({
+  direction = "right",
+  speed = 1,
+  borderColor = "#333",
+  squareSize = 40,
+  hoverFillColor = "#222",
+  className = ""
+}) => {
+  const canvasRef = useRef(null);
+  const requestRef = useRef();
+  const numSquaresX = useRef();
+  const numSquaresY = useRef();
+  const gridOffset = useRef({ x: 0, y: 0 });
+  const [hoveredSquare, setHoveredSquare] = useState(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    // Set canvas background
+    canvas.style.background = "transparent";
+
+    const resizeCanvas = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      numSquaresX.current = Math.ceil(canvas.width / squareSize) + 1;
+      numSquaresY.current = Math.ceil(canvas.height / squareSize) + 1;
+    };
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    const drawGrid = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const startX = Math.floor(gridOffset.current.x / squareSize) * squareSize;
+      const startY = Math.floor(gridOffset.current.y / squareSize) * squareSize;
+
+      ctx.lineWidth = 0.5;
+
+      for (let x = startX; x < canvas.width + squareSize; x += squareSize) {
+        for (let y = startY; y < canvas.height + squareSize; y += squareSize) {
+          const squareX = x - (gridOffset.current.x % squareSize);
+          const squareY = y - (gridOffset.current.y % squareSize);
+
+          if (
+            hoveredSquare &&
+            Math.floor((x - startX) / squareSize) === hoveredSquare.x &&
+            Math.floor((y - startY) / squareSize) === hoveredSquare.y
+          ) {
+            ctx.fillStyle = hoverFillColor;
+            ctx.fillRect(squareX, squareY, squareSize, squareSize);
+          }
+
+          ctx.strokeStyle = borderColor;
+          ctx.strokeRect(squareX, squareY, squareSize, squareSize);
+        }
+      }
+
+      // Create a subtle radial gradient overlay
+      const gradient = ctx.createRadialGradient(
+        canvas.width / 2,
+        canvas.height / 2,
+        0,
+        canvas.width / 2,
+        canvas.height / 2,
+        Math.sqrt(Math.pow(canvas.width, 2) + Math.pow(canvas.height, 2)) / 2,
+      );
+      gradient.addColorStop(0, "rgba(0, 0, 0, 0)");
+      gradient.addColorStop(1, "rgba(0, 0, 0, 0.6)");
+
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    };
+
+    const updateAnimation = () => {
+      const effectiveSpeed = Math.max(speed, 0.1);
+
+      switch (direction) {
+        case "right":
+          gridOffset.current.x =
+            (gridOffset.current.x - effectiveSpeed + squareSize) % squareSize;
+          break;
+        case "left":
+          gridOffset.current.x =
+            (gridOffset.current.x + effectiveSpeed + squareSize) % squareSize;
+          break;
+        case "up":
+          gridOffset.current.y =
+            (gridOffset.current.y + effectiveSpeed + squareSize) % squareSize;
+          break;
+        case "down":
+          gridOffset.current.y =
+            (gridOffset.current.y - effectiveSpeed + squareSize) % squareSize;
+          break;
+        case "diagonal":
+          gridOffset.current.x =
+            (gridOffset.current.x - effectiveSpeed + squareSize) % squareSize;
+          gridOffset.current.y =
+            (gridOffset.current.y - effectiveSpeed + squareSize) % squareSize;
+          break;
+      }
+
+      drawGrid();
+      requestRef.current = requestAnimationFrame(updateAnimation);
+    };
+
+    const handleMouseMove = (event) => {
+      const rect = canvas.getBoundingClientRect();
+      const mouseX = event.clientX - rect.left;
+      const mouseY = event.clientY - rect.top;
+
+      const startX = Math.floor(gridOffset.current.x / squareSize) * squareSize;
+      const startY = Math.floor(gridOffset.current.y / squareSize) * squareSize;
+
+      const hoveredSquareX = Math.floor(
+        (mouseX + gridOffset.current.x - startX) / squareSize,
+      );
+      const hoveredSquareY = Math.floor(
+        (mouseY + gridOffset.current.y - startY) / squareSize,
+      );
+
+      setHoveredSquare({ x: hoveredSquareX, y: hoveredSquareY });
+    };
+
+    const handleMouseLeave = () => {
+      setHoveredSquare(null);
+    };
+
+    // Event listeners
+    window.addEventListener("resize", resizeCanvas);
+    canvas.addEventListener("mousemove", handleMouseMove);
+    canvas.addEventListener("mouseleave", handleMouseLeave);
+
+    // Initial setup
+    resizeCanvas();
+    requestRef.current = requestAnimationFrame(updateAnimation);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("resize", resizeCanvas);
+      canvas.removeEventListener("mousemove", handleMouseMove);
+      canvas.removeEventListener("mouseleave", handleMouseLeave);
+      if (requestRef.current) {
+        cancelAnimationFrame(requestRef.current);
+      }
+    };
+  }, [direction, speed, borderColor, hoverFillColor, hoveredSquare, squareSize]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className={`w-full h-full border-none block ${className}`}
+    />
+  );
+};
 
 const Index = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [currentText, setCurrentText] = useState('');
   const [isVisible, setIsVisible] = useState(false);
   const [showBookingForm, setShowBookingForm] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  const [backgroundSettings, setBackgroundSettings] = useState({
+    direction: 'right',
+    speed: 1,
+    borderColor: '#10b981',
+    squareSize: 40,
+    hoverFillColor: '#065f46'
+  });
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -78,6 +254,13 @@ const Index = () => {
     }));
   };
 
+  const handleBackgroundSettingChange = (setting, value) => {
+    setBackgroundSettings(prev => ({
+      ...prev,
+      [setting]: value
+    }));
+  };
+
   const availableDates = [
     { date: '2025-06-02', slots: ['10:00 AM', '2:00 PM', '4:00 PM'] },
     { date: '2025-06-03', slots: ['9:00 AM', '11:00 AM', '3:00 PM'] },
@@ -93,6 +276,92 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden relative font-light">
+      {/* Animated Squares Background */}
+      <div className="absolute inset-0">
+        <Squares
+          direction={backgroundSettings.direction}
+          speed={backgroundSettings.speed}
+          borderColor={backgroundSettings.borderColor}
+          squareSize={backgroundSettings.squareSize}
+          hoverFillColor={backgroundSettings.hoverFillColor}
+          className="w-full h-full"
+        />
+      </div>
+
+      {/* Background Settings Panel */}
+      {showSettings && (
+        <div className="fixed bottom-20 left-4 z-40 bg-gradient-to-br from-gray-900/95 via-black/95 to-emerald-900/95 border border-emerald-500/30 rounded-lg p-4 max-w-xs">
+          <h3 className="text-sm font-light tracking-wider text-white mb-4">BACKGROUND SETTINGS</h3>
+          
+          {/* Direction */}
+          <div className="mb-3">
+            <label className="block text-xs tracking-wider text-white/80 mb-1">DIRECTION</label>
+            <select
+              value={backgroundSettings.direction}
+              onChange={(e) => handleBackgroundSettingChange('direction', e.target.value)}
+              className="w-full bg-black/50 border border-white/20 rounded px-2 py-1 text-xs text-white focus:border-emerald-500/50 focus:outline-none"
+            >
+              <option value="right">Right</option>
+              <option value="left">Left</option>
+              <option value="up">Up</option>
+              <option value="down">Down</option>
+              <option value="diagonal">Diagonal</option>
+            </select>
+          </div>
+
+          {/* Speed */}
+          <div className="mb-3">
+            <label className="block text-xs tracking-wider text-white/80 mb-1">SPEED: {backgroundSettings.speed}</label>
+            <input
+              type="range"
+              min="0.1"
+              max="3"
+              step="0.1"
+              value={backgroundSettings.speed}
+              onChange={(e) => handleBackgroundSettingChange('speed', parseFloat(e.target.value))}
+              className="w-full accent-emerald-500"
+            />
+          </div>
+
+          {/* Square Size */}
+          <div className="mb-3">
+            <label className="block text-xs tracking-wider text-white/80 mb-1">SIZE: {backgroundSettings.squareSize}px</label>
+            <input
+              type="range"
+              min="20"
+              max="80"
+              step="5"
+              value={backgroundSettings.squareSize}
+              onChange={(e) => handleBackgroundSettingChange('squareSize', parseInt(e.target.value))}
+              className="w-full accent-emerald-500"
+            />
+          </div>
+
+          {/* Border Color */}
+          <div className="mb-3">
+            <label className="block text-xs tracking-wider text-white/80 mb-1">BORDER COLOR</label>
+            <div className="flex gap-2">
+              {['#10b981', '#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444'].map(color => (
+                <button
+                  key={color}
+                  onClick={() => handleBackgroundSettingChange('borderColor', color)}
+                  className={`w-6 h-6 rounded border-2 ${backgroundSettings.borderColor === color ? 'border-white' : 'border-white/30'}`}
+                  style={{ backgroundColor: color }}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Settings Toggle Button */}
+      <button
+        onClick={() => setShowSettings(!showSettings)}
+        className="fixed bottom-4 left-4 z-50 p-3 bg-gradient-to-r from-emerald-500/20 to-emerald-400/20 border border-emerald-500/50 rounded-lg hover:from-emerald-500/40 hover:to-emerald-400/40 transition-all duration-300"
+      >
+        <Settings className="w-4 h-4 text-white" />
+      </button>
+
       {/* Booking Form Modal */}
       {showBookingForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm">
@@ -247,25 +516,6 @@ const Index = () => {
         </div>
       )}
 
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-black to-black"></div>
-      
-      {/* Animated background particles */}
-      <div className="absolute inset-0">
-        {[...Array(50)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-white/10 rounded-full animate-pulse"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 4}s`
-            }}
-          />
-        ))}
-      </div>
-
       {/* Header */}
       <header className="relative z-20 flex justify-between items-center p-4 md:p-8">
         <Logo />
@@ -359,6 +609,11 @@ const Index = () => {
           </div>
         </div>
       </div>
+    </div>
+  );
+};
+
+export default Index;
 
       {/* NEW SECTIONS START HERE */}
 
