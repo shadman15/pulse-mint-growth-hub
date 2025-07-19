@@ -96,7 +96,7 @@ const Index = () => {
   {/* Squares background for hero */}
   <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
     <Squares
-      direction="left"
+      direction="right"
       speed={1}
       borderColor="#10b981"
       squareSize={40}
