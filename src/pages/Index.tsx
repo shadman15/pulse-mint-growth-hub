@@ -1,13 +1,173 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { Bot, Zap, Globe, Clock, CheckCircle, ArrowRight, Star, Settings } from 'lucide-react';
 
-import React, { useState, useEffect } from 'react';
-import { Bot, Zap, Globe, Clock, CheckCircle, ArrowRight, Star } from 'lucide-react';
-import Logo from '../components/Logo';
+// Logo component
+const Logo = () => (
+  <div className="text-xl md:text-2xl font-light tracking-[0.3em] text-white">
+    PULSE MINT
+  </div>
+);
+
+// Squares background component
+const Squares = ({
+  direction = "right",
+  speed = 1,
+  borderColor = "#333",
+  squareSize = 40,
+  hoverFillColor = "#222",
+  className = "",
+}) => {
+  const canvasRef = useRef(null);
+  const requestRef = useRef();
+  const gridOffset = useRef({ x: 0, y: 0 });
+  const [hoveredSquare, setHoveredSquare] = useState(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const resizeCanvas = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+
+    const drawGrid = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const startX = Math.floor(gridOffset.current.x / squareSize) * squareSize;
+      const startY = Math.floor(gridOffset.current.y / squareSize) * squareSize;
+
+      ctx.lineWidth = 0.5;
+
+      for (let x = startX; x < canvas.width + squareSize; x += squareSize) {
+        for (let y = startY; y < canvas.height + squareSize; y += squareSize) {
+          const squareX = x - (gridOffset.current.x % squareSize);
+          const squareY = y - (gridOffset.current.y % squareSize);
+
+          if (
+            hoveredSquare &&
+            Math.floor((x - startX) / squareSize) === hoveredSquare.x &&
+            Math.floor((y - startY) / squareSize) === hoveredSquare.y
+          ) {
+            ctx.fillStyle = hoverFillColor;
+            ctx.fillRect(squareX, squareY, squareSize, squareSize);
+          }
+
+          ctx.strokeStyle = borderColor;
+          ctx.strokeRect(squareX, squareY, squareSize, squareSize);
+        }
+      }
+
+      const gradient = ctx.createRadialGradient(
+        canvas.width / 2,
+        canvas.height / 2,
+        0,
+        canvas.width / 2,
+        canvas.height / 2,
+        Math.sqrt(Math.pow(canvas.width, 2) + Math.pow(canvas.height, 2)) / 2,
+      );
+      gradient.addColorStop(0, "rgba(0, 0, 0, 0)");
+      gradient.addColorStop(1, "#000000");
+
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    };
+
+    const updateAnimation = () => {
+      const effectiveSpeed = Math.max(speed, 0.1);
+
+      switch (direction) {
+        case "right":
+          gridOffset.current.x =
+            (gridOffset.current.x - effectiveSpeed + squareSize) % squareSize;
+          break;
+        case "left":
+          gridOffset.current.x =
+            (gridOffset.current.x + effectiveSpeed + squareSize) % squareSize;
+          break;
+        case "up":
+          gridOffset.current.y =
+            (gridOffset.current.y + effectiveSpeed + squareSize) % squareSize;
+          break;
+        case "down":
+          gridOffset.current.y =
+            (gridOffset.current.y - effectiveSpeed + squareSize) % squareSize;
+          break;
+        case "diagonal":
+          gridOffset.current.x =
+            (gridOffset.current.x - effectiveSpeed + squareSize) % squareSize;
+          gridOffset.current.y =
+            (gridOffset.current.y - effectiveSpeed + squareSize) % squareSize;
+          break;
+      }
+
+      drawGrid();
+      requestRef.current = requestAnimationFrame(updateAnimation);
+    };
+
+    const handleMouseMove = (event) => {
+      const rect = canvas.getBoundingClientRect();
+      const mouseX = event.clientX - rect.left;
+      const mouseY = event.clientY - rect.top;
+
+      const startX = Math.floor(gridOffset.current.x / squareSize) * squareSize;
+      const startY = Math.floor(gridOffset.current.y / squareSize) * squareSize;
+
+      const hoveredSquareX = Math.floor(
+        (mouseX + gridOffset.current.x - startX) / squareSize,
+      );
+      const hoveredSquareY = Math.floor(
+        (mouseY + gridOffset.current.y - startY) / squareSize,
+      );
+
+      setHoveredSquare({ x: hoveredSquareX, y: hoveredSquareY });
+    };
+
+    const handleMouseLeave = () => {
+      setHoveredSquare(null);
+    };
+
+    window.addEventListener("resize", resizeCanvas);
+    canvas.addEventListener("mousemove", handleMouseMove);
+    canvas.addEventListener("mouseleave", handleMouseLeave);
+
+    resizeCanvas();
+    requestRef.current = requestAnimationFrame(updateAnimation);
+
+    return () => {
+      window.removeEventListener("resize", resizeCanvas);
+      canvas.removeEventListener("mousemove", handleMouseMove);
+      canvas.removeEventListener("mouseleave", handleMouseLeave);
+      if (requestRef.current) {
+        cancelAnimationFrame(requestRef.current);
+      }
+    };
+  }, [direction, speed, borderColor, hoverFillColor, hoveredSquare, squareSize]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className={`w-full h-full border-none block ${className}`}
+    />
+  );
+};
 
 const Index = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [currentText, setCurrentText] = useState('');
   const [isVisible, setIsVisible] = useState(false);
   const [showBookingForm, setShowBookingForm] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  const [backgroundSettings, setBackgroundSettings] = useState({
+    direction: 'right',
+    speed: 1,
+    borderColor: '#10b981',
+    squareSize: 40,
+    hoverFillColor: '#065f46'
+  });
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,31 +180,24 @@ const Index = () => {
 
   useEffect(() => {
     const animateTexts = () => {
-      // Show PULSE
       setCurrentText('PULSE');
       setIsVisible(true);
       
-      // Hide PULSE after 2 seconds
       setTimeout(() => {
         setIsVisible(false);
       }, 2000);
       
-      // Show MINT after 3 seconds total
       setTimeout(() => {
         setCurrentText('MINT');
         setIsVisible(true);
       }, 3000);
       
-      // Hide MINT after 5 seconds total
       setTimeout(() => {
         setIsVisible(false);
       }, 5000);
     };
   
-    // Start initial animation
     const initialTimer = setTimeout(animateTexts, 500);
-    
-    // Set up continuous loop every 6 seconds
     const interval = setInterval(animateTexts, 6000);
     
     const handleMouseMove = (e) => {
@@ -65,7 +218,6 @@ const Index = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission here
     console.log('Form submitted:', formData);
     alert('Thank you! We will contact you soon.');
     setShowBookingForm(false);
@@ -73,6 +225,13 @@ const Index = () => {
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleSettingsChange = (field, value) => {
+    setBackgroundSettings(prev => ({
       ...prev,
       [field]: value
     }));
@@ -93,11 +252,122 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden relative font-light">
+      {/* Animated Squares Background - Only for Hero Section */}
+      <div className="fixed inset-0 z-0" style={{ height: '100vh' }}>
+        <Squares
+          direction={backgroundSettings.direction}
+          speed={backgroundSettings.speed}
+          borderColor={backgroundSettings.borderColor}
+          squareSize={backgroundSettings.squareSize}
+          hoverFillColor={backgroundSettings.hoverFillColor}
+        />
+      </div>
+
+      {/* Background Settings Popup */}
+      {showSettings && (
+        <div className="fixed bottom-20 left-4 z-50 bg-gradient-to-br from-gray-900/95 via-black/95 to-emerald-900/95 border border-emerald-500/30 rounded-lg p-6 w-80">
+          <h3 className="text-lg font-light tracking-wider text-white mb-4">BACKGROUND SETTINGS</h3>
+          
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm tracking-wider text-white/80 mb-2">DIRECTION</label>
+              <select
+                value={backgroundSettings.direction}
+                onChange={(e) => handleSettingsChange('direction', e.target.value)}
+                className="w-full bg-black/50 border border-white/20 rounded px-3 py-2 text-white focus:border-emerald-500/50 focus:outline-none transition-colors text-sm"
+              >
+                <option value="right">Right</option>
+                <option value="left">Left</option>
+                <option value="up">Up</option>
+                <option value="down">Down</option>
+                <option value="diagonal">Diagonal</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm tracking-wider text-white/80 mb-2">SPEED: {backgroundSettings.speed}</label>
+              <input
+                type="range"
+                min="0.1"
+                max="3"
+                step="0.1"
+                value={backgroundSettings.speed}
+                onChange={(e) => handleSettingsChange('speed', parseFloat(e.target.value))}
+                className="w-full"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm tracking-wider text-white/80 mb-2">SIZE: {backgroundSettings.squareSize}px</label>
+              <input
+                type="range"
+                min="20"
+                max="80"
+                step="5"
+                value={backgroundSettings.squareSize}
+                onChange={(e) => handleSettingsChange('squareSize', parseInt(e.target.value))}
+                className="w-full"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm tracking-wider text-white/80 mb-2">BORDER COLOR</label>
+              <div className="flex gap-2">
+                <input
+                  type="color"
+                  value={backgroundSettings.borderColor}
+                  onChange={(e) => handleSettingsChange('borderColor', e.target.value)}
+                  className="w-12 h-8 bg-transparent border border-white/20 rounded"
+                />
+                <input
+                  type="text"
+                  value={backgroundSettings.borderColor}
+                  onChange={(e) => handleSettingsChange('borderColor', e.target.value)}
+                  className="flex-1 bg-black/50 border border-white/20 rounded px-3 py-2 text-white focus:border-emerald-500/50 focus:outline-none transition-colors text-sm"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm tracking-wider text-white/80 mb-2">HOVER COLOR</label>
+              <div className="flex gap-2">
+                <input
+                  type="color"
+                  value={backgroundSettings.hoverFillColor}
+                  onChange={(e) => handleSettingsChange('hoverFillColor', e.target.value)}
+                  className="w-12 h-8 bg-transparent border border-white/20 rounded"
+                />
+                <input
+                  type="text"
+                  value={backgroundSettings.hoverFillColor}
+                  onChange={(e) => handleSettingsChange('hoverFillColor', e.target.value)}
+                  className="flex-1 bg-black/50 border border-white/20 rounded px-3 py-2 text-white focus:border-emerald-500/50 focus:outline-none transition-colors text-sm"
+                />
+              </div>
+            </div>
+          </div>
+
+          <button
+            onClick={() => setShowSettings(false)}
+            className="mt-4 w-full text-sm tracking-wider border border-emerald-500/50 px-4 py-2 bg-gradient-to-r from-emerald-500/20 to-emerald-400/20 hover:from-emerald-500/40 hover:to-emerald-400/40 transition-all duration-300 text-white rounded"
+          >
+            CLOSE
+          </button>
+        </div>
+      )}
+
+      {/* Settings Button */}
+      <button
+        onClick={() => setShowSettings(!showSettings)}
+        className="fixed bottom-4 left-4 z-40 bg-gradient-to-r from-emerald-500/20 to-emerald-400/20 border border-emerald-500/50 p-3 rounded-full text-white hover:from-emerald-500/40 hover:to-emerald-400/40 transition-all duration-300"
+      >
+        <Settings size={20} />
+      </button>
+
       {/* Booking Form Modal */}
       {showBookingForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm">
           <div className="relative w-full max-w-2xl mx-4 bg-gradient-to-br from-gray-900/95 via-black/95 to-emerald-900/95 border border-emerald-500/30 rounded-lg p-8 max-h-[90vh] overflow-y-auto">
-            {/* Close button */}
             <button
               onClick={() => setShowBookingForm(false)}
               className="absolute top-4 right-4 text-white/60 hover:text-white text-2xl transition-colors"
@@ -110,7 +380,6 @@ const Index = () => {
             </h2>
             
             <div className="space-y-6">
-              {/* Name */}
               <div>
                 <label className="block text-sm tracking-wider text-white/80 mb-2">NAME</label>
                 <input
@@ -122,7 +391,6 @@ const Index = () => {
                 />
               </div>
               
-              {/* Email */}
               <div>
                 <label className="block text-sm tracking-wider text-white/80 mb-2">EMAIL</label>
                 <input
@@ -134,7 +402,6 @@ const Index = () => {
                 />
               </div>
               
-              {/* Business Type */}
               <div>
                 <label className="block text-sm tracking-wider text-white/80 mb-2">BUSINESS TYPE</label>
                 <input
@@ -147,7 +414,6 @@ const Index = () => {
                 />
               </div>
               
-              {/* Service Selection */}
               <div>
                 <label className="block text-sm tracking-wider text-white/80 mb-2">WHAT SERVICE YOU ARE LOOKING FOR</label>
                 <select
@@ -165,7 +431,6 @@ const Index = () => {
                 </select>
               </div>
               
-              {/* Custom Needs - Show when "Other" is selected */}
               {formData.service === 'other' && (
                 <div>
                   <label className="block text-sm tracking-wider text-white/80 mb-2">SPECIFIC NEEDS</label>
@@ -182,7 +447,6 @@ const Index = () => {
                 </div>
               )}
               
-              {/* Date Selection */}
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm tracking-wider text-white/80 mb-2">SELECT DATE</label>
@@ -191,7 +455,7 @@ const Index = () => {
                     value={formData.selectedDate}
                     onChange={(e) => {
                       handleInputChange('selectedDate', e.target.value);
-                      handleInputChange('selectedTime', ''); // Reset time when date changes
+                      handleInputChange('selectedTime', '');
                     }}
                     className="w-full bg-black/50 border border-white/20 rounded px-4 py-3 text-white focus:border-emerald-500/50 focus:outline-none transition-colors"
                   >
@@ -232,7 +496,6 @@ const Index = () => {
                 </div>
               </div>
               
-              {/* Submit Button */}
               <div className="pt-4">
                 <button
                   onClick={handleFormSubmit}
@@ -246,25 +509,6 @@ const Index = () => {
           </div>
         </div>
       )}
-
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-black to-black"></div>
-      
-      {/* Animated background particles */}
-      <div className="absolute inset-0">
-        {[...Array(50)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-white/10 rounded-full animate-pulse"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 4}s`
-            }}
-          />
-        ))}
-      </div>
 
       {/* Header */}
       <header className="relative z-20 flex justify-between items-center p-4 md:p-8">
@@ -360,10 +604,10 @@ const Index = () => {
         </div>
       </div>
 
-      {/* NEW SECTIONS START HERE */}
+      {/* ALL SECTIONS FROM SECOND CODE START HERE */}
 
       {/* 1. Results in Days, Not Months Section */}
-      <section className="relative z-10 py-20 px-8 bg-gradient-to-br from-purple-900/10 via-black to-emerald-900/10">
+      <section id="services" className="relative z-10 py-20 px-8 bg-gradient-to-br from-purple-900/20 via-black to-emerald-900/20">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-5xl font-light tracking-[0.3em] text-white mb-6">
             From Zero to Automated in 72 Hours
@@ -400,7 +644,7 @@ const Index = () => {
       </section>
 
       {/* 2. What We Build for You Section */}
-      <section className="relative z-10 py-20 px-8 bg-gradient-to-br from-emerald-900/10 via-black to-purple-900/10">
+      <section className="relative z-10 py-20 px-8 bg-gradient-to-br from-emerald-900/20 via-black to-purple-900/20">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-5xl font-light tracking-[0.3em] text-center text-white mb-16">
             Your 24/7 AI Team
@@ -432,7 +676,7 @@ const Index = () => {
       </section>
 
       {/* 3. The Website Difference Section */}
-      <section className="relative z-10 py-20 px-8 bg-gradient-to-br from-purple-900/10 via-black to-emerald-900/10">
+      <section className="relative z-10 py-20 px-8 bg-gradient-to-br from-purple-900/20 via-black to-emerald-900/20">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-5xl font-light tracking-[0.3em] text-center text-white mb-16">
             Websites That Work Harder Than You Do
@@ -476,7 +720,7 @@ const Index = () => {
       </section>
 
       {/* 4. How It Works Section */}
-      <section className="relative z-10 py-20 px-8 bg-gradient-to-br from-emerald-900/10 via-black to-purple-900/10">
+      <section className="relative z-10 py-20 px-8 bg-gradient-to-br from-emerald-900/20 via-black to-purple-900/20">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-5xl font-light tracking-[0.3em] text-white mb-16">
             3 Steps. 3 Days. Done.
@@ -519,7 +763,7 @@ const Index = () => {
       </section>
 
       {/* 5. Why Choose Us Section */}
-      <section className="relative z-10 py-20 px-8 bg-gradient-to-br from-purple-900/10 via-black to-emerald-900/10">
+      <section className="relative z-10 py-20 px-8 bg-gradient-to-br from-purple-900/20 via-black to-emerald-900/20">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-5xl font-light tracking-[0.3em] text-center text-white mb-16">
             No Bullshit. Just Fast, Measurable Fixes.
@@ -553,7 +797,7 @@ const Index = () => {
       </section>
 
       {/* 6. Risk-Free Trial CTA Section */}
-      <section className="relative z-10 py-20 px-8 bg-gradient-to-br from-emerald-900/10 via-black to-purple-900/10">
+      <section className="relative z-10 py-20 px-8 bg-gradient-to-br from-emerald-900/20 via-black to-purple-900/20">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-5xl font-light tracking-[0.3em] text-white mb-8">
             Try Us for 7 Days. Keep the Results or Pay Nothing.
