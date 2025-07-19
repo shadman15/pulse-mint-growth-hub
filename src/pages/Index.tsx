@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { Squares } from 'src/components/ui/Squares'
 import { Bot, Zap, Globe, Clock, CheckCircle, ArrowRight, Star } from 'lucide-react';
 import Logo from '../components/Logo';
 
@@ -92,7 +93,15 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-hidden relative font-light">
+    <div className="min-h-screen text-white overflow-hidden relative font-light">
+    <Squares
+      direction="diagonal"
+      speed={0.5}
+      borderColor="rgba(255,255,255,0.1)"
+      squareSize={50}
+      hoverFillColor="rgba(255,255,255,0.05)"
+      className="absolute inset-0"
+    />
       {/* Booking Form Modal */}
       {showBookingForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm">
