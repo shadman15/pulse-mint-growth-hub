@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Squares } from '../components/ui/Squares.tsx'
+import { Squares } from '../components/ui/Squares'
 import { Bot, Zap, Globe, Clock, CheckCircle, ArrowRight, Star } from 'lucide-react';
 import Logo from '../components/Logo';
 
