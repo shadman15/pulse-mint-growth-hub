@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Squares } from '@/components/ui/Squares'
 import { Bot, Zap, Globe, Clock, CheckCircle, ArrowRight, Star } from 'lucide-react';
 import Logo from '../components/Logo';
+
 const Index = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [currentText, setCurrentText] = useState('');
@@ -530,7 +531,7 @@ const Index = () => {
       <section className="relative z-10 py-20 px-8 bg-gradient-to-br from-purple-900/10 via-black to-emerald-900/10">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-5xl font-light tracking-[0.3em] text-center text-white mb-16">
-            No Bullshit. Just Fast, Measurable Fixes.
+            No Bullshit. Just Fast, Reliable and Measurable Fixes.
           </h2>
           
           <div className="grid md:grid-cols-3 gap-8 mb-12">
