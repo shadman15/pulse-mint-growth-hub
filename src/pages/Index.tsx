@@ -30,8 +30,8 @@ const Squares = ({
     if (!ctx) return;
 
     const resizeCanvas = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
+      canvas.width = window.innerWidth;
+      canvas.height = document.documentElement.scrollHeight; // Full page height
     };
 
     const drawGrid = () => {
@@ -61,16 +61,18 @@ const Squares = ({
         }
       }
 
+      // Gradient overlay for depth
       const gradient = ctx.createRadialGradient(
         canvas.width / 2,
-        canvas.height / 2,
+        canvas.height / 3, // Adjusted for better effect
         0,
         canvas.width / 2,
-        canvas.height / 2,
-        Math.sqrt(Math.pow(canvas.width, 2) + Math.pow(canvas.height, 2)) / 2,
+        canvas.height / 3,
+        Math.max(canvas.width, canvas.height) / 2,
       );
       gradient.addColorStop(0, "rgba(0, 0, 0, 0)");
-      gradient.addColorStop(1, "#000000");
+      gradient.addColorStop(0.7, "rgba(0, 0, 0, 0.3)");
+      gradient.addColorStop(1, "rgba(0, 0, 0, 0.8)");
 
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -130,7 +132,11 @@ const Squares = ({
       setHoveredSquare(null);
     };
 
-    window.addEventListener("resize", resizeCanvas);
+    const handleResize = () => {
+      resizeCanvas();
+    };
+
+    window.addEventListener("resize", handleResize);
     canvas.addEventListener("mousemove", handleMouseMove);
     canvas.addEventListener("mouseleave", handleMouseLeave);
 
@@ -138,7 +144,7 @@ const Squares = ({
     requestRef.current = requestAnimationFrame(updateAnimation);
 
     return () => {
-      window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("resize", handleResize);
       canvas.removeEventListener("mousemove", handleMouseMove);
       canvas.removeEventListener("mouseleave", handleMouseLeave);
       if (requestRef.current) {
@@ -150,7 +156,8 @@ const Squares = ({
   return (
     <canvas
       ref={canvasRef}
-      className={`w-full h-full border-none block ${className}`}
+      className={`fixed top-0 left-0 w-full pointer-events-none ${className}`}
+      style={{ zIndex: 1 }}
     />
   );
 };
@@ -251,17 +258,15 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-hidden relative font-light">
-      {/* Animated Squares Background - Only for Hero Section */}
-      <div className="fixed inset-0 z-0" style={{ height: '100vh' }}>
-        <Squares
-          direction={backgroundSettings.direction}
-          speed={backgroundSettings.speed}
-          borderColor={backgroundSettings.borderColor}
-          squareSize={backgroundSettings.squareSize}
-          hoverFillColor={backgroundSettings.hoverFillColor}
-        />
-      </div>
+    <div className="min-h-screen bg-black text-white relative font-light">
+      {/* Animated Squares Background - Now covers entire page */}
+      <Squares
+        direction={backgroundSettings.direction}
+        speed={backgroundSettings.speed}
+        borderColor={backgroundSettings.borderColor}
+        squareSize={backgroundSettings.squareSize}
+        hoverFillColor={backgroundSettings.hoverFillColor}
+      />
 
       {/* Background Settings Popup */}
       {showSettings && (
@@ -604,10 +609,10 @@ const Index = () => {
         </div>
       </div>
 
-      {/* ALL SECTIONS FROM SECOND CODE START HERE */}
+      {/* ALL SECTIONS - Now with semi-transparent backgrounds to show the animated squares */}
 
       {/* 1. Results in Days, Not Months Section */}
-      <section id="services" className="relative z-10 py-20 px-8 bg-gradient-to-br from-purple-900/20 via-black to-emerald-900/20">
+      <section id="services" className="relative z-10 py-20 px-8 bg-black/40 backdrop-blur-sm">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-5xl font-light tracking-[0.3em] text-white mb-6">
             From Zero to Automated in 72 Hours
@@ -617,15 +622,15 @@ const Index = () => {
           </p>
           
           <div className="grid md:grid-cols-3 gap-8 mb-16">
-            <div className="border border-emerald-500/30 p-8 bg-gradient-to-br from-emerald-900/20 via-black/50 to-emerald-900/20 hover:from-emerald-900/30 hover:to-emerald-900/30 transition-all duration-300">
+            <div className="border border-emerald-500/30 p-8 bg-gradient-to-br from-emerald-900/20 via-black/50 to-emerald-900/20 hover:from-emerald-900/30 hover:to-emerald-900/30 transition-all duration-300 backdrop-blur-sm">
               <div className="text-4xl font-light text-emerald-400 mb-4">48h Setup</div>
               <p className="text-white/70 text-lg">"AI chatbots built and live in 2 days."</p>
             </div>
-            <div className="border border-emerald-500/30 p-8 bg-gradient-to-br from-emerald-900/20 via-black/50 to-emerald-900/20 hover:from-emerald-900/30 hover:to-emerald-900/30 transition-all duration-300">
+            <div className="border border-emerald-500/30 p-8 bg-gradient-to-br from-emerald-900/20 via-black/50 to-emerald-900/20 hover:from-emerald-900/30 hover:to-emerald-900/30 transition-all duration-300 backdrop-blur-sm">
               <div className="text-4xl font-light text-emerald-400 mb-4">40% Less Missed Calls</div>
               <p className="text-white/70 text-lg">"AI voice agents recover lost leads."</p>
             </div>
-            <div className="border border-emerald-500/30 p-8 bg-gradient-to-br from-emerald-900/20 via-black/50 to-emerald-900/20 hover:from-emerald-900/30 hover:to-emerald-900/30 transition-all duration-300">
+            <div className="border border-emerald-500/30 p-8 bg-gradient-to-br from-emerald-900/20 via-black/50 to-emerald-900/20 hover:from-emerald-900/30 hover:to-emerald-900/30 transition-all duration-300 backdrop-blur-sm">
               <div className="text-4xl font-light text-emerald-400 mb-4">3x More Bookings</div>
               <p className="text-white/70 text-lg">"Websites we build convert 3x industry average."</p>
             </div>
@@ -644,20 +649,20 @@ const Index = () => {
       </section>
 
       {/* 2. What We Build for You Section */}
-      <section className="relative z-10 py-20 px-8 bg-gradient-to-br from-emerald-900/20 via-black to-purple-900/20">
+      <section className="relative z-10 py-20 px-8 bg-black/30 backdrop-blur-sm">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-5xl font-light tracking-[0.3em] text-center text-white mb-16">
             Your 24/7 AI Team
           </h2>
           
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="border border-white/20 p-8 hover:bg-white/5 transition-all duration-300 group">
+            <div className="border border-white/20 p-8 hover:bg-white/5 transition-all duration-300 group backdrop-blur-sm">
               <Bot className="w-12 h-12 text-emerald-400 mb-6 group-hover:scale-110 transition-transform" />
               <h3 className="text-xl font-light tracking-wider text-white mb-4">AI Customer Support Agents</h3>
               <p className="text-white/70 leading-relaxed">"Instant replies to FAQs, ticket sorting, and lead qualification."</p>
             </div>
             
-            <div className="border border-emerald-500/50 p-8 bg-gradient-to-br from-emerald-900/20 via-black/50 to-emerald-900/20 hover:from-emerald-900/30 hover:to-emerald-900/30 transition-all duration-300 group relative">
+            <div className="border border-emerald-500/50 p-8 bg-gradient-to-br from-emerald-900/20 via-black/50 to-emerald-900/20 hover:from-emerald-900/30 hover:to-emerald-900/30 transition-all duration-300 group relative backdrop-blur-sm">
               <div className="absolute -top-3 -right-3 bg-emerald-500 text-black text-xs px-2 py-1 rounded font-semibold">
                 EXTRA EMPHASIS
               </div>
@@ -666,7 +671,7 @@ const Index = () => {
               <p className="text-white/70 leading-relaxed">"Mobile-friendly sites that book clients for you (avg. 28% conversion rate)."</p>
             </div>
             
-            <div className="border border-white/20 p-8 hover:bg-white/5 transition-all duration-300 group">
+            <div className="border border-white/20 p-8 hover:bg-white/5 transition-all duration-300 group backdrop-blur-sm">
               <Zap className="w-12 h-12 text-emerald-400 mb-6 group-hover:scale-110 transition-transform" />
               <h3 className="text-xl font-light tracking-wider text-white mb-4">Automated Lead Conversion</h3>
               <p className="text-white/70 leading-relaxed">"AI calls, emails, and ads that nurture leads while you sleep."</p>
@@ -676,7 +681,7 @@ const Index = () => {
       </section>
 
       {/* 3. The Website Difference Section */}
-      <section className="relative z-10 py-20 px-8 bg-gradient-to-br from-purple-900/20 via-black to-emerald-900/20">
+      <section className="relative z-10 py-20 px-8 bg-black/40 backdrop-blur-sm">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-5xl font-light tracking-[0.3em] text-center text-white mb-16">
             Websites That Work Harder Than You Do
@@ -684,7 +689,7 @@ const Index = () => {
           
           <div className="grid md:grid-cols-3 gap-8 mb-16">
             <div className="text-center p-6">
-              <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-emerald-500/20 to-emerald-400/20 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-emerald-500/20 to-emerald-400/20 rounded-full flex items-center justify-center backdrop-blur-sm">
                 <CheckCircle className="w-8 h-8 text-emerald-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">1-Click Booking</h3>
@@ -692,7 +697,7 @@ const Index = () => {
             </div>
             
             <div className="text-center p-6">
-              <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-emerald-500/20 to-emerald-400/20 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-emerald-500/20 to-emerald-400/20 rounded-full flex items-center justify-center backdrop-blur-sm">
                 <Star className="w-8 h-8 text-emerald-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">SEO-Optimized</h3>
@@ -700,7 +705,7 @@ const Index = () => {
             </div>
             
             <div className="text-center p-6">
-              <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-emerald-500/20 to-emerald-400/20 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-emerald-500/20 to-emerald-400/20 rounded-full flex items-center justify-center backdrop-blur-sm">
                 <Zap className="w-8 h-8 text-emerald-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">Built for Speed</h3>
@@ -720,7 +725,7 @@ const Index = () => {
       </section>
 
       {/* 4. How It Works Section */}
-      <section className="relative z-10 py-20 px-8 bg-gradient-to-br from-emerald-900/20 via-black to-purple-900/20">
+      <section className="relative z-10 py-20 px-8 bg-black/30 backdrop-blur-sm">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-5xl font-light tracking-[0.3em] text-white mb-16">
             3 Steps. 3 Days. Done.
@@ -731,7 +736,7 @@ const Index = () => {
               <div className="absolute -top-4 -left-4 w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-black font-bold text-xl">
                 1
               </div>
-              <div className="border border-white/20 p-8 pt-12 hover:bg-white/5 transition-all duration-300">
+              <div className="border border-white/20 p-8 pt-12 hover:bg-white/5 transition-all duration-300 backdrop-blur-sm">
                 <h3 className="text-2xl font-light text-white mb-4">Day 1: Audit</h3>
                 <p className="text-white/70">"We find the biggest leaks in your funnel (free report)."</p>
               </div>
@@ -741,7 +746,7 @@ const Index = () => {
               <div className="absolute -top-4 -left-4 w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-black font-bold text-xl">
                 2
               </div>
-              <div className="border border-white/20 p-8 pt-12 hover:bg-white/5 transition-all duration-300">
+              <div className="border border-white/20 p-8 pt-12 hover:bg-white/5 transition-all duration-300 backdrop-blur-sm">
                 <h3 className="text-2xl font-light text-white mb-4">Day 2: Build</h3>
                 <p className="text-white/70">"Your AI tools + website go live."</p>
               </div>
@@ -751,7 +756,7 @@ const Index = () => {
               <div className="absolute -top-4 -left-4 w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-black font-bold text-xl">
                 3
               </div>
-              <div className="border border-white/20 p-8 pt-12 hover:bg-white/5 transition-all duration-300">
+              <div className="border border-white/20 p-8 pt-12 hover:bg-white/5 transition-all duration-300 backdrop-blur-sm">
                 <h3 className="text-2xl font-light text-white mb-4">Day 3: Train</h3>
                 <p className="text-white/70">"We show you how to manage everything in 30 mins."</p>
               </div>
@@ -763,33 +768,33 @@ const Index = () => {
       </section>
 
       {/* 5. Why Choose Us Section */}
-      <section className="relative z-10 py-20 px-8 bg-gradient-to-br from-purple-900/20 via-black to-emerald-900/20">
+      <section className="relative z-10 py-20 px-8 bg-black/40 backdrop-blur-sm">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-5xl font-light tracking-[0.3em] text-center text-white mb-16">
             No Bullshit. Just Fast, Measurable Fixes.
           </h2>
           
           <div className="grid md:grid-cols-3 gap-8 mb-12">
-            <div className="border border-emerald-500/30 p-8 bg-gradient-to-br from-emerald-900/20 via-black/50 to-emerald-900/20">
+            <div className="border border-emerald-500/30 p-8 bg-gradient-to-br from-emerald-900/20 via-black/50 to-emerald-900/20 backdrop-blur-sm">
               <Clock className="w-12 h-12 text-emerald-400 mb-6" />
               <h3 className="text-2xl font-light text-white mb-4">72-Hour Guarantee</h3>
               <p className="text-white/70">"Your first AI tool built in 3 days or we work free."</p>
             </div>
             
-            <div className="border border-emerald-500/30 p-8 bg-gradient-to-br from-emerald-900/20 via-black/50 to-emerald-900/20">
+            <div className="border border-emerald-500/30 p-8 bg-gradient-to-br from-emerald-900/20 via-black/50 to-emerald-900/20 backdrop-blur-sm">
               <CheckCircle className="w-12 h-12 text-emerald-400 mb-6" />
               <h3 className="text-2xl font-light text-white mb-4">Transparent Pricing</h3>
               <p className="text-white/70">"Flat-rate packages (no hidden fees)."</p>
             </div>
             
-            <div className="border border-emerald-500/30 p-8 bg-gradient-to-br from-emerald-900/20 via-black/50 to-emerald-900/20">
+            <div className="border border-emerald-500/30 p-8 bg-gradient-to-br from-emerald-900/20 via-black/50 to-emerald-900/20 backdrop-blur-sm">
               <Bot className="w-12 h-12 text-emerald-400 mb-6" />
               <h3 className="text-2xl font-light text-white mb-4">For Solo Pros</h3>
               <p className="text-white/70">"We speak your language—no tech jargon."</p>
             </div>
           </div>
           
-          <div className="text-center bg-gradient-to-r from-emerald-900/30 to-emerald-800/30 border border-emerald-500/30 rounded-lg p-8">
+          <div className="text-center bg-gradient-to-r from-emerald-900/30 to-emerald-800/30 border border-emerald-500/30 rounded-lg p-8 backdrop-blur-sm">
             <h3 className="text-2xl font-light text-white mb-4">Social Proof</h3>
             <p className="text-emerald-300 text-lg italic">"Recovered $2,400 in lost appointments for a dentist in 1 week."</p>
           </div>
@@ -797,7 +802,7 @@ const Index = () => {
       </section>
 
       {/* 6. Risk-Free Trial CTA Section */}
-      <section className="relative z-10 py-20 px-8 bg-gradient-to-br from-emerald-900/20 via-black to-purple-900/20">
+      <section className="relative z-10 py-20 px-8 bg-black/30 backdrop-blur-sm">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-5xl font-light tracking-[0.3em] text-white mb-8">
             Try Us for 7 Days. Keep the Results or Pay Nothing.
@@ -821,7 +826,7 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-20 p-8 mt-20">
+      <footer className="relative z-20 p-8 mt-20 bg-black/50 backdrop-blur-sm">
         <div className="text-center">
           <div className="text-xs tracking-wider text-white/40 mb-2">
             PULSEMINT [C] 2024. ALL RIGHTS RESERVED.
