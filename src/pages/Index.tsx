@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { Squares } from '@/components/ui/Squares'
 import { Bot, Zap, Globe, Clock, CheckCircle, ArrowRight, Star } from 'lucide-react';
 import Logo from '../components/Logo';
-
 const Index = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [currentText, setCurrentText] = useState('');
