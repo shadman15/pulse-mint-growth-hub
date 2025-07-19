@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect } from 'react';
-import { Squares } from '@/components/ui/Squares'
 import { Bot, Zap, Globe, Clock, CheckCircle, ArrowRight, Star } from 'lucide-react';
 import Logo from '../components/Logo';
 
@@ -93,15 +92,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen text-white overflow-hidden relative font-light">
-    <Squares
-      direction="diagonal"
-      speed={0.5}
-      borderColor="rgba(255,255,255,0.1)"
-      squareSize={50}
-      hoverFillColor="rgba(255,255,255,0.05)"
-      className="absolute inset-0"
-    />
+    <div className="min-h-screen bg-black text-white overflow-hidden relative font-light">
       {/* Booking Form Modal */}
       {showBookingForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm">
@@ -531,7 +522,7 @@ const Index = () => {
       <section className="relative z-10 py-20 px-8 bg-gradient-to-br from-purple-900/10 via-black to-emerald-900/10">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-5xl font-light tracking-[0.3em] text-center text-white mb-16">
-            No Bullshit. Just Fast, Reliable and Measurable Fixes.
+            No Bullshit. Just Fast, Measurable Fixes.
           </h2>
           
           <div className="grid md:grid-cols-3 gap-8 mb-12">
