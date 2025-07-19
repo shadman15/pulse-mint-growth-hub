@@ -222,7 +222,7 @@ const Index = () => {
       </footer>
 
       {/* Custom styles */}
-      <style jsx>{`
+      <style>{`
         @keyframes glow {
           0%, 100% { 
             box-shadow: 0 0 20px rgba(16, 185, 129, 0.5),
