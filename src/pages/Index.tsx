@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Squares } from '../components/ui/Squares'
+import { Squares } from '../components/ui/Squares.tsx'
 import { Bot, Zap, Globe, Clock, CheckCircle, ArrowRight, Star } from 'lucide-react';
 import Logo from '../components/Logo';
 
@@ -103,6 +103,7 @@ const Index = () => {
         hoverFillColor="rgba(255,255,255,0.05)"
         className="absolute inset-0"
       />
+
       {/* Booking Form Modal */}
       {showBookingForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm">
