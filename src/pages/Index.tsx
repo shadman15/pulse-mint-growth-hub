@@ -522,7 +522,7 @@ const Index = () => {
       <section className="relative z-10 py-20 px-8 bg-gradient-to-br from-purple-900/10 via-black to-emerald-900/10">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-5xl font-light tracking-[0.3em] text-center text-white mb-16">
-            No Bullshit. Just Fast, Measurable Fixes.
+            No Bullshit. Just Fast, Relaible, Measurable Fixes.
           </h2>
           
           <div className="grid md:grid-cols-3 gap-8 mb-12">
