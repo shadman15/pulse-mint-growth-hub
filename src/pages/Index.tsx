@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Bot, Zap, Globe, Clock, CheckCircle, ArrowRight, Star } from 'lucide-react';
 import Logo from '../components/Logo';
+import { Squares } from '../components/ui/squares-background';
 
 const Index = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -247,23 +248,16 @@ const Index = () => {
         </div>
       )}
 
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-black to-black"></div>
-      
-      {/* Animated background particles */}
-      <div className="absolute inset-0">
-        {[...Array(50)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-white/10 rounded-full animate-pulse"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 4}s`
-            }}
-          />
-        ))}
+      {/* Squares Background */}
+      <div className="absolute inset-0 z-0">
+        <Squares 
+          direction="diagonal"
+          speed={0.5}
+          squareSize={40}
+          borderColor="rgba(16, 185, 129, 0.3)" 
+          hoverFillColor="rgba(16, 185, 129, 0.1)"
+          className="w-full h-full"
+        />
       </div>
 
       {/* Header */}
@@ -522,7 +516,7 @@ const Index = () => {
       <section className="relative z-10 py-20 px-8 bg-gradient-to-br from-purple-900/10 via-black to-emerald-900/10">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-5xl font-light tracking-[0.3em] text-center text-white mb-16">
-            No Bullshit. Just Fast, Relaible, Measurable Fixes.
+            No Bullshit. Just Fast, Measurable Fixes.
           </h2>
           
           <div className="grid md:grid-cols-3 gap-8 mb-12">
