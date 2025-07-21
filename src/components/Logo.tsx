@@ -7,11 +7,11 @@ const Logo = () => {
     <div className="flex items-center gap-2 md:gap-3">
       {/* Logo Icon */}
       <div className="relative">
-        <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-lg flex items-center justify-center">
+        <div className="w-8 h-8 md:w-10 md:h-10 bg-transparent from-emerald-500 to-emerald-400 rounded-lg flex items-center justify-center">
           <img
   src="/images/Pulse.svg"
   alt="My Logo"
-  className="w-4 h-4 md:w-5 md:h-5"
+  className="w-8 h-8 md:w-10 md:h-10"
 />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-lg blur-sm opacity-50"></div>
