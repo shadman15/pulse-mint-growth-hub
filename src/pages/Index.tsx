@@ -581,7 +581,6 @@ const Index = () => {
         </div>
       </footer>
 
-      <link rel="icon" type="image/png" href="/favicon.png" />
     </div>
   );
 };
