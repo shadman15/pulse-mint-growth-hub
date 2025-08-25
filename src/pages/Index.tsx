@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Bot, Zap, Globe, Clock, CheckCircle, ArrowRight, Star } from 'lucide-react';
 import Logo from '../components/Logo';
@@ -581,6 +580,8 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      <link rel="icon" type="image/png" href="/favicon.png" />
     </div>
   );
 };
