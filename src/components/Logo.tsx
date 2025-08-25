@@ -7,7 +7,7 @@ const Logo = () => {
       {/* Logo Icon */}
       <div className="relative">
         <div className="w-8 h-8 md:w-10 md:h-10 bg-transparent from-emerald-500 to-emerald-400 rounded-lg flex items-center justify-center">
-          <img src="/coolboy.png" alt="Pulsemint Logo" className="w-32 h-32 mx-auto" />
+          <img src="/coolboy.png" alt="Pulsemint Logo"/>
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-lg blur-sm opacity-50"></div>
       </div>
