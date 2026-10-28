@@ -33,6 +33,7 @@ export const AgentCallProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const [talking, setTalking] = useState(false);
   const [error, setError] = useState('');
   const [code, setCode] = useState('');
+  const [hint, setHint] = useState('');
   const clientRef = useRef<RetellWebClient | null>(null);
 
   const stop = useCallback(() => {
@@ -48,13 +49,16 @@ export const AgentCallProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const start = useCallback(async () => {
     setError('');
     setCode('');
+    setHint('');
     setStatus('connecting');
     try {
       const res = await fetch('/.netlify/functions/create-web-call', { method: 'POST' });
       if (!res.ok) {
         let reason = '';
         try {
-          reason = (await res.json()).reason || '';
+          const body = await res.json();
+          reason = body.reason || '';
+          setHint(body.hint || '');
         } catch {
           /* not JSON, e.g. the function isn't deployed */
         }
@@ -124,7 +128,7 @@ export const AgentCallProvider: React.FC<{ children: React.ReactNode }> = ({ chi
               {status === 'ended' && 'Thanks for trying it. Want one on your own number?'}
               {status === 'error' && error}
               {status === 'error' && code && (
-                <span className="mt-2 block text-xs text-white/35">Reference: {code}</span>
+                <span className="mt-2 block text-xs text-white/35">Reference: {code}{hint ? ` · ${hint}` : ''}</span>
               )}
               {status === 'idle' && ''}
             </DialogDescription>

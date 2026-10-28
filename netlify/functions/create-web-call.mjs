@@ -6,10 +6,10 @@
 //   RETELL_API_KEY   your secret API key
 //   AGENT_ID         the agent to call
 
-const fail = (status, reason, detail) => {
+const fail = (status, reason, detail, hint) => {
   // Shows up in Netlify → Logs → Functions. Never includes the API key.
   console.error('create-web-call failed:', reason, detail ?? '');
-  return json(status, { error: 'Could not start the call', reason });
+  return json(status, { error: 'Could not start the call', reason, hint });
 };
 
 const json = (status, body) =>
@@ -52,7 +52,17 @@ export default async (req) => {
       headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ agent_id: agentId }),
     });
-    if (!res.ok) return fail(502, `upstream_${res.status}`, (await res.text()).slice(0, 300));
+    if (!res.ok) {
+      const text = (await res.text()).slice(0, 300);
+      let hint;
+      try {
+        const msg = JSON.parse(text);
+        hint = String(msg.message || msg.error_message || msg.error || '').slice(0, 160);
+      } catch {
+        hint = undefined;
+      }
+      return fail(502, `upstream_${res.status}`, text, hint);
+    }
     const data = await res.json();
     return json(200, { accessToken: data.access_token });
   } catch (e) {
