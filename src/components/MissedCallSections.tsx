@@ -12,7 +12,8 @@ import {
   Plus,
 } from 'lucide-react';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
-import { BOOK_CALL_URL, CONTACT_EMAIL, TEST_AGENT_URL } from '../lib/links';
+import { BOOK_CALL_URL, CONTACT_EMAIL } from '../lib/links';
+import { useAgentCall } from './AgentCallModal';
 import shadmanPhoto from '../assets/shadman.jpg';
 
 /* ---------- shared bits, matching the existing site styles ---------- */
@@ -184,7 +185,9 @@ const EnquiryCard = () => {
   );
 };
 
-const MissedCallsIntro = () => (
+const MissedCallsIntro = () => {
+  const { openAgentCall } = useAgentCall();
+  return (
   <section className="relative z-10 py-20 md:py-28 px-6 md:px-8 bg-gradient-to-br from-emerald-900/10 via-black to-purple-900/10">
     <div className="max-w-6xl mx-auto grid lg:grid-cols-[1.1fr_1fr] gap-14 lg:gap-16 items-center">
       <Reveal>
@@ -205,10 +208,10 @@ const MissedCallsIntro = () => (
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </span>
           </a>
-          <a href={TEST_AGENT_URL} {...ext} className={secondaryBtn}>
+          <button type="button" onClick={openAgentCall} className={secondaryBtn}>
             <PhoneCall className="w-4 h-4 text-emerald-400" />
             HEAR IT FIRST
-          </a>
+          </button>
         </div>
 
         <p className="mt-6 text-sm text-white/50 tracking-wide">
@@ -221,11 +224,14 @@ const MissedCallsIntro = () => (
       </Reveal>
     </div>
   </section>
-);
+  );
+};
 
 /* ---------- 2. Hear it before you decide ---------- */
 
-const HearIt = () => (
+const HearIt = () => {
+  const { openAgentCall } = useAgentCall();
+  return (
   <section className="relative z-10 py-20 px-6 md:px-8 bg-gradient-to-br from-purple-900/10 via-black to-emerald-900/10">
     <Reveal className="max-w-4xl mx-auto">
       <div className="relative overflow-hidden rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-900/25 via-black/60 to-emerald-900/25 px-6 py-14 md:px-14 text-center">
@@ -240,18 +246,19 @@ const HearIt = () => (
             Call the agent. That’s the assistant picking up, and it answers everything about our business.
             No sign-up, and nobody will ring you back.
           </p>
-          <a href={TEST_AGENT_URL} {...ext} className={`${primaryBtn} mt-10 px-10 animate-pulse hover:animate-none`}>
+          <button type="button" onClick={openAgentCall} className={`${primaryBtn} mt-10 px-10 animate-pulse hover:animate-none`}>
             <span className="absolute inset-0 bg-gradient-to-r from-emerald-500/30 via-white/20 to-emerald-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <span className="relative z-10 flex items-center gap-2">
               <PhoneCall className="w-4 h-4" />
               CALL THE AGENT NOW
             </span>
-          </a>
+          </button>
         </div>
       </div>
     </Reveal>
   </section>
-);
+  );
+};
 
 /* ---------- 3. What happens when you miss a call ---------- */
 
@@ -392,6 +399,7 @@ const CalcInput: React.FC<{
 );
 
 const LossCalculator = () => {
+  const { openAgentCall } = useAgentCall();
   const [callValue, setCallValue] = useState(250);
   const [calls, setCalls] = useState(5);
   const [period, setPeriod] = useState<'week' | 'month'>('week');
@@ -550,10 +558,10 @@ const LossCalculator = () => {
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </a>
-                <a href={TEST_AGENT_URL} {...ext} className={`${secondaryBtn} px-6`}>
+                <button type="button" onClick={openAgentCall} className={`${secondaryBtn} px-6`}>
                   <PhoneCall className="w-4 h-4 text-emerald-400" />
                   HEAR IT FIRST
-                </a>
+                </button>
               </div>
             </div>
           </div>

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Logo from '../components/Logo';
 import { Squares } from '../components/ui/squares-background';
 import MissedCallSections, { ClosingCta } from '../components/MissedCallSections';
-import { BOOK_CALL_URL, TEST_AGENT_URL } from '../lib/links';
+import { BOOK_CALL_URL } from '../lib/links';
+import { useAgentCall } from '../components/AgentCallModal';
 
 const Index = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -53,6 +54,8 @@ const Index = () => {
     };
   }, []);
 
+  const { openAgentCall } = useAgentCall();
+
   const openBooking = () => {
     window.open(BOOK_CALL_URL, '_blank', 'noopener,noreferrer');
   };
@@ -81,10 +84,8 @@ const Index = () => {
       <header className="relative z-20 flex justify-between items-center p-4 md:p-8">
         <Logo />
         <nav className="flex gap-3 md:gap-8">
-          <a
-            href={TEST_AGENT_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={openAgentCall}
             className="inline-flex items-center gap-2 text-xs md:text-sm tracking-wider border border-emerald-500/50 px-3 py-2 md:px-4 md:py-2 bg-gradient-to-r from-emerald-500/20 to-emerald-400/20 hover:from-emerald-500/40 hover:to-emerald-400/40 transition-all duration-300 text-white rounded whitespace-nowrap"
           >
             <span className="relative flex h-2 w-2">
@@ -92,7 +93,7 @@ const Index = () => {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
             </span>
             TEST AGENT NOW
-          </a>
+          </button>
           <button 
             onClick={openBooking}
             className="text-xs md:text-sm tracking-wider border border-white/20 px-3 py-2 md:px-4 md:py-2 bg-transparent hover:bg-white/10 transition-all duration-300 text-white rounded whitespace-nowrap"
