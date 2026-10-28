@@ -128,3 +128,8 @@
   .pm-shimmer-text, .pm-hero-in, .pm-float, .pm-wave-bar, .pm-ping { animation: none; }
   .pm-reveal { opacity: 1; transform: none; transition: none; }
 }
+
+/* hide number-input spinners in the calculator */
+#calculator input[type='number']::-webkit-outer-spin-button,
+#calculator input[type='number']::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+#calculator input[type='number'] { -moz-appearance: textfield; }

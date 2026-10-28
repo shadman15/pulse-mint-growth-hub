@@ -274,7 +274,7 @@ const steps = [
 ];
 
 const HowItWorks = () => (
-  <section className="relative z-10 py-20 px-6 md:px-8 bg-gradient-to-br from-emerald-900/10 via-black to-purple-900/10">
+  <section id="how-it-works" className="relative z-10 py-20 px-6 md:px-8 bg-gradient-to-br from-emerald-900/10 via-black to-purple-900/10">
     <div className="max-w-6xl mx-auto">
       <Reveal>
         <h2 className={`${sectionHeading} text-center mb-16`}>What happens when you miss a call</h2>
@@ -302,6 +302,269 @@ const HowItWorks = () => (
     </div>
   </section>
 );
+
+/* ---------- 3b. Missed call cost calculator ---------- */
+
+const PRICE_PER_MONTH = 199;
+const WEEKS_PER_MONTH = 52 / 12;
+
+const gbp = (n: number) =>
+  '£' + Math.round(n).toLocaleString('en-GB', { maximumFractionDigits: 0 });
+
+/** Eases a number towards its target so totals glide rather than jump. */
+const useTweened = (target: number, ms = 450) => {
+  const [value, setValue] = useState(target);
+  const from = useRef(target);
+  useEffect(() => {
+    const start = performance.now();
+    const begin = from.current;
+    let raf = 0;
+    const step = (t: number) => {
+      const k = Math.min(1, (t - start) / ms);
+      const eased = 1 - Math.pow(1 - k, 3);
+      const v = begin + (target - begin) * eased;
+      from.current = v;
+      setValue(v);
+      if (k < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [target, ms]);
+  return value;
+};
+
+const clampNum = (v: string, max: number) => {
+  const n = parseFloat(v);
+  if (Number.isNaN(n) || n < 0) return 0;
+  return Math.min(n, max);
+};
+
+const CalcInput: React.FC<{
+  id: string;
+  label: string;
+  hint: string;
+  value: number;
+  onChange: (n: number) => void;
+  max: number;
+  sliderMax: number;
+  step: number;
+  prefix?: string;
+  ariaLabel?: string;
+}> = ({ id, label, hint, value, onChange, max, sliderMax, step, prefix, ariaLabel }) => (
+  <div>
+    {label && (
+      <label htmlFor={id} className="block text-xs tracking-[0.25em] text-white/70 mb-1 uppercase">
+        {label}
+      </label>
+    )}
+    <p className="text-sm text-white/45 mb-3">{hint}</p>
+    <div className="flex items-center gap-4">
+      <input
+        type="range"
+        min={0}
+        max={sliderMax}
+        step={step}
+        value={Math.min(value, sliderMax)}
+        onChange={(e) => onChange(clampNum(e.target.value, max))}
+        aria-label={label || ariaLabel}
+        className="flex-1 accent-emerald-500 cursor-pointer"
+      />
+      <div className="relative w-32 shrink-0">
+        {prefix && (
+          <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-white/50">{prefix}</span>
+        )}
+        <input
+          id={id}
+          type="number"
+          inputMode="decimal"
+          min={0}
+          max={max}
+          step={step}
+          value={value}
+          onChange={(e) => onChange(clampNum(e.target.value, max))}
+          className={`w-full bg-black/50 border border-white/20 rounded py-3 pr-3 text-white text-right focus:border-emerald-500/60 focus:outline-none transition-colors ${
+            prefix ? 'pl-7' : 'pl-3'
+          }`}
+        />
+      </div>
+    </div>
+  </div>
+);
+
+const LossCalculator = () => {
+  const [callValue, setCallValue] = useState(250);
+  const [calls, setCalls] = useState(5);
+  const [period, setPeriod] = useState<'week' | 'month'>('week');
+
+  const perWeekCalls = period === 'week' ? calls : calls / WEEKS_PER_MONTH;
+  const weekly = perWeekCalls * callValue;
+  const monthly = weekly * WEEKS_PER_MONTH;
+  const yearly = weekly * 52;
+
+  const shownMonthly = useTweened(monthly);
+  const shownWeekly = useTweened(weekly);
+  const shownYearly = useTweened(yearly);
+
+  const breakEven = callValue > 0 ? Math.ceil(PRICE_PER_MONTH / callValue) : null;
+  const barMax = Math.max(monthly, PRICE_PER_MONTH, 1);
+
+  const switchPeriod = (p: 'week' | 'month') => {
+    if (p === period) return;
+    // keep the same real-world rate when switching units
+    setCalls(Math.round(p === 'month' ? calls * WEEKS_PER_MONTH : calls / WEEKS_PER_MONTH));
+    setPeriod(p);
+  };
+
+  return (
+    <section
+      id="calculator"
+      className="relative z-10 py-20 px-6 md:px-8 bg-gradient-to-br from-purple-900/10 via-black to-emerald-900/10"
+    >
+      <div className="max-w-6xl mx-auto">
+        <Reveal className="text-center mb-14">
+          <div className="text-xs tracking-[0.4em] text-emerald-400/80 mb-5">MISSED CALL COST CALCULATOR</div>
+          <h2 className={sectionHeading}>What are missed calls costing you?</h2>
+          <p className="mt-6 text-lg text-white/70 max-w-2xl mx-auto">
+            Put in what one missed call is worth to you and how many you miss. It works out what walks to
+            your competitors.
+          </p>
+        </Reveal>
+
+        <Reveal delay={100}>
+          <div className="grid lg:grid-cols-2 gap-0 border border-emerald-500/30 rounded-2xl overflow-hidden bg-gradient-to-br from-emerald-900/20 via-black/60 to-emerald-900/20 shadow-[0_0_40px_rgba(16,185,129,0.12)]">
+            {/* inputs */}
+            <div className="p-7 md:p-10 space-y-10 border-b lg:border-b-0 lg:border-r border-emerald-500/20">
+              <CalcInput
+                id="calc-value"
+                label="Value of one missed call"
+                hint="The average job you’d win from a call that you answer."
+                value={callValue}
+                onChange={setCallValue}
+                max={1000000}
+                sliderMax={5000}
+                step={10}
+                prefix="£"
+              />
+
+              <div>
+                <div className="flex items-center justify-between gap-4 mb-1">
+                  <label htmlFor="calc-calls" className="text-xs tracking-[0.25em] text-white/70 uppercase">Missed calls</label>
+                  <div role="group" aria-label="Count calls per" className="flex rounded border border-white/20 p-0.5 text-xs tracking-wider">
+                    {(['week', 'month'] as const).map((p) => (
+                      <button
+                        key={p}
+                        type="button"
+                        onClick={() => switchPeriod(p)}
+                        aria-pressed={period === p}
+                        className={`px-2.5 sm:px-3 py-1.5 rounded-sm whitespace-nowrap transition-colors ${
+                          period === p ? 'bg-emerald-500/30 text-white' : 'text-white/60 hover:text-white'
+                        }`}
+                      >
+                        PER {p.toUpperCase()}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <CalcInput
+                  id="calc-calls"
+                  label=""
+                  ariaLabel={`Missed calls per ${period}`}
+                  hint={`Roughly how many calls you don’t pick up each ${period}.`}
+                  value={calls}
+                  onChange={(n) => setCalls(Math.round(n))}
+                  max={10000}
+                  sliderMax={period === 'week' ? 60 : 250}
+                  step={1}
+                />
+              </div>
+            </div>
+
+            {/* results */}
+            <div className="p-7 md:p-10 flex flex-col" aria-live="polite">
+              <div className="text-xs tracking-[0.3em] text-white/60 mb-3">YOU COULD BE LOSING</div>
+              <div className="flex items-baseline gap-3 flex-wrap">
+                <span className="pm-shimmer-text text-5xl md:text-6xl font-light tabular-nums">
+                  {gbp(shownMonthly)}
+                </span>
+                <span className="text-white/60 tracking-wider">a month</span>
+              </div>
+
+              <div className="mt-8 grid grid-cols-2 gap-4">
+                <div className="border border-white/15 rounded p-4">
+                  <div className="text-xs tracking-[0.25em] text-white/50 mb-1">PER WEEK</div>
+                  <div className="text-2xl font-light tabular-nums">{gbp(shownWeekly)}</div>
+                </div>
+                <div className="border border-white/15 rounded p-4">
+                  <div className="text-xs tracking-[0.25em] text-white/50 mb-1">PER YEAR</div>
+                  <div className="text-2xl font-light tabular-nums">{gbp(shownYearly)}</div>
+                </div>
+              </div>
+
+              {/* loss vs price */}
+              <div className="mt-8 space-y-3">
+                <div>
+                  <div className="flex justify-between text-xs tracking-wider text-white/60 mb-1.5">
+                    <span>Missed calls, per month</span>
+                    <span className="tabular-nums">{gbp(monthly)}</span>
+                  </div>
+                  <div className="h-2 rounded-full bg-white/10 overflow-hidden">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-red-400/70 to-red-300/90 transition-all duration-500"
+                      style={{ width: `${(monthly / barMax) * 100}%` }}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between text-xs tracking-wider text-white/60 mb-1.5">
+                    <span>Pulsemint, per month</span>
+                    <span>{gbp(PRICE_PER_MONTH)}</span>
+                  </div>
+                  <div className="h-2 rounded-full bg-white/10 overflow-hidden">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-emerald-300 transition-all duration-500"
+                      style={{ width: `${(PRICE_PER_MONTH / barMax) * 100}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <p className="mt-6 text-sm text-white/65 leading-relaxed">
+                {breakEven !== null ? (
+                  <>
+                    At {gbp(callValue)} a call, Pulsemint pays for itself if it catches{' '}
+                    <span className="text-emerald-300">
+                      {breakEven} {breakEven === 1 ? 'call' : 'calls'} a month
+                    </span>{' '}
+                    you’d otherwise have lost. The first 14 days are free.
+                  </>
+                ) : (
+                  'Enter what one call is worth to you to see your figures.'
+                )}
+              </p>
+
+              <div className="mt-auto pt-8 flex flex-col sm:flex-row gap-3">
+                <a href={BOOK_CALL_URL} {...ext} className={`${primaryBtn} px-6`}>
+                  <span className="absolute inset-0 bg-gradient-to-r from-emerald-500/30 via-white/20 to-emerald-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <span className="relative z-10 flex items-center gap-2">
+                    START THE FREE PILOT
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                </a>
+                <a href={TEST_AGENT_URL} {...ext} className={`${secondaryBtn} px-6`}>
+                  <PhoneCall className="w-4 h-4 text-emerald-400" />
+                  HEAR IT FIRST
+                </a>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+        <p className="mt-4 text-center text-xs text-white/40">
+          An estimate from the figures you enter. A month is counted as 52 ÷ 12 weeks.
+        </p>
+      </div>
+    </section>
+  );
+};
 
 /* ---------- 4. Pricing / pilot ---------- */
 
@@ -476,6 +739,7 @@ const MissedCallSections = () => (
     <MissedCallsIntro />
     <HearIt />
     <HowItWorks />
+    <LossCalculator />
     <Pricing />
     <Founder />
     <Faq />
