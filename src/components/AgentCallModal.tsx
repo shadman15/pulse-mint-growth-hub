@@ -65,7 +65,7 @@ export const AgentCallProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         setCode(reason || `http_${res.status}`);
         throw new Error('token');
       }
-      const { accessToken } = await res.json();
+      const { accessToken, callId, transport, iceServers } = await res.json();
       if (!accessToken) throw new Error('token');
 
       const client = new RetellWebClient();
@@ -83,7 +83,7 @@ export const AgentCallProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         setStatus('error');
         stop();
       });
-      await client.startCall({ accessToken });
+      await client.startCall({ accessToken, callId, transport, iceServers });
     } catch (e) {
       console.error('[agent call]', e);
       const denied = e instanceof Error && /permission|denied|notallowed/i.test(e.name + e.message);

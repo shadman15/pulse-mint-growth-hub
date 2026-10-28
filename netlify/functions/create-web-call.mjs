@@ -47,7 +47,7 @@ export default async (req) => {
   }
 
   try {
-    const res = await fetch('https://api.retellai.com/v2/create-web-call', {
+    const res = await fetch('https://api.retellai.com/v3/create-web-call', {
       method: 'POST',
       headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ agent_id: agentId }),
@@ -64,7 +64,12 @@ export default async (req) => {
       return fail(502, `upstream_${res.status}`, text, hint);
     }
     const data = await res.json();
-    return json(200, { accessToken: data.access_token });
+    return json(200, {
+      accessToken: data.access_token,
+      callId: data.call_id,
+      transport: data.transport,
+      iceServers: data.ice_servers,
+    });
   } catch (e) {
     return fail(502, 'network', String(e));
   }
