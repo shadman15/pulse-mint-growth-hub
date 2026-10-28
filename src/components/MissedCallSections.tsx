@@ -264,7 +264,7 @@ const steps = [
   {
     icon: ClipboardList,
     title: 'It takes the details',
-    body: 'It says it’s an automated assistant, then asks for their name, number, the job and the address. It doesn’t quote prices or promise dates.',
+    body: 'It answers the call, then asks for their name, number, the job and the address. If a caller asks whether it’s an AI, it says yes. It doesn’t quote prices or promise dates.',
   },
   {
     icon: MessageSquareText,
@@ -645,8 +645,8 @@ const Founder = () => (
       <Reveal delay={120}>
         <div className="text-xs tracking-[0.4em] text-emerald-400/80 mb-5">WHO’S BEHIND THIS</div>
         <p className="text-xl md:text-2xl font-light text-white/90 leading-relaxed">
-          I’m Shadman, based in Lowestoft, UK. I build and run Pulsemint myself, and I’m taking on my
-          first few clients. You deal with me directly, not a call centre.
+          I’m Shadman, based in Lowestoft, UK. I build and run Pulsemint myself; feel free to contact me
+          with any enquiry. You deal with me directly, not a call centre.
         </p>
         <div className="mt-6 flex items-center gap-2 text-sm text-white/50 tracking-wider">
           <MapPin className="w-4 h-4 text-emerald-400" /> Lowestoft, UK
@@ -670,7 +670,7 @@ const Founder = () => (
 /* ---------- 6. FAQ ---------- */
 
 const faqs = [
-  ['Will callers know it isn’t a person?', 'Yes. It says it’s an automated assistant at the start of every call.'],
+  ['Will callers know it’s an AI?', 'If they ask, yes. It doesn’t open the call by announcing it, but if a caller asks whether they’re speaking to an AI, it answers truthfully: yes, it is.'],
   [
     'What happens to the call details?',
     'They’re sent to you. Callers are told the call may be recorded, and I’ll give you a short data-protection note for your records.',
