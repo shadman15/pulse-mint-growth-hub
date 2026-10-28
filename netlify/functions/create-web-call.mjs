@@ -6,6 +6,12 @@
 //   RETELL_API_KEY   your secret API key
 //   AGENT_ID         the agent to call
 
+const fail = (status, reason, detail) => {
+  // Shows up in Netlify → Logs → Functions. Never includes the API key.
+  console.error('create-web-call failed:', reason, detail ?? '');
+  return json(status, { error: 'Could not start the call', reason });
+};
+
 const json = (status, body) =>
   new Response(JSON.stringify(body), {
     status,
@@ -17,7 +23,12 @@ export default async (req) => {
 
   const apiKey = process.env.RETELL_API_KEY;
   const agentId = process.env.AGENT_ID;
-  if (!apiKey || !agentId) return json(500, { error: 'Voice agent is not configured' });
+  if (!apiKey || !agentId) {
+    return fail(500, 'not_configured', {
+      hasKey: Boolean(apiKey),
+      hasAgentId: Boolean(agentId),
+    });
+  }
 
   // Only allow calls started from this site (blocks casual abuse from other origins).
   const origin = req.headers.get('origin');
@@ -32,7 +43,7 @@ export default async (req) => {
         .map((h) => h.trim())
         .filter(Boolean)
         .some((h) => host === h || host.endsWith('.' + h));
-    if (!allowed) return json(403, { error: 'Not allowed' });
+    if (!allowed) return fail(403, 'origin_blocked', host);
   }
 
   try {
@@ -41,10 +52,10 @@ export default async (req) => {
       headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ agent_id: agentId }),
     });
-    if (!res.ok) return json(502, { error: 'Could not start the call' });
+    if (!res.ok) return fail(502, `upstream_${res.status}`, (await res.text()).slice(0, 300));
     const data = await res.json();
     return json(200, { accessToken: data.access_token });
-  } catch {
-    return json(502, { error: 'Could not start the call' });
+  } catch (e) {
+    return fail(502, 'network', String(e));
   }
 };

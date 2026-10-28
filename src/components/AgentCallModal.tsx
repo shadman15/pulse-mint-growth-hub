@@ -32,6 +32,7 @@ export const AgentCallProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const [status, setStatus] = useState<Status>('idle');
   const [talking, setTalking] = useState(false);
   const [error, setError] = useState('');
+  const [code, setCode] = useState('');
   const clientRef = useRef<RetellWebClient | null>(null);
 
   const stop = useCallback(() => {
@@ -46,10 +47,20 @@ export const AgentCallProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   const start = useCallback(async () => {
     setError('');
+    setCode('');
     setStatus('connecting');
     try {
       const res = await fetch('/.netlify/functions/create-web-call', { method: 'POST' });
-      if (!res.ok) throw new Error('token');
+      if (!res.ok) {
+        let reason = '';
+        try {
+          reason = (await res.json()).reason || '';
+        } catch {
+          /* not JSON, e.g. the function isn't deployed */
+        }
+        setCode(reason || `http_${res.status}`);
+        throw new Error('token');
+      }
       const { accessToken } = await res.json();
       if (!accessToken) throw new Error('token');
 
@@ -70,6 +81,7 @@ export const AgentCallProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       });
       await client.startCall({ accessToken });
     } catch (e) {
+      console.error('[agent call]', e);
       const denied = e instanceof Error && /permission|denied|notallowed/i.test(e.name + e.message);
       setError(
         denied
@@ -111,6 +123,9 @@ export const AgentCallProvider: React.FC<{ children: React.ReactNode }> = ({ chi
               {status === 'live' && 'Ask it anything about Pulsemint. Nobody will ring you back.'}
               {status === 'ended' && 'Thanks for trying it. Want one on your own number?'}
               {status === 'error' && error}
+              {status === 'error' && code && (
+                <span className="mt-2 block text-xs text-white/35">Reference: {code}</span>
+              )}
               {status === 'idle' && ''}
             </DialogDescription>
           </div>
