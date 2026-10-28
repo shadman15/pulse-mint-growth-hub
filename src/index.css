@@ -99,3 +99,32 @@
     @apply bg-background text-foreground;
   }
 }
+/* ---------- Pulsemint additions ---------- */
+@layer utilities {
+  .pm-shimmer-text {
+    background: linear-gradient(110deg, #10b981 0%, #ffffff 35%, #34d399 55%, #ffffff 75%, #10b981 100%);
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: pm-shimmer 6s linear infinite;
+    text-shadow: 0 0 30px rgba(16, 185, 129, 0.25);
+  }
+  .pm-hero-in { animation: pm-fade-up 1s ease-out both; }
+  .pm-float { animation: pm-float 6s ease-in-out infinite; }
+  .pm-wave-bar { transform-origin: center; animation: pm-wave 1s ease-in-out infinite; }
+  .pm-ping { animation: pm-ping 1.6s cubic-bezier(0, 0, 0.2, 1) infinite; }
+  .pm-reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+  .pm-reveal-in { opacity: 1; transform: none; }
+}
+
+@keyframes pm-shimmer { from { background-position: 100% 0; } to { background-position: -150% 0; } }
+@keyframes pm-fade-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes pm-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+@keyframes pm-wave { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
+@keyframes pm-ping { 75%, 100% { transform: scale(1.8); opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .pm-shimmer-text, .pm-hero-in, .pm-float, .pm-wave-bar, .pm-ping { animation: none; }
+  .pm-reveal { opacity: 1; transform: none; transition: none; }
+}
