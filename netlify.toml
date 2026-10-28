@@ -3,6 +3,11 @@
   publish = "dist"
   functions = "netlify/functions"
 
+# ALLOWED_HOSTS is just the public domain name (it appears in the site's own
+# email address), so it isn't a secret. The API key and agent ID stay scanned.
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "ALLOWED_HOSTS"
+
 # Single-page app: send every path to index.html
 [[redirects]]
   from = "/*"
