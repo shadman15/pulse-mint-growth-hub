@@ -108,8 +108,8 @@ const Index = () => {
         {/* Hero headline */}
         <div className="text-center px-6 mb-16 lg:mb-44 pm-hero-in">
           <h1 className="text-3xl sm:text-4xl md:text-6xl font-light tracking-[0.1em] md:tracking-[0.16em] leading-tight text-white max-w-5xl mx-auto">
-            <span className="pm-shimmer-text font-normal">Pulsemint:</span>{' '}
-            <span className="text-white/90">The best AI voice agent Builder</span>
+            <span className="pm-shimmer-text font-normal">PulseMint:</span>{' '}
+            <span className="text-white/90">Best AI answering service for small businesses</span>
           </h1>
           <div className="mx-auto mt-6 h-px w-48 bg-gradient-to-r from-transparent via-emerald-400 to-transparent"></div>
         </div>
