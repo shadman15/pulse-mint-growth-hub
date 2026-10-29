@@ -1,0 +1,14 @@
+{
+  "_readme": "Searches sent to your phone every morning as tap-to-open links. Facebook and LinkedIn cannot be searched by a tool, so these open the search in your own app, newest posts first. Add groups you have joined under facebookGroups (the number or name from the group's web address) to also search inside each group.",
+  "facebook": [
+    "answering service",
+    "missed calls",
+    "can't answer the phone",
+    "who answers your phone",
+    "virtual receptionist",
+    "call answering"
+  ],
+  "facebookGroups": [],
+  "facebookGroupQueries": ["phone", "missed calls", "answering"],
+  "linkedin": ["\"answering service\" OR \"missed calls\""]
+}

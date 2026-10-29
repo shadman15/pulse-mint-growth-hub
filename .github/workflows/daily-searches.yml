@@ -1,0 +1,26 @@
+name: Morning search links
+
+# Sends Facebook and LinkedIn search links to your phone each morning.
+# Cron is in UTC: 07:52 UTC is 07:52 in UK winter time and 08:52 in summer.
+# Change the time here. GitHub can start scheduled runs a few minutes late.
+on:
+  schedule:
+    - cron: '52 7 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Send search links
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: node social/daily-searches.mjs
