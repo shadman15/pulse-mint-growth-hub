@@ -1,0 +1,61 @@
+name: Listen for leads
+
+# Every 10 minutes: read Reddit, trade forums and Google Alerts, score posts
+# about missed calls and answering services, and push new ones to your phone.
+# GitHub can delay scheduled runs at busy times, so expect 10-30 minutes.
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+    inputs:
+      report:
+        description: 'Also open an issue showing which sources worked and what matched (issues are public)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: social-listen
+  cancel-in-progress: false
+
+jobs:
+  listen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      # Remembers which posts were already sent. Kept in the Actions cache, not
+      # the repo, so the lead list never becomes public.
+      - uses: actions/cache/restore@v4
+        with:
+          path: .listen-state
+          key: listen-seen-${{ github.run_id }}
+          restore-keys: listen-seen-
+
+      - name: Check sources and push new leads
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          LISTEN_SEEN: .listen-state/seen.json
+        run: node social/listen.mjs ${{ inputs.report && '--report report.md' || '' }}
+
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: .listen-state
+          key: listen-seen-${{ github.run_id }}
+
+      - name: Open report issue
+        if: inputs.report
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue create --repo "$GITHUB_REPOSITORY" --title "Lead listener report $(date -u '+%Y-%m-%d %H:%M') UTC" --body-file report.md
