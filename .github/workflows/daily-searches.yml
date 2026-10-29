@@ -20,6 +20,16 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '22'
+      - name: Check the NTFY_TOPIC secret is set
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: |
+          if [ -z "$NTFY_TOPIC" ]; then
+            echo "::error::NTFY_TOPIC secret is missing. Settings > Secrets and variables > Actions > New repository secret."
+            exit 1
+          fi
+          echo "topic is set (${#NTFY_TOPIC} characters)"
+
       - name: Send search links
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
