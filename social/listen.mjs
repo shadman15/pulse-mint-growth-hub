@@ -137,8 +137,10 @@ export function makeScorer(scoring) {
       cap(h.intent.length, 2) +
       cap(h.business.length, 2) -
       5 * h.vendor.length;
+    // A post with only a passing word like "voicemail" must clear a higher bar.
     const relevant = h.strong.length > 0 || h.weak.length > 0;
-    return { score, relevant, hits: h };
+    const bonusNeeded = h.strong.length ? 0 : 2;
+    return { score, relevant, bonusNeeded, hits: h };
   };
 }
 
@@ -274,8 +276,13 @@ async function main() {
   const health = [];
   const leads = new Map();
 
+  let redditCalls = 0;
   for (const src of config.sources) {
     if (!src.enabled || (src.type === 'rss' && !src.url)) continue;
+    // Reddit rate-limits back-to-back requests (HTTP 429), so space them out.
+    if (src.type === 'reddit' && redditCalls++ > 0) {
+      await new Promise((r) => setTimeout(r, Number(process.env.REDDIT_GAP_MS ?? 4000)));
+    }
     const row = { name: src.name, ok: false, items: 0, fresh: 0, matches: 0, error: '' };
     health.push(row);
     try {
@@ -287,7 +294,7 @@ async function main() {
         if (Date.now() - p.publishedAt.getTime() > maxAge) continue;
         row.fresh++;
         const s = score(p);
-        if (!s.relevant || s.score < minScore) continue;
+        if (!s.relevant || s.score < minScore + s.bonusNeeded) continue;
         row.matches++;
         const key = keyFor(p.url);
         if (!leads.has(key)) leads.set(key, { ...p, key, score: s.score, hits: s.hits });
