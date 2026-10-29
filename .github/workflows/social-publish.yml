@@ -1,0 +1,61 @@
+name: Publish social queue
+
+# Runs four times a day. Each run publishes only the queue items whose
+# publishAt has already passed, so the exact minute does not matter.
+on:
+  schedule:
+    - cron: '37 8,12,17,20 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Show what would post without posting'
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: social-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      - name: Publish due items
+        env:
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          LI_PERSON_URN: ${{ secrets.LI_PERSON_URN }}
+          LI_TOKEN: ${{ secrets.LI_TOKEN }}
+          GRAPH_VERSION: ${{ vars.GRAPH_VERSION }}
+          LI_VERSION: ${{ vars.LI_VERSION }}
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            node social/publish.mjs --dry-run
+          else
+            node social/publish.mjs
+          fi
+
+      - name: Commit the updated queue
+        if: inputs.dry_run != true
+        run: |
+          if git diff --quiet social/queue.json; then
+            echo "queue unchanged"
+            exit 0
+          fi
+          git config user.name  "pulsemint-bot"
+          git config user.email "info@pulsemint.co.uk"
+          git add social/queue.json
+          # [skip netlify] stops the site rebuilding for a queue-only change.
+          git commit -m "Mark published social items [skip ci] [skip netlify]"
+          git push

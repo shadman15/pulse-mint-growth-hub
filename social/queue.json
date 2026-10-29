@@ -1,0 +1,27 @@
+{
+  "_readme": "Each item is published once, at or after publishAt, then marked posted. Claude refills this weekly. Instagram items must have a mediaUrl; the API cannot post text alone.",
+  "items": [
+    {
+      "id": "2026-11-03-li-1",
+      "platform": "linkedin",
+      "publishAt": "2026-11-03T08:40:00Z",
+      "status": "pending",
+      "text": "A roofer told me he loses about two jobs a week to voicemail.\n\nNot to a competitor's better price. To voicemail.\n\nHe is on a roof. The phone rings. He cannot answer it. The caller does not leave a message, because almost nobody does. They ring the next roofer on the list.\n\nThe job was never lost on price or on quality. It was lost because nobody picked up.\n\nI build voice agents that answer those calls, take the name, number, job and address, and text them to the owner within a minute. The owner rings back when they are off the roof, and the caller is still theirs.\n\nIf you run a trade and the phone goes unanswered while you work, that is the whole problem worth fixing."
+    },
+    {
+      "id": "2026-11-03-fb-1",
+      "platform": "facebook",
+      "publishAt": "2026-11-03T17:30:00Z",
+      "status": "pending",
+      "text": "Quick question for any tradesperson reading this.\n\nHow many calls did you miss last week?\n\nMost people guess two or three. When they check the phone, it is usually closer to eight. Each one was somebody who needed work doing and had money to spend.\n\nWe built a calculator so you can put your own numbers in and see what those calls were worth: pulsemint.co.uk",
+      "link": "https://pulsemint.co.uk/#calculator"
+    },
+    {
+      "id": "2026-11-05-li-2",
+      "platform": "linkedin",
+      "publishAt": "2026-11-05T08:40:00Z",
+      "status": "pending",
+      "text": "The most common objection I get about AI phone answering is the honest one.\n\n\"My customers will hate talking to a robot.\"\n\nFair. So here is how ours behaves. It does not open the call by announcing it is an AI, because that makes people hang up on a greeting. It answers like a receptionist would: it asks for the name, the number, what the job is and where. If the caller asks whether they are speaking to an AI, it says yes. Straight away, no hedging.\n\nIt does not quote prices. It does not promise a date. Those are the owner's calls to make, and an agent that guesses them creates a problem rather than solving one.\n\nThe bar is not whether it sounds human. The bar is whether the caller gets dealt with properly and the owner gets the job."
+    }
+  ]
+}
