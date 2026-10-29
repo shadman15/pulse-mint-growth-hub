@@ -127,6 +127,7 @@ export function makeScorer(scoring) {
       intent: hits('intent', text),
       business: hits('business', text),
       vendor: hits('vendor', text),
+      owner: lists.ownerContext ? hits('ownerContext', text) : [],
     };
     const cap = (n, c) => Math.min(n, c);
     // One strong phrase is worth 3, a second distinct one adds 1. Reaching the
@@ -216,6 +217,19 @@ async function readRss(src) {
 
 const READERS = { reddit: readReddit, rss: readRss };
 
+/** Sellers and off-topic communities, from config.excludeSubreddits. */
+function makeSubFilter(ex = {}) {
+  const names = new Set((ex.names || []).map((n) => n.toLowerCase()));
+  const pats = (ex.patterns || []).map((p) => new RegExp(p, 'i'));
+  const casePats = (ex.caseSensitivePatterns || []).map((p) => new RegExp(p));
+  return (where = '') => {
+    const m = where.match(/^r\/(.+)$/);
+    if (!m) return false;
+    const sub = m[1];
+    return names.has(sub.toLowerCase()) || pats.some((re) => re.test(sub)) || casePats.some((re) => re.test(sub));
+  };
+}
+
 /* -------------------------------------------------------------------- state */
 
 async function loadSeen() {
@@ -272,6 +286,7 @@ async function main() {
   const minScore = config.minScore ?? 4;
   const maxPush = config.maxPushPerRun ?? 8;
   const seen = await loadSeen();
+  const excludedSub = makeSubFilter(config.excludeSubreddits);
 
   const health = [];
   const leads = new Map();
@@ -281,7 +296,7 @@ async function main() {
   // turns, one per 10-minute slot. With credentials set, all run every time.
   const redditSources = config.sources.filter((s) => s.enabled && s.type === 'reddit');
   const rotate = !(process.env.REDDIT_CLIENT_ID && process.env.REDDIT_CLIENT_SECRET) && redditSources.length > 1;
-  const slot = Number(process.env.REDDIT_SLOT ?? Math.floor(Date.now() / 600_000));
+  const slot = process.env.REDDIT_SLOT ? Number(process.env.REDDIT_SLOT) : Math.floor(Date.now() / 600_000);
   const redditTurn = rotate ? redditSources[slot % redditSources.length] : null;
 
   for (const src of config.sources) {
@@ -300,8 +315,11 @@ async function main() {
         if (!p.publishedAt || Number.isNaN(p.publishedAt.getTime())) continue;
         if (Date.now() - p.publishedAt.getTime() > maxAge) continue;
         row.fresh++;
+        if (src.type === 'reddit' && excludedSub(p.where)) continue;
         const s = score(p);
         if (!s.relevant || s.score < minScore + s.bonusNeeded) continue;
+        // Broad searches must show the poster runs a business, not sells to one.
+        if (src.requireOwnerContext && !s.hits.owner.length) continue;
         row.matches++;
         const key = keyFor(p.url);
         if (!leads.has(key)) leads.set(key, { ...p, key, score: s.score, hits: s.hits });

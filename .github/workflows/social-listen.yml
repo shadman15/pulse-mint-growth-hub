@@ -12,6 +12,10 @@ on:
         description: 'Also open an issue showing which sources worked and what matched (issues are public)'
         type: boolean
         default: false
+      reddit_slot:
+        description: 'Which Reddit search to run (0 or 1). Leave empty to take turns as normal'
+        type: string
+        default: ''
 
 permissions:
   contents: read
@@ -46,6 +50,7 @@ jobs:
           REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
           REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
           LISTEN_SEEN: .listen-state/seen.json
+          REDDIT_SLOT: ${{ inputs.reddit_slot }}
         run: node social/listen.mjs ${{ inputs.report && '--report report.md' || '' }}
 
       - uses: actions/cache/save@v4
