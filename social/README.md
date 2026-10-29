@@ -111,7 +111,10 @@ Optional **variables** (not secrets): `GRAPH_VERSION`, `LI_VERSION`.
   not have to match.
 - `mediaType` — `image`, or `video`/`reel` for an Instagram Reel. A Reel needs a
   publicly reachable file; Meta fetches it.
-- `link` — Facebook only.
+- `link` — Facebook only. Attaches a link preview to the post itself.
+- `firstComment` — Facebook only. Posted as the first comment right after the
+  post goes live. Use it for the link instead of `link`, so the post body stays
+  link-free. If the comment fails the post stays live and is not retried.
 - `status` — `pending` until it posts, then `posted`. Three failures sets
   `failed` so one bad item cannot block the queue, and the reason is written to
   `error`.

@@ -79,7 +79,9 @@ const facebook = {
     const pageId = process.env.FB_PAGE_ID;
     const token = process.env.FB_PAGE_TOKEN;
 
-    // A link or photo post uses a different edge from a plain text post.
+    let postId;
+
+    // A photo post uses a different edge from a plain text post.
     if (item.mediaUrl && item.mediaType === 'image') {
       const params = new URLSearchParams({
         url: item.mediaUrl,
@@ -90,16 +92,33 @@ const facebook = {
         method: 'POST',
         body: params,
       });
-      return r.post_id || r.id;
+      postId = r.post_id || r.id;
+    } else {
+      const params = new URLSearchParams({ message: item.text, access_token: token });
+      if (item.link) params.set('link', item.link);
+      const r = await send('facebook feed', `${GRAPH}/${pageId}/feed`, {
+        method: 'POST',
+        body: params,
+      });
+      postId = r.id;
     }
 
-    const params = new URLSearchParams({ message: item.text, access_token: token });
-    if (item.link) params.set('link', item.link);
-    const r = await send('facebook feed', `${GRAPH}/${pageId}/feed`, {
-      method: 'POST',
-      body: params,
-    });
-    return r.id;
+    // Keeping the link out of the post body and putting it in the first comment
+    // is a common tactic for reach, since posts with outbound links tend to be
+    // shown less. The post is already live at this point, so a failed comment
+    // must not fail the item, or the next run would post it a second time.
+    if (item.firstComment) {
+      try {
+        await send('facebook comment', `${GRAPH}/${postId}/comments`, {
+          method: 'POST',
+          body: new URLSearchParams({ message: item.firstComment, access_token: token }),
+        });
+      } catch (err) {
+        warn(`    first comment failed, post is live: ${err.message || err}`);
+      }
+    }
+
+    return postId;
   },
 };
 

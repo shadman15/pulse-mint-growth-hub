@@ -11,19 +11,27 @@
       "remoteId": "urn:li:share:7521604256202715136"
     },
     {
-      "id": "2026-10-29-fb-1",
-      "platform": "facebook",
-      "publishAt": "2026-10-29T17:30:00Z",
-      "status": "pending",
-      "text": "Quick question for any tradesperson reading this.\n\nHow many calls did you miss last week?\n\nMost people guess two or three. When they check the phone, it is usually closer to eight. Each one was somebody who needed work doing and had money to spend.\n\nWe built a calculator so you can put your own numbers in and see what those calls were worth: pulsemint.co.uk",
-      "link": "https://pulsemint.co.uk/#calculator"
-    },
-    {
       "id": "2026-10-30-li-2",
       "platform": "linkedin",
       "publishAt": "2026-10-30T08:40:00Z",
       "status": "pending",
-      "text": "The most common objection I get about AI phone answering is the honest one.\n\n\"My customers will hate talking to a robot.\"\n\nFair. So here is how ours behaves. It does not open the call by announcing it is an AI, because that makes people hang up on a greeting. It answers like a receptionist would: it asks for the name, the number, what the job is and where. If the caller asks whether they are speaking to an AI, it says yes. Straight away, no hedging.\n\nIt does not quote prices. It does not promise a date. Those are the owner's calls to make, and an agent that guesses them creates a problem rather than solving one.\n\nThe bar is not whether it sounds human. The bar is whether the caller gets dealt with properly and the owner gets the job."
+      "text": "A lot of tradespeople tell me the same thing about AI answering: \"My customers won't want to talk to a robot.\"\n\nFair worry. But the comparison I'd ask you to make isn't AI versus you. It's AI versus voicemail.\n\nWhen you're on the tools, the call that goes unanswered isn't answered by you. It goes to a beep, and plenty of callers hang up and ring the next number.\n\nSo what would you rather the caller got? A beep, or something that asks what the job is, takes their number and tells them you'll ring back?\n\nIf a caller asks whether it's an AI, it says yes. It doesn't quote prices or promise dates. Those stay with you.\n\nWhere do you land on that?"
+    },
+    {
+      "id": "2026-10-30-fb-1",
+      "platform": "facebook",
+      "publishAt": "2026-10-30T19:30:00Z",
+      "status": "pending",
+      "text": "Be honest. When you're up a ladder and the phone rings, what happens to that call?\n\nIt goes to voicemail. And plenty of callers don't leave a message. They just ring the next tradesperson on Google.\n\nYou can't be in two places at once. That's not a failing, it's the job.\n\nSo what do you do about it right now? Partner answers, mate answers, or it just rings out?",
+      "firstComment": "If you want to see what those missed calls could be costing you, there's a quick calculator here: https://pulsemint.co.uk/#calculator\n\nI'm Shadman, I build and run Pulsemint myself, so ask me anything here."
+    },
+    {
+      "id": "2026-11-01-fb-2",
+      "platform": "facebook",
+      "publishAt": "2026-11-01T19:30:00Z",
+      "status": "pending",
+      "text": "\"My customers won't want to talk to a robot.\"\n\nFair enough. I hear it a lot from tradespeople.\n\nBut think about what actually happens when you can't pick up. They don't get you. They get a beep.\n\nWhich would you rather a customer got while you're on a job: a beep, or a polite voice that asks what the work is, takes their number and says you'll ring back?\n\nAnd if they ask \"is this an AI?\", it tells them yes. No tricks.\n\nWhat would you want it to say?",
+      "firstComment": "You can try it yourself, just hit 'Test Agent Now' on the site and pretend to be a customer: https://pulsemint.co.uk\n\nShadman here, I build it, so tell me what you'd change."
     }
   ]
 }
