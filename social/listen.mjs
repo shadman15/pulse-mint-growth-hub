@@ -276,12 +276,19 @@ async function main() {
   const health = [];
   const leads = new Map();
 
-  let redditCalls = 0;
+  // Unauthenticated Reddit answers one search per run from GitHub's shared
+  // servers and rate-limits the next (HTTP 429). So the Reddit searches take
+  // turns, one per 10-minute slot. With credentials set, all run every time.
+  const redditSources = config.sources.filter((s) => s.enabled && s.type === 'reddit');
+  const rotate = !(process.env.REDDIT_CLIENT_ID && process.env.REDDIT_CLIENT_SECRET) && redditSources.length > 1;
+  const slot = Number(process.env.REDDIT_SLOT ?? Math.floor(Date.now() / 600_000));
+  const redditTurn = rotate ? redditSources[slot % redditSources.length] : null;
+
   for (const src of config.sources) {
     if (!src.enabled || (src.type === 'rss' && !src.url)) continue;
-    // Reddit rate-limits back-to-back requests (HTTP 429), so space them out.
-    if (src.type === 'reddit' && redditCalls++ > 0) {
-      await new Promise((r) => setTimeout(r, Number(process.env.REDDIT_GAP_MS ?? 4000)));
+    if (redditTurn && src.type === 'reddit' && src !== redditTurn) {
+      health.push({ name: src.name, ok: true, skipped: true, items: 0, fresh: 0, matches: 0, error: '' });
+      continue;
     }
     const row = { name: src.name, ok: false, items: 0, fresh: 0, matches: 0, error: '' };
     health.push(row);
@@ -308,6 +315,7 @@ async function main() {
   const fresh = all.filter((l) => !seen[l.key]);
 
   for (const r of health) {
+    if (r.skipped) { log(`wait ${r.name}: next run (Reddit searches take turns)`); continue; }
     log(`${r.ok ? 'ok  ' : 'FAIL'} ${r.name}: ${r.ok ? `${r.items} posts, ${r.fresh} this week, ${r.matches} matched` : r.error}`);
   }
   log(`${all.length} matching posts this week, ${fresh.length} not sent before`);
@@ -338,7 +346,9 @@ async function main() {
       '',
       '| Source | Status | Posts read | This week | Matched |',
       '| --- | --- | --- | --- | --- |',
-      ...health.map((r) => `| ${r.name} | ${r.ok ? 'ok' : `failed: ${r.error}`} | ${r.items} | ${r.fresh} | ${r.matches} |`),
+      ...health.map((r) => r.skipped
+        ? `| ${r.name} | next run (takes turns) | - | - | - |`
+        : `| ${r.name} | ${r.ok ? 'ok' : `failed: ${r.error}`} | ${r.items} | ${r.fresh} | ${r.matches} |`),
       '',
       all.length ? '### Matches' : '_No matches this week._',
       ...all.map((l) => `- **${l.score}** · ${l.where} · ${ago(l.publishedAt)} · [${l.title.replace(/[[\]]/g, '')}](${l.url})  \n  matched: ${[...l.hits.strong, ...l.hits.weak, ...l.hits.intent].slice(0, 5).join(', ')}`),
