@@ -28,7 +28,8 @@ jobs:
             echo "::error::NTFY_TOPIC secret is missing. Settings > Secrets and variables > Actions > New repository secret."
             exit 1
           fi
-          echo "topic is set (${#NTFY_TOPIC} characters)"
+          FP=$(printf '%s' "$NTFY_TOPIC" | sha256sum | cut -c1-8)
+          echo "::notice::NTFY_TOPIC is set: ${#NTFY_TOPIC} characters, fingerprint $FP"
 
       - name: Send search links
         env:
