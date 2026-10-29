@@ -17,7 +17,7 @@
  *
  * Optional:
  *   GRAPH_VERSION  default v23.0   Meta Graph API version
- *   LI_VERSION     default 202605  LinkedIn-Version header (YYYYMM)
+ *   LI_VERSION     default 202608  LinkedIn-Version header (YYYYMM)
  */
 
 import { readFile, writeFile } from 'node:fs/promises';
@@ -29,7 +29,7 @@ const QUEUE_PATH = process.env.QUEUE_PATH || join(HERE, 'queue.json');
 
 const DRY_RUN = process.argv.includes('--dry-run');
 const GRAPH = `https://graph.facebook.com/${process.env.GRAPH_VERSION || 'v23.0'}`;
-const LI_VERSION = process.env.LI_VERSION || '202605';
+const LI_VERSION = process.env.LI_VERSION || '202608';
 
 // Meta allows 100 API publishes per Instagram account per rolling 24h.
 // We stay well under it; this is a guard against a runaway queue.
