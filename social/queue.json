@@ -7,8 +7,6 @@
       "publishAt": "2026-10-29T13:00:00Z",
       "status": "pending",
       "text": "A roofer told me he loses about two jobs a week to voicemail.\n\nNot to a competitor's better price. To voicemail.\n\nHe is on a roof. The phone rings. He cannot answer it. The caller does not leave a message, because almost nobody does. They ring the next roofer on the list.\n\nThe job was never lost on price or on quality. It was lost because nobody picked up.\n\nI build voice agents that answer those calls, take the name, number, job and address, and text them to the owner within a minute. The owner rings back when they are off the roof, and the caller is still theirs.\n\nIf you run a trade and the phone goes unanswered while you work, that is the whole problem worth fixing.",
-      "attempts": 1,
-      "error": "linkedin post failed (HTTP 426): Requested version 20250601 is not active"
     },
     {
       "id": "2026-10-29-fb-1",
