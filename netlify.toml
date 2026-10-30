@@ -13,6 +13,13 @@
 [build.environment]
   SECRETS_SCAN_OMIT_KEYS = "ALLOWED_HOSTS"
 
+# The site calls /api/create-web-call so the same code works on any host.
+# This rule must come before the single-page-app catch-all below.
+[[redirects]]
+  from = "/api/create-web-call"
+  to = "/.netlify/functions/create-web-call"
+  status = 200
+
 # Single-page app: send every path to index.html
 [[redirects]]
   from = "/*"

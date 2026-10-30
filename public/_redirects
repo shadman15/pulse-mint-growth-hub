@@ -1,0 +1,5 @@
+# Single-page app fallback. Cloudflare Pages does not read netlify.toml, so
+# the rule lives here too. Both hosts serve a real file when one exists, so
+# the static blog pages under /blog/ are unaffected, and on Cloudflare the
+# Pages Function at /api/* is matched before this runs.
+/*  /index.html  200
