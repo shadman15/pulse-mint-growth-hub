@@ -2,6 +2,11 @@
   command = "npm run build"
   publish = "dist"
   functions = "netlify/functions"
+  # Only rebuild when something outside social/ and .github/ changed. The
+  # social publisher and lead listener commit to this repo several times a
+  # day and none of it affects the site, so without this every one of those
+  # commits burns a build. Netlify cancels the build when this exits 0.
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- . ':(exclude)social' ':(exclude).github'"
 
 # ALLOWED_HOSTS is just the public domain name (it appears in the site's own
 # email address), so it isn't a secret. The API key and agent ID stay scanned.
