@@ -1,10 +1,18 @@
 name: Publish social queue
 
-# Runs four times a day. Each run publishes only the queue items whose
-# publishAt has already passed, so the exact minute does not matter.
+# Publishes only the queue items whose publishAt has already passed, so the
+# exact minute does not matter and a late run still catches up.
+#
+# GitHub drops and delays scheduled runs on free public repos, sometimes by
+# hours. So this also runs after every "Listen for leads" run, which is
+# scheduled far more often. Whichever fires first publishes what is due;
+# the other then finds nothing to do.
 on:
   schedule:
     - cron: '37 8,12,17,20 * * *'
+  workflow_run:
+    workflows: ['Listen for leads']
+    types: [completed]
   workflow_dispatch:
     inputs:
       dry_run:
@@ -23,7 +31,11 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
+      # A chained run would otherwise check out the commit the listener saw,
+      # which may be behind. Always take the current queue.
       - uses: actions/checkout@v5
+        with:
+          ref: main
 
       - uses: actions/setup-node@v5
         with:
@@ -39,15 +51,17 @@ jobs:
           LI_TOKEN: ${{ secrets.LI_TOKEN }}
           GRAPH_VERSION: ${{ vars.GRAPH_VERSION }}
           LI_VERSION: ${{ vars.LI_VERSION }}
+        # Only a hand-started run with the box ticked is a dry run. Scheduled
+        # and chained runs always publish.
         run: |
-          if [ "${{ inputs.dry_run }}" = "true" ]; then
+          if [ "${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}" = "true" ]; then
             node social/publish.mjs --dry-run
           else
             node social/publish.mjs
           fi
 
       - name: Commit the updated queue
-        if: inputs.dry_run != true
+        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.dry_run) }}
         run: |
           if git diff --quiet social/queue.json; then
             echo "queue unchanged"
@@ -58,4 +72,7 @@ jobs:
           git add social/queue.json
           # [skip netlify] stops the site rebuilding for a queue-only change.
           git commit -m "Mark published social items [skip ci] [skip netlify]"
+          # Another run may have pushed since checkout; rebase onto it. The
+          # queue only ever gains "posted" marks, so this cannot lose a post.
+          git pull --rebase --quiet
           git push
