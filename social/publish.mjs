@@ -70,6 +70,24 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 /* ------------------------------------------------------------------ Facebook */
 
+/**
+ * Posting as a Page needs a Page token. A personal token works too, as long
+ * as it can manage the Page, because Facebook will hand over the Page token
+ * when asked. So ask once per run, and fall back to the token as given.
+ */
+let fbPageToken;
+async function facebookToken(pageId) {
+  if (fbPageToken !== undefined) return fbPageToken;
+  const token = process.env.FB_PAGE_TOKEN;
+  try {
+    const r = await send('facebook page token', `${GRAPH}/${pageId}?fields=access_token&access_token=${token}`);
+    return (fbPageToken = r.access_token || token);
+  } catch {
+    // Already a Page token, or the lookup is not permitted. Use it as it is.
+    return (fbPageToken = token);
+  }
+}
+
 const facebook = {
   name: 'facebook',
   ready: () => Boolean(process.env.FB_PAGE_ID && process.env.FB_PAGE_TOKEN),
@@ -77,7 +95,7 @@ const facebook = {
 
   async publish(item) {
     const pageId = process.env.FB_PAGE_ID;
-    const token = process.env.FB_PAGE_TOKEN;
+    const token = await facebookToken(pageId);
 
     let postId;
 
