@@ -52,9 +52,15 @@ export const AgentCallProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setHint('');
     setStatus('connecting');
     try {
-      // Host-neutral path. Cloudflare serves it from functions/api/, and
-      // netlify.toml rewrites it to the Netlify function.
-      const res = await fetch('/api/create-web-call', { method: 'POST' });
+      // Host-neutral path: Cloudflare serves it from functions/api/, and
+      // netlify.toml rewrites it to the Netlify function. If that rewrite
+      // ever fails to apply, the single-page-app catch-all answers with
+      // index.html instead, so fall back to Netlify's own path rather than
+      // leaving the caller with a broken button.
+      let res = await fetch('/api/create-web-call', { method: 'POST' });
+      if (!res.ok && !res.headers.get('content-type')?.includes('application/json')) {
+        res = await fetch('/.netlify/functions/create-web-call', { method: 'POST' });
+      }
       if (!res.ok) {
         let reason = '';
         try {
