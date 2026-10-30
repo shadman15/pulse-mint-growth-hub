@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" width="1200" height="640" role="img" aria-labelledby="t d">
+<title id="t">What happens to a missed call: voicemail compared with an answered call</title>
+<desc id="d">Two paths from the same ringing phone. The upper path goes to voicemail, the caller hangs up and rings another business, and the job is lost. The lower path has an agent answer, take the caller's name, number and job, and text the details to the owner, who rings back and keeps the job.</desc>
+<defs>
+  <style>
+    .bg{fill:#0e1413}
+    .card{fill:#141c1a;stroke:#232e2c;stroke-width:1.5;rx:12}
+    .lost{fill:#1a1415;stroke:#4a2a2c}
+    .kept{fill:#0f1a17;stroke:#1d4f3e}
+    .h{font:600 17px Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;fill:#e8eceb}
+    .s{font:400 14px Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;fill:#9aa5a2}
+    .lbl{font:600 13px Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;letter-spacing:.14em}
+    .big{font:600 26px Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;fill:#e8eceb}
+    .arrow{stroke:#2e3a38;stroke-width:2;fill:none}
+    .arrowm{stroke:#1d6f52;stroke-width:2;fill:none}
+  </style>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#2e3a38"/></marker>
+  <marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#1d6f52"/></marker>
+</defs>
+
+<rect class="bg" width="1200" height="640"/>
+
+<text class="big" x="48" y="56">The same ringing phone, two endings</text>
+<text class="s" x="48" y="84">You are on a job either way. The difference is what the caller gets.</text>
+
+<!-- shared start -->
+<rect class="card" x="48" y="270" width="150" height="90" rx="12"/>
+<text class="h" x="123" y="306" text-anchor="middle">Phone rings</text>
+<text class="s" x="123" y="330" text-anchor="middle">You cannot</text>
+<text class="s" x="123" y="348" text-anchor="middle">pick up</text>
+
+<path class="arrow" marker-end="url(#a)" d="M198 300 Q 228 300 228 215 Q 228 185 258 185"/>
+<path class="arrowm" marker-end="url(#am)" d="M198 330 Q 228 330 228 440 Q 228 470 258 470"/>
+
+<!-- LOST PATH -->
+<text class="lbl" x="258" y="128" fill="#d98a8a">WITH VOICEMAIL</text>
+<g>
+  <rect class="card lost" x="258" y="145" width="188" height="80" rx="12"/>
+  <text class="h" x="352" y="180" text-anchor="middle">Goes to voicemail</text>
+  <text class="s" x="352" y="203" text-anchor="middle">Caller hears a beep</text>
+
+  <path class="arrow" marker-end="url(#a)" d="M446 185 L 492 185"/>
+  <rect class="card lost" x="500" y="145" width="188" height="80" rx="12"/>
+  <text class="h" x="594" y="180" text-anchor="middle">They hang up</text>
+  <text class="s" x="594" y="203" text-anchor="middle">No message left</text>
+
+  <path class="arrow" marker-end="url(#a)" d="M688 185 L 734 185"/>
+  <rect class="card lost" x="742" y="145" width="200" height="80" rx="12"/>
+  <text class="h" x="842" y="180" text-anchor="middle">They ring the</text>
+  <text class="h" x="842" y="202" text-anchor="middle">next business</text>
+
+  <path class="arrow" marker-end="url(#a)" d="M942 185 L 988 185"/>
+  <rect class="card lost" x="996" y="138" width="156" height="94" rx="12"/>
+  <text class="lbl" x="1074" y="176" text-anchor="middle" fill="#e07b7b">JOB LOST</text>
+  <text class="s" x="1074" y="202" text-anchor="middle">You never hear</text>
+  <text class="s" x="1074" y="219" text-anchor="middle">about it</text>
+</g>
+
+<!-- KEPT PATH -->
+<text class="lbl" x="258" y="430" fill="#34d399">WITH AN AGENT ANSWERING</text>
+<g>
+  <rect class="card kept" x="258" y="447" width="188" height="80" rx="12"/>
+  <text class="h" x="352" y="482" text-anchor="middle">Agent answers</text>
+  <text class="s" x="352" y="505" text-anchor="middle">Within a few rings</text>
+
+  <path class="arrowm" marker-end="url(#am)" d="M446 487 L 492 487"/>
+  <rect class="card kept" x="500" y="447" width="188" height="80" rx="12"/>
+  <text class="h" x="594" y="475" text-anchor="middle">Takes the details</text>
+  <text class="s" x="594" y="498" text-anchor="middle">Name, number,</text>
+  <text class="s" x="594" y="515" text-anchor="middle">job and address</text>
+
+  <path class="arrowm" marker-end="url(#am)" d="M688 487 L 734 487"/>
+  <rect class="card kept" x="742" y="447" width="200" height="80" rx="12"/>
+  <text class="h" x="842" y="482" text-anchor="middle">Texts them to you</text>
+  <text class="s" x="842" y="505" text-anchor="middle">Usually within a minute</text>
+
+  <path class="arrowm" marker-end="url(#am)" d="M942 487 L 988 487"/>
+  <rect class="card kept" x="996" y="440" width="156" height="94" rx="12"/>
+  <text class="lbl" x="1074" y="478" text-anchor="middle" fill="#34d399">JOB KEPT</text>
+  <text class="s" x="1074" y="504" text-anchor="middle">You ring back</text>
+  <text class="s" x="1074" y="521" text-anchor="middle">when you are free</text>
+</g>
+
+<text class="s" x="48" y="606">The agent does not quote prices or promise dates. Those stay with you.</text>
+</svg>

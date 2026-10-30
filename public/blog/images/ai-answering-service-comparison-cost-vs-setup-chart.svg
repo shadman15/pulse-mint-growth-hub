@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" width="1200" height="660" role="img" aria-labelledby="t d">
+<title id="t">AI answering services compared by monthly cost and how much setup you do yourself</title>
+<desc id="d">A quadrant chart. The horizontal axis runs from setting it up yourself to having it set up for you. The vertical axis runs from lower to higher monthly cost. Dialzara at twenty nine dollars and Rosie at forty nine dollars sit in the lower cost, self setup corner. Goodcall at seventy nine dollars sits mid cost and self setup. AnswerConnect UK at forty five pounds is lower cost and done for you, using human staff. Pulsemint at one hundred and ninety nine pounds is higher cost and done for you.</desc>
+<defs>
+  <style>
+    .bg{fill:#0e1413}
+    .quad{fill:#121a18;stroke:#1e2826;stroke-width:1}
+    .axis{stroke:#2e3a38;stroke-width:1.5}
+    .dot{fill:#141c1a;stroke:#2d3b38;stroke-width:1.5}
+    .dotm{fill:#11231d;stroke:#2f8f68;stroke-width:2}
+    .nm{font:600 16px Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;fill:#e8eceb}
+    .pr{font:400 14px Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;fill:#9aa5a2}
+    .ax{font:600 12.5px Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;letter-spacing:.14em;fill:#6b7976}
+    .s{font:400 14px Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;fill:#9aa5a2}
+    .big{font:600 26px Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;fill:#e8eceb}
+  </style>
+</defs>
+
+<rect class="bg" width="1200" height="660"/>
+<text class="big" x="48" y="56">What you are really paying for</text>
+<text class="s" x="48" y="84" font-size="15">The price gap is mostly about who does the setting up, not whose technology is better.</text>
+
+<!-- plot area 120,130 to 1060,540 -->
+<rect class="quad" x="120" y="130" width="940" height="410" rx="10"/>
+<line class="axis" x1="590" y1="130" x2="590" y2="540"/>
+<line class="axis" x1="120" y1="335" x2="1060" y2="335"/>
+
+<text class="ax" x="140" y="118">YOU SET IT UP</text>
+<text class="ax" x="1040" y="118" text-anchor="end">SET UP FOR YOU</text>
+<text class="ax" x="104" y="232" text-anchor="middle" transform="rotate(-90 104 232)">HIGHER COST</text>
+<text class="ax" x="104" y="438" text-anchor="middle" transform="rotate(-90 104 438)">LOWER COST</text>
+
+<!-- Dialzara: low cost, self -->
+<circle class="dot" cx="230" cy="470" r="9"/>
+<text class="nm" x="252" y="468">Dialzara</text>
+<text class="pr" x="252" y="488">from $29/mo &#183; 60 mins</text>
+
+<!-- Rosie: low-mid cost, self -->
+<circle class="dot" cx="330" cy="415" r="9"/>
+<text class="nm" x="352" y="413">Rosie</text>
+<text class="pr" x="352" y="433">from $49/mo &#183; 250 mins</text>
+
+<!-- Goodcall: mid cost, self -->
+<circle class="dot" cx="430" cy="300" r="9"/>
+<text class="nm" x="452" y="298">Goodcall</text>
+<text class="pr" x="452" y="318">from $79/mo</text>
+
+<!-- AnswerConnect: low-mid cost, done for you, human -->
+<circle class="dot" cx="790" cy="440" r="9"/>
+<text class="nm" x="812" y="438">AnswerConnect UK</text>
+<text class="pr" x="812" y="458">from &#163;45/mo &#183; real people</text>
+
+<!-- Pulsemint: higher cost, done for you -->
+<circle class="dotm" cx="820" cy="215" r="10"/>
+<text class="nm" x="844" y="213" fill="#34d399">Pulsemint</text>
+<text class="pr" x="844" y="233">&#163;199/mo &#183; up to 50 calls</text>
+
+<text class="s" x="48" y="590">Prices from each provider's own site, checked 30 October 2026. Horizontal placement is my own assessment of</text>
+<text class="s" x="48" y="612">how much configuring you do, not a published figure. Currencies are shown as each company lists them.</text>
+</svg>

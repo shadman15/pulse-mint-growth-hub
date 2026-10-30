@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600" role="img" aria-labelledby="t d">
+<title id="t">Worked example of what missed calls cost a small business each month</title>
+<desc id="d">A four step calculation. Five missed calls a week narrows to two real enquiries, then to one job you would have won, multiplied by a three hundred pound average job value, giving roughly three hundred pounds a week or thirteen hundred pounds a month. The figures are an example, not a statistic.</desc>
+<defs>
+  <style>
+    .bg{fill:#0e1413}
+    .card{fill:#141c1a;stroke:#232e2c;stroke-width:1.5}
+    .res{fill:#0f1a17;stroke:#1d4f3e;stroke-width:1.5}
+    .n{font:600 40px Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;fill:#e8eceb}
+    .nm{font:600 40px Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;fill:#34d399}
+    .h{font:600 15px Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;fill:#e8eceb}
+    .s{font:400 13.5px Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;fill:#9aa5a2}
+    .big{font:600 26px Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;fill:#e8eceb}
+    .step{font:600 12px Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;letter-spacing:.16em;fill:#5f6d6a}
+    .arrow{stroke:#2e3a38;stroke-width:2;fill:none}
+  </style>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#2e3a38"/></marker>
+</defs>
+
+<rect class="bg" width="1200" height="600"/>
+
+<text class="big" x="48" y="58">Work out your own number in four steps</text>
+<text class="s" x="48" y="86" font-size="15">The figures below are an example. Replace every one of them with yours.</text>
+
+<!-- step 1 -->
+<rect class="card" x="48" y="140" width="238" height="190" rx="12"/>
+<text class="step" x="72" y="174">STEP ONE</text>
+<text class="n" x="72" y="228">5</text>
+<text class="h" x="72" y="258">missed calls a week</text>
+<text class="s" x="72" y="284">Count them on your</text>
+<text class="s" x="72" y="302">phone. Do not guess.</text>
+
+<path class="arrow" marker-end="url(#a)" d="M286 235 L 322 235"/>
+
+<!-- step 2 -->
+<rect class="card" x="330" y="140" width="238" height="190" rx="12"/>
+<text class="step" x="354" y="174">STEP TWO</text>
+<text class="n" x="354" y="228">2</text>
+<text class="h" x="354" y="258">were real enquiries</text>
+<text class="s" x="354" y="284">The rest were suppliers,</text>
+<text class="s" x="354" y="302">spam or wrong numbers.</text>
+
+<path class="arrow" marker-end="url(#a)" d="M568 235 L 604 235"/>
+
+<!-- step 3 -->
+<rect class="card" x="612" y="140" width="238" height="190" rx="12"/>
+<text class="step" x="636" y="174">STEP THREE</text>
+<text class="n" x="636" y="228">1</text>
+<text class="h" x="636" y="258">you would have won</text>
+<text class="s" x="636" y="284">Be honest. You do not</text>
+<text class="s" x="636" y="302">win every quote.</text>
+
+<path class="arrow" marker-end="url(#a)" d="M850 235 L 886 235"/>
+
+<!-- step 4 -->
+<rect class="card" x="894" y="140" width="258" height="190" rx="12"/>
+<text class="step" x="918" y="174">STEP FOUR</text>
+<text class="n" x="918" y="228">&#163;300</text>
+<text class="h" x="918" y="258">average job value</text>
+<text class="s" x="918" y="284">What a typical job is</text>
+<text class="s" x="918" y="302">worth to you.</text>
+
+<!-- result -->
+<rect class="res" x="48" y="378" width="1104" height="162" rx="14"/>
+<text class="h" x="80" y="414" font-size="16">In this example</text>
+<text class="nm" x="80" y="462">&#163;300 a week</text>
+<text class="s" x="80" y="492" font-size="16">which is roughly &#163;1,300 a month walking away unanswered.</text>
+<text class="s" x="80" y="520">If your own numbers come out small, do not buy anything. That is a perfectly good answer.</text>
+
+<text class="s" x="48" y="560">Example figures for illustration. They are not research findings and not a claim about any particular trade.</text>
+</svg>

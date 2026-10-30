@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 460" width="1200" height="460" role="img" aria-labelledby="t d">
+<title id="t">How an AI answering service works in three steps</title>
+<desc id="d">Three steps. First the call diverts to the agent when you do not answer. Second the agent asks for the caller's name, number, job and address. Third the details arrive on your phone as a text so you can ring back.</desc>
+<defs>
+  <style>
+    .bg{fill:#0e1413}
+    .card{fill:#141c1a;stroke:#232e2c;stroke-width:1.5}
+    .ring{fill:none;stroke:#1d4f3e;stroke-width:2}
+    .num{font:600 20px Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;fill:#34d399}
+    .h{font:600 19px Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;fill:#e8eceb}
+    .s{font:400 14.5px Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;fill:#9aa5a2}
+    .big{font:600 26px Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;fill:#e8eceb}
+    .arrow{stroke:#1d6f52;stroke-width:2;fill:none}
+  </style>
+  <marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#1d6f52"/></marker>
+</defs>
+
+<rect class="bg" width="1200" height="460"/>
+<text class="big" x="48" y="58">What actually happens on the call</text>
+<text class="s" x="48" y="86" font-size="15">Your customers keep ringing the number they already have.</text>
+
+<rect class="card" x="48" y="136" width="330" height="214" rx="14"/>
+<circle class="ring" cx="92" cy="182" r="20"/>
+<text class="num" x="92" y="189" text-anchor="middle">1</text>
+<text class="h" x="128" y="189">It picks up</text>
+<text class="s" x="80" y="238">Your number diverts to the agent</text>
+<text class="s" x="80" y="260">after a few rings, or when your</text>
+<text class="s" x="80" y="282">phone is engaged. Nights and</text>
+<text class="s" x="80" y="304">weekends included.</text>
+
+<path class="arrow" marker-end="url(#am)" d="M378 243 L 418 243"/>
+
+<rect class="card" x="426" y="136" width="330" height="214" rx="14"/>
+<circle class="ring" cx="470" cy="182" r="20"/>
+<text class="num" x="470" y="189" text-anchor="middle">2</text>
+<text class="h" x="506" y="189">It asks the questions</text>
+<text class="s" x="458" y="238">Name, number, what the job is</text>
+<text class="s" x="458" y="260">and where. If the caller asks</text>
+<text class="s" x="458" y="282">whether it is an AI, it says yes</text>
+<text class="s" x="458" y="304">straight away.</text>
+
+<path class="arrow" marker-end="url(#am)" d="M756 243 L 796 243"/>
+
+<rect class="card" x="804" y="136" width="348" height="214" rx="14"/>
+<circle class="ring" cx="848" cy="182" r="20"/>
+<text class="num" x="848" y="189" text-anchor="middle">3</text>
+<text class="h" x="884" y="189">You get a text</text>
+<text class="s" x="836" y="238">The details land on your phone,</text>
+<text class="s" x="836" y="260">usually within a minute. You ring</text>
+<text class="s" x="836" y="282">back once you are off the job,</text>
+<text class="s" x="836" y="304">and the caller is still yours.</text>
+
+<text class="s" x="48" y="412">No new handset, no new number, nothing to install on site.</text>
+</svg>

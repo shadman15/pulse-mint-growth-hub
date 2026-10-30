@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://pulsemint.co.uk/</loc>
     <lastmod>2026-10-30</lastmod>
@@ -14,5 +15,49 @@
     <loc>https://pulsemint.co.uk/blog/best-ai-answering-service-small-business/</loc>
     <lastmod>2026-10-30</lastmod>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://pulsemint.co.uk/blog/images/ai-answering-service-comparison-cost-vs-setup-chart.svg</image:loc>
+      <image:title>AI answering services compared by cost and setup effort</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pulsemint.co.uk/blog/ai-answering-service-uk-tradesmen/</loc>
+    <lastmod>2026-10-30</lastmod>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://pulsemint.co.uk/blog/images/missed-call-voicemail-vs-answered-diagram.svg</image:loc>
+      <image:title>What happens to a missed call: voicemail compared with an answered call</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://pulsemint.co.uk/blog/images/ai-answering-service-how-it-works-diagram.svg</image:loc>
+      <image:title>How an AI answering service works in three steps</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pulsemint.co.uk/blog/what-missed-calls-cost-small-business/</loc>
+    <lastmod>2026-10-30</lastmod>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://pulsemint.co.uk/blog/images/what-missed-calls-cost-small-business-worked-example.svg</image:loc>
+      <image:title>Worked example of what missed calls cost a small business each month</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pulsemint.co.uk/blog/missed-call-text-back/</loc>
+    <lastmod>2026-10-30</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://pulsemint.co.uk/blog/images/missed-call-text-back-flow-diagram.svg</image:loc>
+      <image:title>How missed call text back works, step by step</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pulsemint.co.uk/blog/telephone-answering-service-lowestoft-suffolk/</loc>
+    <lastmod>2026-10-30</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://pulsemint.co.uk/blog/images/ai-answering-service-how-it-works-diagram.svg</image:loc>
+      <image:title>How an answering service fits around an existing business number</image:title>
+    </image:image>
   </url>
 </urlset>

@@ -130,6 +130,36 @@ blockquote {
   margin-top: 28px;
 }
 
+/* ---------------------------------------------------------------- figure */
+
+figure { margin: 32px 0; }
+figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #0e1413;
+}
+figcaption { color: var(--muted); font-size: 14.5px; margin-top: 10px; line-height: 1.5; }
+
+/* --------------------------------------------------------- breadcrumbs */
+
+nav.crumbs { font-size: 14px; color: var(--muted); margin-bottom: 18px; }
+nav.crumbs a { color: var(--muted); text-decoration: none; }
+nav.crumbs a:hover { color: var(--mint-soft); }
+nav.crumbs span { margin: 0 7px; opacity: 0.5; }
+
+/* ------------------------------------------------------- related links */
+
+.related { margin: 44px 0 0; }
+.related h2 { font-size: 21px; margin: 0 0 14px; }
+.related ul { list-style: none; padding: 0; margin: 0; }
+.related li { border-top: 1px solid var(--line); padding: 14px 0; margin: 0; }
+.related li:last-child { border-bottom: 1px solid var(--line); }
+.related a { text-decoration: none; font-weight: 500; }
+.related .d { display: block; color: var(--muted); font-size: 15px; margin-top: 3px; }
+
 /* ---------------------------------------------------------------- table */
 
 .table-scroll { overflow-x: auto; margin: 24px 0; -webkit-overflow-scrolling: touch; }
