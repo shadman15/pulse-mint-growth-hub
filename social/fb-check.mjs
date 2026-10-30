@@ -49,6 +49,25 @@ async function main() {
     problem(`Could not read /me: ${err.message}`);
   }
 
+  // 1b. Which permissions were actually granted?
+  const NEEDED = {
+    pages_manage_posts: 'post to the Page',
+    pages_read_engagement: 'required alongside posting',
+    pages_show_list: 'list your Pages',
+    instagram_basic: 'Instagram (optional)',
+    instagram_content_publish: 'Instagram (optional)',
+  };
+  try {
+    const perms = await graph('me/permissions');
+    const granted = new Set((perms.data || []).filter((p) => p.status === 'granted').map((p) => p.permission));
+    notice(`Granted: ${[...granted].sort().join(', ') || 'none'}`);
+    const missing = Object.keys(NEEDED).filter((p) => !granted.has(p));
+    for (const p of missing) problem(`Missing permission "${p}" (${NEEDED[p]}).`);
+    if (!missing.length) notice('All the permissions needed for Facebook and Instagram are granted.');
+  } catch (err) {
+    problem(`Could not read the granted permissions: ${err.message}`);
+  }
+
   // 2. Which Pages can it manage? Naming fields keeps Page tokens out of the reply.
   try {
     const accounts = await graph('me/accounts', 'id,name,category,tasks');
