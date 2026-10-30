@@ -24,3 +24,9 @@ dist-ssr
 *.sw?
 .env
 .listen-state/
+
+# Two lockfiles confuse hosts that auto-detect the package manager.
+# This project uses npm and package-lock.json.
+bun.lockb
+yarn.lock
+pnpm-lock.yaml
