@@ -195,6 +195,15 @@ const Index = () => {
       {/* Footer */}
       <footer className="relative z-20 p-8 mt-12 border-t border-white/10">
         <div className="text-center space-y-2">
+          {/* Plain <a>, not a router link: the blog is static HTML, not part of the app. */}
+          <div className="text-xs tracking-wider">
+            <a
+              href="/blog/"
+              className="text-white/60 hover:text-white transition-colors"
+            >
+              BLOG
+            </a>
+          </div>
           <div className="text-xs tracking-wider text-white/50">
             © PULSEMINT · LOWESTOFT, UK
           </div>
