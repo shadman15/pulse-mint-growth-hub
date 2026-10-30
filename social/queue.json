@@ -22,20 +22,20 @@
     {
       "id": "2026-10-30-fb-1",
       "platform": "facebook",
-      "publishAt": "2026-10-30T11:00:57Z",
+      "publishAt": "2026-11-03T19:30:00Z",
       "status": "pending",
       "text": "Be honest. When you're up a ladder and the phone rings, what happens to that call?\n\nIt goes to voicemail. And plenty of callers don't leave a message. They just ring the next tradesperson on Google.\n\nYou can't be in two places at once. That's not a failing, it's the job.\n\nSo what do you do about it right now? Partner answers, mate answers, or it just rings out?",
       "firstComment": "If you want to see what those missed calls could be costing you, there's a quick calculator here: https://pulsemint.co.uk/#calculator\n\nI'm Shadman, I build and run Pulsemint myself, so ask me anything here.",
-      "attempts": 1,
-      "error": "facebook feed failed (HTTP 403): (#200) If posting to a group, requires app being installed in the group, and \\\n          either publish_to_groups permission with user token, or both pages_read_engagement \\\n          and pages_manage_posts permission with page token; If posting to a page, \\\n          requires both pages_read_engagement and pages_manage_posts as an admin with \\\n          sufficient administrative permission"
+      "note": "Waiting on Meta Business Verification before Facebook posting is allowed."
     },
     {
       "id": "2026-11-01-fb-2",
       "platform": "facebook",
-      "publishAt": "2026-11-01T19:30:00Z",
+      "publishAt": "2026-11-05T19:30:00Z",
       "status": "pending",
       "text": "\"My customers won't want to talk to a robot.\"\n\nFair enough. I hear it a lot from tradespeople.\n\nBut think about what actually happens when you can't pick up. They don't get you. They get a beep.\n\nWhich would you rather a customer got while you're on a job: a beep, or a polite voice that asks what the work is, takes their number and says you'll ring back?\n\nAnd if they ask \"is this an AI?\", it tells them yes. No tricks.\n\nWhat would you want it to say?",
-      "firstComment": "You can try it yourself, just hit 'Test Agent Now' on the site and pretend to be a customer: https://pulsemint.co.uk\n\nShadman here, I build it, so tell me what you'd change."
+      "firstComment": "You can try it yourself, just hit 'Test Agent Now' on the site and pretend to be a customer: https://pulsemint.co.uk\n\nShadman here, I build it, so tell me what you'd change.",
+      "note": "Waiting on Meta Business Verification before Facebook posting is allowed."
     }
   ]
 }
