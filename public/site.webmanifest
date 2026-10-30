@@ -1,0 +1,13 @@
+{
+  "name": "Pulsemint",
+  "short_name": "Pulsemint",
+  "description": "AI answering service for small businesses. Never miss a call again.",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ],
+  "theme_color": "#10b981",
+  "background_color": "#080b0a",
+  "display": "standalone",
+  "start_url": "/"
+}
