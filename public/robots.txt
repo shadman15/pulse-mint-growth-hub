@@ -2,6 +2,3 @@ User-agent: *
 Allow: /
 
 Sitemap: https://pulsemint.co.uk/sitemap.xml
-
-# Agentic Resource Discovery manifest, for AI agents rather than search engines.
-Agentmap: https://pulsemint.co.uk/.well-known/ard.json
