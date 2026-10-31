@@ -1,5 +1,8 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { RetellWebClient } from 'retell-client-js-sdk';
+// Type only. The SDK itself pulls in a full WebRTC stack, so it is loaded
+// on demand in start() rather than on every page view. A type import is
+// erased at build time and costs nothing.
+import type { RetellWebClient } from 'retell-client-js-sdk';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from './ui/dialog';
 import { Mic, PhoneOff, PhoneCall, Loader2, RotateCcw } from 'lucide-react';
 import { BOOK_CALL_URL } from '../lib/links';
@@ -76,6 +79,8 @@ export const AgentCallProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       const { accessToken, callId, transport, iceServers } = await res.json();
       if (!accessToken) throw new Error('token');
 
+      // Fetch the SDK now, while the call token request is already done.
+      const { RetellWebClient } = await import('retell-client-js-sdk');
       const client = new RetellWebClient();
       clientRef.current = client;
       client.on('call_started', () => setStatus('live'));
