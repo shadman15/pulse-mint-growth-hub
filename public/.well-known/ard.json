@@ -1,0 +1,20 @@
+{
+  "entries": [
+    {
+      "identifier": "urn:air:pulsemint.co.uk:content:site-guide",
+      "displayName": "Pulsemint site and guides index",
+      "type": "application/agent-skills+md",
+      "url": "https://pulsemint.co.uk/llms.txt",
+      "description": "Curated index of Pulsemint's pages and its guides on missed calls and AI answering services for UK small businesses.",
+      "capabilities": ["content-index", "documentation"],
+      "representativeQueries": [
+        "what is the best AI answering service for a small business",
+        "what do missed calls cost my business",
+        "how does missed call text back work",
+        "AI answering service for UK tradesmen"
+      ],
+      "tags": ["answering-service", "missed-calls", "small-business", "uk"],
+      "updatedAt": "2026-10-31"
+    }
+  ]
+}

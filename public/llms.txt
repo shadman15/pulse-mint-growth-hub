@@ -1,0 +1,24 @@
+# Pulsemint
+
+> Pulsemint builds AI phone answering for UK small businesses. The agent answers calls the owner cannot take, collects the caller's name, number, job and address, and texts the details to the owner within about a minute. Run by Shadman Chowdhury from Lowestoft, Suffolk.
+
+Pulsemint costs £199 a month including up to 50 captured calls, with a fourteen-day free pilot and no contract. The agent confirms it is an AI if a caller asks, and does not quote prices or promise dates.
+
+The guides below are written for small business owners deciding whether an answering service is worth it. They name competitors with current prices and recommend against buying where the numbers do not justify it.
+
+## Guides
+
+- [Best AI answering service for small businesses](https://pulsemint.co.uk/blog/best-ai-answering-service-small-business/): Compares Rosie, Dialzara, Goodcall, Pulsemint and a UK human service, with prices from each provider's own site.
+- [AI answering services for UK tradesmen](https://pulsemint.co.uk/blog/ai-answering-service-uk-tradesmen/): Options cheapest first, plus checks for UK postcodes, accents and emergency calls.
+- [What missed calls cost a small business](https://pulsemint.co.uk/blog/what-missed-calls-cost-small-business/): A four step calculation using your own call history rather than industry statistics.
+- [Missed call text back explained](https://pulsemint.co.uk/blog/missed-call-text-back/): How automatic replies to missed callers work, message templates, and the UK rules.
+- [Telephone answering in Lowestoft and Suffolk](https://pulsemint.co.uk/blog/telephone-answering-service-lowestoft-suffolk/): Whether a local provider matters, and what the options cost locally.
+
+## Site
+
+- [Pulsemint home](https://pulsemint.co.uk/): What the service does, pricing, and a live demo you can speak to.
+- [Missed call revenue calculator](https://pulsemint.co.uk/#calculator): Work out what unanswered calls are costing, using your own figures.
+
+## Optional
+
+- [Blog index](https://pulsemint.co.uk/blog/): All guides in one list.
