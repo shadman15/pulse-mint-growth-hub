@@ -132,7 +132,12 @@ const facebook = {
           body: new URLSearchParams({ message: item.firstComment, access_token: token }),
         });
       } catch (err) {
-        warn(`    first comment failed, post is live: ${err.message || err}`);
+        // Record it on the item as well as the log. A comment usually carries
+        // the link, so losing it silently means publishing a post that is
+        // missing the whole point of it.
+        item.commentError = String(err.message || err).slice(0, 200);
+        warn(`    first comment FAILED, post is live without it: ${err.message || err}`);
+        warn('    posting a comment as the Page needs the pages_manage_engagement permission.');
       }
     }
 
