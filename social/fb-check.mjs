@@ -18,9 +18,10 @@ const IG_USER_ID = process.env.IG_USER_ID;
 const notice = (m) => console.log(`::notice::${m}`);
 const problem = (m) => console.log(`::warning::${m}`);
 
-async function graph(path, fields) {
+async function graph(path, fields, extra = {}) {
   const url = new URL(`${GRAPH}/${path}`);
   if (fields) url.searchParams.set('fields', fields);
+  for (const [k, v] of Object.entries(extra)) url.searchParams.set(k, v);
   url.searchParams.set('access_token', TOKEN);
   const res = await fetch(url, { signal: AbortSignal.timeout(20_000) });
   const body = await res.json().catch(() => ({}));
@@ -47,6 +48,29 @@ async function main() {
     }
   } catch (err) {
     problem(`Could not read /me: ${err.message}`);
+  }
+
+  // 1a. When does this token die? A Graph Explorer token lasts about an hour,
+  // so a scheduled post the next day would fail. Asking the token about
+  // itself works when the holder is an admin of the app.
+  try {
+    const d = await graph('debug_token', undefined, { input_token: TOKEN });
+    const info = d.data || {};
+    if (info.expires_at === 0) {
+      notice('Token expiry: never (this is a Page token or a non-expiring token).');
+    } else if (info.expires_at) {
+      const days = Math.round((info.expires_at * 1000 - Date.now()) / 86_400_000);
+      const hours = Math.round((info.expires_at * 1000 - Date.now()) / 3_600_000);
+      const when = new Date(info.expires_at * 1000).toISOString().replace('T', ' ').slice(0, 16);
+      if (hours < 24) {
+        problem(`Token expires in about ${hours} hour(s), at ${when} UTC. This is a short-lived token: extend it at developers.facebook.com/tools/debug/accesstoken or scheduled posts will fail.`);
+      } else {
+        notice(`Token expires in about ${days} days, on ${when} UTC.`);
+      }
+    }
+    if (info.type) notice(`Token type: ${info.type}.`);
+  } catch (err) {
+    notice(`Could not read the token's expiry: ${err.message}`);
   }
 
   // 1b. Which permissions were actually granted?
