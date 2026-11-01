@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import { BOOK_CALL_URL, CONTACT_EMAIL } from '../lib/links';
+import { track } from '../lib/track';
 import { useAgentCall } from './AgentCallModal';
 import shadmanPhoto from '../assets/shadman.jpg';
 
@@ -403,6 +404,24 @@ const LossCalculator = () => {
   const [callValue, setCallValue] = useState(250);
   const [calls, setCalls] = useState(5);
   const [period, setPeriod] = useState<'week' | 'month'>('week');
+
+  // Count someone actually using the calculator, rather than merely scrolling
+  // past it. Fires once per visit, two seconds after they stop adjusting, so
+  // dragging a slider is one event and not fifty.
+  const counted = useRef(false);
+  const touched = useRef(false);
+  useEffect(() => {
+    if (!touched.current) {
+      touched.current = true; // skip the first render, which is the defaults
+      return;
+    }
+    if (counted.current) return;
+    const t = setTimeout(() => {
+      counted.current = true;
+      track('calculator_used');
+    }, 2000);
+    return () => clearTimeout(t);
+  }, [callValue, calls, period]);
 
   const perWeekCalls = period === 'week' ? calls : calls / WEEKS_PER_MONTH;
   const weekly = perWeekCalls * callValue;

@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pulsemint conversions</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#080b0a;--panel:#0e1413;--line:rgba(255,255,255,.1);--text:#e8eceb;--muted:#9aa5a2;--mint:#10b981;--mint2:#34d399}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.6 Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:900px;margin:0 auto;padding:36px 20px 60px}
+  header{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+  h1{font-size:26px;font-weight:600;margin:0}
+  .sub{color:var(--muted);font-size:15px;margin:0 0 26px}
+  select{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font:inherit;font-size:14px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:12px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .card .n{font-size:34px;font-weight:600;line-height:1.1}
+  .card .l{color:var(--muted);font-size:13.5px;margin-top:6px}
+  .card.key .n{color:var(--mint2)}
+  .rate{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:26px;color:var(--muted);font-size:15px}
+  .rate b{color:var(--text);font-weight:600}
+  h2{font-size:17px;font-weight:600;margin:30px 0 12px}
+  table{width:100%;border-collapse:collapse;font-size:15px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
+  th{color:var(--muted);font-weight:500;font-size:13px;text-transform:uppercase;letter-spacing:.07em}
+  td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .bar{height:7px;background:var(--mint);border-radius:4px;min-width:2px}
+  .chart{display:flex;align-items:flex-end;gap:3px;height:120px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+  .chart div{flex:1;background:#1d3a32;border-radius:3px 3px 0 0;min-height:2px;position:relative}
+  .chart div.has{background:var(--mint)}
+  .note{color:var(--muted);font-size:14px;border-top:1px solid var(--line);padding-top:16px;margin-top:34px}
+  .warn{background:#1a1412;border:1px solid #5a3a2a;border-radius:12px;padding:16px 18px;margin-bottom:24px;font-size:15px}
+  code{background:rgba(255,255,255,.07);padding:2px 6px;border-radius:5px;font-size:13.5px}
+  a{color:var(--mint2)}
+  .empty{color:var(--muted);font-size:15px;padding:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Conversions</h1>
+    <select id="days" aria-label="Time range">
+      <option value="7">Last 7 days</option>
+      <option value="30" selected>Last 30 days</option>
+      <option value="90">Last 90 days</option>
+    </select>
+  </header>
+  <p class="sub">What people did on pulsemint.co.uk, not just how many arrived. Visitor and page-view counts live in <a href="https://dash.cloudflare.com/?to=/:account/web-analytics" target="_blank" rel="noopener">Cloudflare Web Analytics</a>.</p>
+
+  <div id="out"><p class="empty">Loading…</p></div>
+
+  <p class="note">
+    These are counts of actions, not of people: one visitor pressing Test Agent twice counts twice.
+    Nothing here uses cookies or stores anything that identifies a visitor, which is why the site
+    needs no consent banner. Events are kept for 90 days.
+  </p>
+</div>
+
+<script>
+const LABELS = {
+  test_agent_opened:    'Pressed Test Agent',
+  test_agent_connected: 'Actually spoke to the agent',
+  test_agent_failed:    'Test Agent failed to connect',
+  calculator_used:      'Used the calculator',
+  book_call_clicked:    'Clicked Book a call',
+  blog_cta_clicked:     'Clicked through from a blog post',
+};
+const ORDER = ['test_agent_opened','test_agent_connected','test_agent_failed','calculator_used','book_call_clicked','blog_cta_clicked'];
+const esc = s => String(s).replace(/[<>&"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
+
+async function load() {
+  const days = document.getElementById('days').value;
+  const out = document.getElementById('out');
+  out.innerHTML = '<p class="empty">Loading…</p>';
+  let d;
+  try {
+    d = await (await fetch('/api/stats?days=' + days)).json();
+  } catch (e) {
+    out.innerHTML = '<div class="warn">Could not reach /api/stats. If the site has only just deployed, give it a minute.</div>';
+    return;
+  }
+
+  let html = '';
+  if (!d.configured) {
+    html += '<div class="warn"><b>Not recording yet.</b><br>' + esc(d.message || '') +
+      '<br><br>In Cloudflare: <b>Storage &amp; Databases &rarr; KV</b>, create a namespace called <code>pulsemint-events</code>, then <b>Workers &amp; Pages &rarr; your project &rarr; Settings &rarr; Bindings</b>, add a KV binding named <code>EVENTS</code> pointing at it, and redeploy.</div>';
+  }
+
+  const t = d.totals || {};
+  const opened = t.test_agent_opened || 0;
+  const connected = t.test_agent_connected || 0;
+
+  html += '<div class="cards">';
+  html += card(opened, 'Pressed Test Agent', true);
+  html += card(connected, 'Spoke to the agent', true);
+  html += card(t.calculator_used || 0, 'Used the calculator');
+  html += card(t.book_call_clicked || 0, 'Clicked Book a call');
+  html += '</div>';
+
+  if (opened > 0) {
+    const pct = Math.round((connected / opened) * 100);
+    html += '<div class="rate">Of the <b>' + opened + '</b> who pressed Test Agent, <b>' + connected +
+      '</b> got through to a conversation. That is <b>' + pct + '%</b>.' +
+      (t.test_agent_failed ? ' <b>' + t.test_agent_failed + '</b> hit an error.' : '') + '</div>';
+  }
+
+  // Daily chart, total events per day
+  const byDay = d.byDay || {};
+  const dayKeys = Object.keys(byDay).sort();
+  const dayTotals = dayKeys.map(k => Object.values(byDay[k]).reduce((a, b) => a + b, 0));
+  const peak = Math.max(1, ...dayTotals);
+  html += '<h2>Events per day</h2><div class="chart">';
+  dayKeys.forEach((k, i) => {
+    const v = dayTotals[i];
+    html += '<div class="' + (v ? 'has' : '') + '" style="height:' + Math.max(2, (v / peak) * 100) + '%" title="' + k + ': ' + v + '"></div>';
+  });
+  html += '</div>';
+
+  html += '<h2>By action</h2>';
+  const rows = ORDER.filter(k => t[k]);
+  if (!rows.length) {
+    html += '<p class="empty">Nothing recorded yet in this period.</p>';
+  } else {
+    const max = Math.max(...rows.map(k => t[k]));
+    html += '<table><tr><th>Action</th><th></th><th class="num">Count</th></tr>';
+    rows.forEach(k => {
+      html += '<tr><td>' + esc(LABELS[k] || k) + '</td><td style="width:45%"><div class="bar" style="width:' +
+        ((t[k] / max) * 100) + '%"></div></td><td class="num">' + t[k] + '</td></tr>';
+    });
+    html += '</table>';
+  }
+
+  const paths = Object.entries(d.byPath || {}).sort((a, b) => b[1] - a[1]);
+  html += '<h2>Which page they were on</h2>';
+  if (!paths.length) {
+    html += '<p class="empty">Nothing recorded yet.</p>';
+  } else {
+    html += '<table><tr><th>Page</th><th class="num">Events</th></tr>';
+    paths.forEach(([p, n]) => {
+      html += '<tr><td>' + esc(p) + '</td><td class="num">' + n + '</td></tr>';
+    });
+    html += '</table><p class="note" style="border:0;padding:0;margin-top:8px">Page breakdown covers the most recent day only, to stay inside the free read budget.</p>';
+  }
+
+  if (d.truncated) html += '<div class="warn">Some days had more events than one read could return, so totals are a floor rather than exact.</div>';
+
+  out.innerHTML = html;
+}
+
+function card(n, label, key) {
+  return '<div class="card' + (key ? ' key' : '') + '"><div class="n">' + n + '</div><div class="l">' + esc(label) + '</div></div>';
+}
+
+document.getElementById('days').addEventListener('change', load);
+load();
+</script>
+</body>
+</html>

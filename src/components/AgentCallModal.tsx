@@ -6,6 +6,7 @@ import type { RetellWebClient } from 'retell-client-js-sdk';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from './ui/dialog';
 import { Mic, PhoneOff, PhoneCall, Loader2, RotateCcw } from 'lucide-react';
 import { BOOK_CALL_URL } from '../lib/links';
+import { track } from '../lib/track';
 
 type Status = 'idle' | 'connecting' | 'live' | 'ended' | 'error';
 
@@ -83,7 +84,12 @@ export const AgentCallProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       const { RetellWebClient } = await import('retell-client-js-sdk');
       const client = new RetellWebClient();
       clientRef.current = client;
-      client.on('call_started', () => setStatus('live'));
+      client.on('call_started', () => {
+        // The one that matters: a caller who actually got through, rather
+        // than one who pressed the button and hit an error.
+        track('test_agent_connected');
+        setStatus('live');
+      });
       client.on('call_ended', () => {
         setStatus('ended');
         setTalking(false);
@@ -99,6 +105,9 @@ export const AgentCallProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       await client.startCall({ accessToken, callId, transport, iceServers });
     } catch (e) {
       console.error('[agent call]', e);
+      // Worth counting: a high failure rate against opens means the demo is
+      // quietly costing you prospects rather than winning them.
+      track('test_agent_failed');
       const denied = e instanceof Error && /permission|denied|notallowed/i.test(e.name + e.message);
       setError(
         denied
@@ -111,6 +120,9 @@ export const AgentCallProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   }, [stop]);
 
   const openAgentCall = useCallback(() => {
+    // Tracked here rather than on each button, so every Test Agent button on
+    // the site is counted without having to remember to wire each one up.
+    track('test_agent_opened');
     setOpen(true);
     start();
   }, [start]);
