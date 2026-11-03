@@ -54,7 +54,6 @@ Add them for **Production**, and again for **Preview** if it asks separately.
 | Name | Value | Notes |
 | --- | --- | --- |
 | `RETELL_API_KEY` | your Retell key | click **Encrypt** |
-| `AGENT_ID` | your agent id | |
 | `ALLOWED_HOSTS` | `pulsemint.co.uk` | no `https://`, no slash |
 | `NODE_VERSION` | `22` | |
 
