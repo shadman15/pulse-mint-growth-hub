@@ -12,9 +12,10 @@
 //
 // Required environment variables:
 //   RETELL_API_KEY   your secret API key
-//   AGENT_ID         the agent to call
 // Optional:
 //   ALLOWED_HOSTS    comma separated hostnames allowed to start a call
+
+const AGENT_ID = 'agent_0e3b86445529508330ba6ce01a';
 
 const json = (status, body) =>
   new Response(JSON.stringify(body), {
@@ -51,11 +52,9 @@ export async function createWebCall(request, env) {
   if (request.method !== 'POST') return json(405, { error: 'Method not allowed' });
 
   const apiKey = env.RETELL_API_KEY;
-  const agentId = env.AGENT_ID;
-  if (!apiKey || !agentId) {
+  if (!apiKey) {
     return fail(500, 'not_configured', {
       hasKey: Boolean(apiKey),
-      hasAgentId: Boolean(agentId),
     });
   }
 
@@ -67,8 +66,11 @@ export async function createWebCall(request, env) {
   try {
     const res = await fetch('https://api.retellai.com/v3/create-web-call', {
       method: 'POST',
-      headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ agent_id: agentId }),
+      headers: {
+        Authorization: 'Bearer ' + apiKey,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ agent_id: AGENT_ID }),
     });
     if (!res.ok) {
       const text = (await res.text()).slice(0, 300);
