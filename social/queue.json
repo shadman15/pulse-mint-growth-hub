@@ -34,10 +34,12 @@
       "id": "2026-11-01-fb-2",
       "platform": "facebook",
       "publishAt": "2026-11-05T19:30:00Z",
-      "status": "pending",
+      "status": "posted",
       "text": "\"My customers won't want to talk to a robot.\"\n\nFair enough. I hear it a lot from tradespeople.\n\nBut think about what actually happens when you can't pick up. They don't get you. They get a beep.\n\nWhich would you rather a customer got while you're on a job: a beep, or a polite voice that asks what the work is, takes their number and says you'll ring back?\n\nAnd if they ask \"is this an AI?\", it tells them yes. No tricks.\n\nWhat would you want it to say?\n\nhttps://pulsemint.co.uk",
       "note": "Link kept in the post body: posting a first comment needs pages_manage_engagement.",
-      "link": "https://pulsemint.co.uk"
+      "link": "https://pulsemint.co.uk",
+      "postedAt": "2026-11-05T22:48:09.222Z",
+      "remoteId": "773344779189277_122186103542960635"
     },
     {
       "id": "2026-11-01-fb-article",
