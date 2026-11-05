@@ -56,6 +56,13 @@ const Index = () => {
 
   const { openAgentCall } = useAgentCall();
 
+  // Trade and town pages link to /#test-agent so visitors land straight in
+  // the agent dialog. The call itself still starts from a click inside it,
+  // which the browser needs before it will grant the microphone.
+  useEffect(() => {
+    if (window.location.hash === '#test-agent') openAgentCall();
+  }, [openAgentCall]);
+
   const openBooking = () => {
     window.open(BOOK_CALL_URL, '_blank', 'noopener,noreferrer');
   };
@@ -195,6 +202,47 @@ const Index = () => {
       {/* Footer */}
       <footer className="relative z-20 p-8 mt-12 border-t border-white/10">
         <div className="text-center space-y-2">
+          {/* The homepage is the hub: it links down to every trade and town
+              page, and each of those links back up here. Plain <a> because
+              those pages are static HTML, not part of the app. */}
+          <nav aria-label="Answering service by trade and area" className="max-w-3xl mx-auto mb-6 space-y-3 text-xs tracking-wider">
+            <div>
+              <div className="text-white/40 mb-2">ANSWERING SERVICE BY TRADE</div>
+              <div className="flex flex-wrap justify-center gap-x-4 gap-y-2">
+                {[
+                  ['answering-service-for-plumbers', 'Plumbers'],
+                  ['answering-service-for-electricians', 'Electricians'],
+                  ['answering-service-for-heating-engineers', 'Heating engineers'],
+                  ['answering-service-for-roofers', 'Roofers'],
+                  ['answering-service-for-builders', 'Builders'],
+                  ['answering-service-for-locksmiths', 'Locksmiths'],
+                  ['out-of-hours-call-answering-for-tradesmen', 'Out of hours'],
+                  ['virtual-receptionist-for-sole-traders', 'Sole traders'],
+                ].map(([slug, label]) => (
+                  <a key={slug} href={`/${slug}/`} className="text-white/60 hover:text-white transition-colors">{label}</a>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div className="text-white/40 mb-2">AI ANSWERING SERVICE NEAR YOU</div>
+              <div className="flex flex-wrap justify-center gap-x-4 gap-y-2">
+                {[
+                  ['norwich', 'Norwich'],
+                  ['ipswich', 'Ipswich'],
+                  ['peterborough', 'Peterborough'],
+                  ['northampton', 'Northampton'],
+                  ['milton-keynes', 'Milton Keynes'],
+                  ['derby', 'Derby'],
+                  ['stoke-on-trent', 'Stoke-on-Trent'],
+                  ['doncaster', 'Doncaster'],
+                  ['swindon', 'Swindon'],
+                  ['plymouth', 'Plymouth'],
+                ].map(([slug, label]) => (
+                  <a key={slug} href={`/ai-answering-service-${slug}/`} className="text-white/60 hover:text-white transition-colors">{label}</a>
+                ))}
+              </div>
+            </div>
+          </nav>
           {/* Plain <a>, not a router link: the blog is static HTML, not part of the app. */}
           <div className="text-xs tracking-wider">
             <a
