@@ -242,6 +242,18 @@ const Index = () => {
                 ))}
               </div>
             </div>
+            <div>
+              <div className="text-white/40 mb-2">GUIDES</div>
+              <div className="flex flex-wrap justify-center gap-x-4 gap-y-2">
+                {[
+                  ['/blog/best-ai-answering-service-small-business/', 'Best AI answering service, compared'],
+                  ['/blog/ai-answering-service-uk-tradesmen/', 'AI answering for UK tradesmen'],
+                  ['/blog/what-missed-calls-cost-small-business/', 'What missed calls cost you'],
+                ].map(([href, label]) => (
+                  <a key={href} href={href} className="text-white/60 hover:text-white transition-colors">{label}</a>
+                ))}
+              </div>
+            </div>
           </nav>
           {/* Plain <a>, not a router link: the blog is static HTML, not part of the app. */}
           <div className="text-xs tracking-wider">

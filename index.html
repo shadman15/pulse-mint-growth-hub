@@ -111,7 +111,40 @@
     </script>
   </head>
   <body>
-    <div id="root"></div>
+    <!--
+      Crawlable links in the raw HTML. Crawlers that read the page before
+      running JavaScript otherwise find no route to the trade and town pages,
+      and no booking link. createRoot() replaces this on load, and the
+      rendered page shows the same links in its footer, so nobody is shown
+      anything a visitor doesn't also get.
+    -->
+    <div id="root"><nav aria-label="Pulsemint pages" style="max-width:44rem;margin:0 auto;padding:1.5rem 1.25rem;font-family:Inter,system-ui,sans-serif;font-size:14px;line-height:1.9;color:#e8eceb;background:#080b0a">
+      <p><a href="/" style="color:#34d399">Pulsemint</a> &middot; <a href="https://cal.com/shadman-chy-uqjhbp/15min" style="color:#34d399">Start the free 14-day pilot</a> &middot; <a href="/#calculator" style="color:#34d399">Missed call calculator</a> &middot; <a href="/blog/" style="color:#34d399">Blog</a></p>
+      <p>Answering service by trade:
+        <a href="/answering-service-for-plumbers/" style="color:#34d399">Plumbers</a>,
+        <a href="/answering-service-for-electricians/" style="color:#34d399">Electricians</a>,
+        <a href="/answering-service-for-heating-engineers/" style="color:#34d399">Heating engineers</a>,
+        <a href="/answering-service-for-roofers/" style="color:#34d399">Roofers</a>,
+        <a href="/answering-service-for-builders/" style="color:#34d399">Builders</a>,
+        <a href="/answering-service-for-locksmiths/" style="color:#34d399">Locksmiths</a>,
+        <a href="/out-of-hours-call-answering-for-tradesmen/" style="color:#34d399">Out of hours cover</a>,
+        <a href="/virtual-receptionist-for-sole-traders/" style="color:#34d399">Sole traders</a>.</p>
+      <p>AI answering service near you:
+        <a href="/ai-answering-service-norwich/" style="color:#34d399">Norwich</a>,
+        <a href="/ai-answering-service-ipswich/" style="color:#34d399">Ipswich</a>,
+        <a href="/ai-answering-service-peterborough/" style="color:#34d399">Peterborough</a>,
+        <a href="/ai-answering-service-northampton/" style="color:#34d399">Northampton</a>,
+        <a href="/ai-answering-service-milton-keynes/" style="color:#34d399">Milton Keynes</a>,
+        <a href="/ai-answering-service-derby/" style="color:#34d399">Derby</a>,
+        <a href="/ai-answering-service-stoke-on-trent/" style="color:#34d399">Stoke-on-Trent</a>,
+        <a href="/ai-answering-service-doncaster/" style="color:#34d399">Doncaster</a>,
+        <a href="/ai-answering-service-swindon/" style="color:#34d399">Swindon</a>,
+        <a href="/ai-answering-service-plymouth/" style="color:#34d399">Plymouth</a>.</p>
+      <p>Guides:
+        <a href="/blog/best-ai-answering-service-small-business/" style="color:#34d399">The best AI answering service for small businesses, compared</a>,
+        <a href="/blog/ai-answering-service-uk-tradesmen/" style="color:#34d399">AI answering services for UK tradesmen</a>,
+        <a href="/blog/what-missed-calls-cost-small-business/" style="color:#34d399">What missed calls cost your business</a>.</p>
+    </nav></div>
 
     <!--
       Shown only when JavaScript is unavailable, which includes several AI
@@ -145,7 +178,7 @@
         <p>Say so and it gets switched off. The pilot is free, so you have lost nothing but ten minutes of setup.</p>
 
         <h2>Who runs it</h2>
-        <p>I'm Shadman, based in Lowestoft, UK. I build and run Pulsemint myself; feel free to contact me with any enquiry. You deal with me directly, not a call centre. Email <a href="mailto:info@pulsemint.co.uk" style="color:#34d399">info@pulsemint.co.uk</a>.</p>
+        <p>I'm Shadman, based in Lowestoft, UK. I build and run Pulsemint myself; feel free to contact me with any enquiry. You deal with me directly, not a call centre. Email <a href="mailto:info@pulsemint.co.uk" style="color:#34d399">info@pulsemint.co.uk</a>, or <a href="https://cal.com/shadman-chy-uqjhbp/15min" style="color:#34d399">book a 15 minute setup call for the free pilot</a>.</p>
 
         <h2>Guides</h2>
         <ul>
