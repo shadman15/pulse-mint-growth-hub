@@ -150,4 +150,28 @@
     <lastmod>2026-11-05</lastmod>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://pulsemint.co.uk/about/</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pulsemint.co.uk/privacy/</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://pulsemint.co.uk/cookies/</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://pulsemint.co.uk/terms/</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
 </urlset>

@@ -307,14 +307,38 @@
 </main>
 
 <footer class="site">
-  <div class="wrap rows">
-    <div class="row">
-      <a href="/">Pulsemint home</a>
-      <a href="/blog/">Blog</a>
-      <a href="/#calculator">Missed call calculator</a>
+  <div class="wrap">
+    <div class="fintro">
+      <a class="brand" href="/">Pulse<span>mint</span></a>
+      <p>AI phone answering for UK small businesses. It answers the calls you can’t take, gets the caller’s details and texts them to you within a minute. £199 a month, with a free 14-day pilot.</p>
+      <p class="fcta"><a class="btn btn-solid" href="https://cal.com/shadman-chy-uqjhbp/15min">Start the free pilot</a> <a class="btn btn-line" href="/#test-agent">Hear it answer</a></p>
     </div>
-    <span class="small">&copy; Pulsemint Limited &middot; Lowestoft, UK &middot; Company registration: 16467783</span>
+    <nav class="fcols" aria-label="Footer"><details class="fcol" open><summary>Answering service by trade</summary><ul><li><a href="/answering-service-for-plumbers/">Plumbers</a></li><li><a href="/answering-service-for-electricians/">Electricians</a></li><li><a href="/answering-service-for-heating-engineers/">Heating engineers</a></li><li><a href="/answering-service-for-roofers/">Roofers</a></li><li><a href="/answering-service-for-builders/">Builders</a></li><li><a href="/answering-service-for-locksmiths/">Locksmiths</a></li><li><a href="/out-of-hours-call-answering-for-tradesmen/">Out of hours cover</a></li><li><a href="/virtual-receptionist-for-sole-traders/">Sole traders</a></li></ul></details><details class="fcol" open><summary>Areas we cover</summary><ul><li><a href="/ai-answering-service-norwich/" aria-current="page">Norwich</a></li><li><a href="/ai-answering-service-ipswich/">Ipswich</a></li><li><a href="/ai-answering-service-peterborough/">Peterborough</a></li><li><a href="/ai-answering-service-northampton/">Northampton</a></li><li><a href="/ai-answering-service-milton-keynes/">Milton Keynes</a></li><li><a href="/ai-answering-service-derby/">Derby</a></li><li><a href="/ai-answering-service-stoke-on-trent/">Stoke-on-Trent</a></li><li><a href="/ai-answering-service-doncaster/">Doncaster</a></li><li><a href="/ai-answering-service-swindon/">Swindon</a></li><li><a href="/ai-answering-service-plymouth/">Plymouth</a></li></ul></details><details class="fcol" open><summary>Guides</summary><ul><li><a href="/blog/">All guides</a></li><li><a href="/blog/best-ai-answering-service-small-business/">Services compared</a></li><li><a href="/blog/ai-answering-service-uk-tradesmen/">AI answering for tradesmen</a></li><li><a href="/blog/what-missed-calls-cost-small-business/">What missed calls cost</a></li><li><a href="/#calculator">Missed call calculator</a></li></ul></details><details class="fcol" open><summary>Company</summary><ul><li><a href="/about/">About us</a></li><li><a href="/privacy/">Privacy policy</a></li><li><a href="/cookies/">Cookie policy</a></li><li><a href="/terms/">Terms of service</a></li><li><a href="mailto:info@pulsemint.co.uk">info@pulsemint.co.uk</a></li></ul></details></nav>
+    <div class="fbar">
+      <span>&copy; 2026 Pulsemint Limited</span>
+      <span>104B High Street, Lowestoft, Suffolk NR32 1XW</span>
+      <span>Registered in England and Wales, company 16467783</span>
+    </div>
+    <p class="fnote">Calls to the assistant may be recorded so we can check how it answered and improve it. See our <a href="/privacy/">privacy policy</a>.</p>
   </div>
+<script>
+/* Footer columns: open on a wide screen, tap-to-open dropdowns on a phone.
+   Without scripts they stay open, so every link is still there. */
+(function () {
+  var cols = document.querySelectorAll('footer.site .fcol');
+  if (!cols.length || !window.matchMedia) return;
+  var wide = window.matchMedia('(min-width: 721px)');
+  function sync() {
+    for (var i = 0; i < cols.length; i++) {
+      if (wide.matches) cols[i].setAttribute('open', '');
+      else cols[i].removeAttribute('open');
+    }
+  }
+  sync();
+  if (wide.addEventListener) wide.addEventListener('change', sync);
+  else if (wide.addListener) wide.addListener(sync);
+})();
+</script>
 </footer>
 
 <script src="/blog/track.js" defer></script>

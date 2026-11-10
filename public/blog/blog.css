@@ -182,20 +182,120 @@ caption { caption-side: bottom; color: var(--muted); font-size: 14px; padding-to
 
 /* --------------------------------------------------------------- footer */
 
+/* Four link columns over a legal bar. On a phone each column collapses into
+   a dropdown button, so the footer stays short without losing any links. */
+
 footer.site {
   border-top: 1px solid var(--line);
-  margin-top: 56px;
-  padding: 28px 0 40px;
+  margin-top: 64px;
+  padding: 40px 0 44px;
   position: relative;
   z-index: 2;
-  text-align: center;
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.5);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
 }
-footer.site a { color: rgba(255, 255, 255, 0.6); text-decoration: none; margin: 0 10px; }
+footer.site .wrap { max-width: 1040px; }
+footer.site a { color: var(--muted); text-decoration: none; }
 footer.site a:hover { color: #fff; }
-footer.site .small { color: rgba(255, 255, 255, 0.3); margin-top: 8px; display: block; letter-spacing: 0.06em; }
+
+footer.site .fintro { max-width: 400px; margin: 0 0 32px; }
+footer.site .fintro .brand {
+  display: inline-block;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+footer.site .fintro .brand span { color: var(--mint); }
+footer.site .fintro p { margin: 0; font-size: 14.5px; }
+footer.site .fcta { margin-top: 16px !important; display: flex; flex-wrap: wrap; gap: 10px; }
+footer.site .btn {
+  display: inline-block;
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+footer.site .btn-solid { background: var(--mint); color: #04110c; }
+footer.site .btn-solid:hover { background: var(--mint-soft); color: #04110c; }
+footer.site .btn-line { border: 1px solid rgba(16, 185, 129, 0.45); color: var(--mint-soft); }
+footer.site .btn-line:hover { background: rgba(16, 185, 129, 0.12); color: #fff; }
+
+footer.site .fcols {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+}
+footer.site .fcol { min-width: 0; }
+footer.site .fcol > summary {
+  list-style: none;
+  cursor: default;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text);
+  padding: 2px 0 12px;
+}
+footer.site .fcol > summary::-webkit-details-marker { display: none; }
+footer.site .fcol ul { list-style: none; margin: 0; padding: 0; }
+footer.site .fcol li { margin: 0 0 9px; font-size: 14.5px; }
+footer.site .fcol a[aria-current="page"] { color: var(--mint-soft); }
+
+footer.site .fbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  padding-top: 22px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.42);
+}
+footer.site .fnote { margin: 10px 0 0; font-size: 12.5px; color: rgba(255, 255, 255, 0.32); }
+footer.site .fnote a { color: rgba(255, 255, 255, 0.45); text-decoration: underline; }
+
+@media (max-width: 860px) {
+  footer.site .fcols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 24px; }
+}
+
+/* Phone: the script closes each column, so the summary becomes the button. */
+@media (max-width: 720px) {
+  footer.site { padding-top: 32px; }
+  footer.site .fcols { display: block; padding-bottom: 20px; }
+  footer.site .fcol { border-top: 1px solid var(--line); }
+  footer.site .fcols > .fcol:first-of-type { border-top: 0; }
+  footer.site .fcol > summary {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 2px;
+    letter-spacing: 0.08em;
+  }
+  footer.site .fcol > summary::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    margin-left: 12px;
+    border-right: 2px solid var(--mint);
+    border-bottom: 2px solid var(--mint);
+    transform: rotate(45deg) translate(-2px, -2px);
+    transition: transform 0.15s ease;
+  }
+  footer.site .fcol[open] > summary::after { transform: rotate(-135deg) translate(-2px, -2px); }
+  footer.site .fcol ul { padding: 0 2px 14px; }
+  footer.site .fcol li { margin: 0 0 14px; font-size: 15.5px; }
+  footer.site .fintro { margin-bottom: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  footer.site .fcol > summary::after { transition: none; }
+}
 
 @media (max-width: 520px) {
   body { font-size: 17px; }

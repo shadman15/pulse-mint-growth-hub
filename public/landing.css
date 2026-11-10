@@ -141,3 +141,20 @@ footer.site .rows { display: flex; flex-direction: column; gap: 10px; align-item
 footer.site .row { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 0; }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* What we collect, on the privacy page. A list rather than a wide table, so
+   the lawful basis still reads properly on a phone. */
+.collects { list-style: none; margin: 20px 0 0; padding: 0; }
+.collects li {
+  margin: 0 0 14px;
+  padding: 14px 18px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+.collects em { display: block; margin-top: 6px; font-size: 14.5px; color: var(--muted); font-style: normal; }
+
+/* Never let a table push the page sideways. */
+article table { display: block; overflow-x: auto; max-width: 100%; }

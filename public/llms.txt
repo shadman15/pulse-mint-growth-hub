@@ -48,3 +48,7 @@ Pulsemint answers calls for businesses anywhere in the UK. These pages cover loc
 ## Optional
 
 - [Blog index](https://pulsemint.co.uk/blog/): All guides in one list.
+- [About us](https://pulsemint.co.uk/about/): Who runs Pulsemint, what it does and the registered company details.
+- [Terms of service](https://pulsemint.co.uk/terms/): Pricing, the free 14-day pilot, cancelling and liability.
+- [Privacy policy](https://pulsemint.co.uk/privacy/): What data is collected, including call recordings, and how long it is kept.
+- [Cookie policy](https://pulsemint.co.uk/cookies/): The site sets no advertising or analytics cookies.
