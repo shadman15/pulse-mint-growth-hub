@@ -20,6 +20,16 @@
       "remoteId": "urn:li:share:7521882464584208384"
     },
     {
+      "id": "2026-11-01-fb-article",
+      "platform": "facebook",
+      "publishAt": "2026-11-01T13:23:50Z",
+      "status": "posted",
+      "text": "I spent a day working out what every AI answering service actually costs, including my own, and wrote it up properly.\n\nOne thing that surprised me: the cheap ones advertise minutes, not calls. $29 a month reads well until you realise a proper enquiry runs two to four minutes. That is roughly fifteen calls, and then you are paying by the minute.\n\nThe other thing is that the price gap between the cheap ones and the expensive ones is not better technology. It is who does the setting up. Pay less and you write the script and test it yourself. Pay more and somebody else does that part.\n\nSo I compared five of them on real prices taken from their own websites, not from a comparison site that earns a commission. That includes two that are cheaper than mine, and who they suit better.\n\nIf you have ever wondered whether answering your missed calls is worth paying for, do the sum before you shop. For plenty of businesses the honest answer is no.",
+      "firstComment": "The full comparison is here, with the prices and a calculator for your own numbers: https://pulsemint.co.uk/blog/best-ai-answering-service-small-business/\n\nI'm Shadman, I build and run Pulsemint from Lowestoft. Ask me anything, including about the ones that are not mine.",
+      "postedAt": "2026-11-01T13:26:14.054Z",
+      "remoteId": "773344779189277_122185442900960635"
+    },
+    {
       "id": "2026-10-30-fb-1",
       "platform": "facebook",
       "publishAt": "2026-11-03T19:30:00Z",
@@ -42,14 +52,191 @@
       "remoteId": "773344779189277_122186103542960635"
     },
     {
-      "id": "2026-11-01-fb-article",
+      "id": "2026-11-18-li-missed-call-maths",
+      "platform": "linkedin",
+      "publishAt": "2026-11-18T12:40:00Z",
+      "status": "pending",
+      "text": "Here is a bit of arithmetic worth doing if you run a small trade business.\n\nCount the calls you did not answer last week. Not the ones you rang back. The ones that went to voicemail and never came back.\n\nSay it was four. Say one of those four would have turned into work. Say your average job is 400 pounds.\n\nThat is 400 pounds gone in a week from doing nothing wrong. You were up a ladder with your hands full.\n\nNobody sends you an invoice for that, which is exactly why it never gets fixed.\n\nDo not take my numbers. Put your own in: https://pulsemint.co.uk/#calculator",
+      "link": "https://pulsemint.co.uk/#calculator"
+    },
+    {
+      "id": "2026-11-18-fb-missed-call-maths",
       "platform": "facebook",
-      "publishAt": "2026-11-01T13:23:50Z",
-      "status": "posted",
-      "text": "I spent a day working out what every AI answering service actually costs, including my own, and wrote it up properly.\n\nOne thing that surprised me: the cheap ones advertise minutes, not calls. $29 a month reads well until you realise a proper enquiry runs two to four minutes. That is roughly fifteen calls, and then you are paying by the minute.\n\nThe other thing is that the price gap between the cheap ones and the expensive ones is not better technology. It is who does the setting up. Pay less and you write the script and test it yourself. Pay more and somebody else does that part.\n\nSo I compared five of them on real prices taken from their own websites, not from a comparison site that earns a commission. That includes two that are cheaper than mine, and who they suit better.\n\nIf you have ever wondered whether answering your missed calls is worth paying for, do the sum before you shop. For plenty of businesses the honest answer is no.",
-      "firstComment": "The full comparison is here, with the prices and a calculator for your own numbers: https://pulsemint.co.uk/blog/best-ai-answering-service-small-business/\n\nI'm Shadman, I build and run Pulsemint from Lowestoft. Ask me anything, including about the ones that are not mine.",
-      "postedAt": "2026-11-01T13:26:14.054Z",
-      "remoteId": "773344779189277_122185442900960635"
+      "publishAt": "2026-11-18T19:10:00Z",
+      "status": "pending",
+      "text": "Quick one for anyone self employed.\n\nHow many calls did you miss last week? Not the ones you rang back. The ones that went to voicemail and never rang again.\n\nOne lost job a week at 400 pounds is over 20,000 a year, walking off to whoever picked up first.\n\nYou did nothing wrong. You were working.\n\nPut your own numbers in here: https://pulsemint.co.uk/#calculator",
+      "link": "https://pulsemint.co.uk/#calculator",
+      "note": "Link kept in the post body: posting a first comment needs pages_manage_engagement."
+    },
+    {
+      "id": "2026-11-20-li-is-this-a-robot",
+      "platform": "linkedin",
+      "publishAt": "2026-11-20T07:50:00Z",
+      "status": "pending",
+      "text": "People ask me what my assistant says when a caller asks \"am I talking to a robot?\"\n\nIt says yes.\n\nThat is not me being noble about it. It is the only version that survives contact with a real customer. Someone who finds out afterwards that they were fooled does not ring back, and they tell people.\n\nSo it answers in your business name, it takes the job, the address and the number, and if anyone asks what it is, it tells them straight.\n\nBeing useful and being honest were never actually in competition here.",
+      "link": "https://pulsemint.co.uk"
+    },
+    {
+      "id": "2026-11-20-fb-is-this-a-robot",
+      "platform": "facebook",
+      "publishAt": "2026-11-20T17:20:00Z",
+      "status": "pending",
+      "text": "\"What happens when someone asks if it's a robot?\"\n\nIt tells them yes.\n\nNo funny voices, no pretending. It answers in your company name, asks what the job is, takes their number, and if they ask what it is, it says so.\n\nPeople do not mind talking to a machine that is useful. They mind being tricked.\n\nhttps://pulsemint.co.uk",
+      "link": "https://pulsemint.co.uk",
+      "note": "Link kept in the post body: posting a first comment needs pages_manage_engagement."
+    },
+    {
+      "id": "2026-11-23-li-what-it-wont-do",
+      "platform": "linkedin",
+      "publishAt": "2026-11-23T08:10:00Z",
+      "status": "pending",
+      "text": "A short list of things my answering assistant is not allowed to do.\n\nIt does not quote a price. Not even a rough one, unless you have given it a range you are happy to stand behind.\n\nIt does not promise a date. It has no idea what your week looks like.\n\nIt does not argue with anyone or try to sell.\n\nIt does not keep ringing someone who has said no.\n\nAll it does is pick up, find out what the job is, and get the details to you fast enough that you can still win the work.\n\nMost of building this has been taking things away, not adding them.",
+      "link": "https://pulsemint.co.uk"
+    },
+    {
+      "id": "2026-11-23-fb-what-it-wont-do",
+      "platform": "facebook",
+      "publishAt": "2026-11-23T18:40:00Z",
+      "status": "pending",
+      "text": "What my phone assistant is NOT allowed to do:\n\nQuote a price.\nPromise a date.\nTry to sell anyone anything.\nPretend to be a person if asked.\n\nWhat it does: picks up when you can't, finds out what the job is, gets the name, number and address, and texts it to you in about a minute.\n\nThe quoting stays with you. That was always the point.\n\nhttps://pulsemint.co.uk",
+      "link": "https://pulsemint.co.uk",
+      "note": "Link kept in the post body: posting a first comment needs pages_manage_engagement."
+    },
+    {
+      "id": "2026-11-25-li-voicemail-is-the-competitor",
+      "platform": "linkedin",
+      "publishAt": "2026-11-25T12:40:00Z",
+      "status": "pending",
+      "text": "When people ask who I am competing with, they expect me to name another answering service.\n\nI am competing with voicemail.\n\nThat is what nearly every small firm actually uses, and it loses. A customer with a leak is not leaving a message and waiting. They are already dialling the next number on the list.\n\nThe firm that wins is not the best one. It is the one that picked up.\n\nThat is a harsh thing to say about a trade where skill is everything. It is still true.",
+      "link": "https://pulsemint.co.uk"
+    },
+    {
+      "id": "2026-11-25-fb-voicemail-is-the-competitor",
+      "platform": "facebook",
+      "publishAt": "2026-11-25T19:10:00Z",
+      "status": "pending",
+      "text": "People think my competition is other answering services.\n\nIt isn't. It's voicemail.\n\nThink about the last time you had an emergency at home. Did you leave a message and wait? Or did you ring the next number?\n\nThe job doesn't go to the best tradesman. It goes to the one who picked up.\n\nhttps://pulsemint.co.uk",
+      "link": "https://pulsemint.co.uk",
+      "note": "Link kept in the post body: posting a first comment needs pages_manage_engagement."
+    },
+    {
+      "id": "2026-11-27-li-winter-out-of-hours",
+      "platform": "linkedin",
+      "publishAt": "2026-11-27T07:50:00Z",
+      "status": "pending",
+      "text": "The phone does not stop ringing in winter. It just rings at worse times.\n\nBoilers pack in on the coldest night of the year. Pipes go at six in the morning. A roof starts letting water in during a storm on a Sunday.\n\nThose calls are worth more than the ones at eleven on a Tuesday, because the person ringing is not shopping around. They want someone now.\n\nThey are also the calls you are least likely to answer, because you are asleep, or eating, or already out on something else.\n\nThis is the gap I built Pulsemint for. Not the easy hours. The expensive ones.",
+      "link": "https://pulsemint.co.uk"
+    },
+    {
+      "id": "2026-11-27-fb-winter-out-of-hours",
+      "platform": "facebook",
+      "publishAt": "2026-11-27T17:20:00Z",
+      "status": "pending",
+      "text": "Winter calls are the ones worth having.\n\nBoiler goes on the coldest night. Pipe bursts at 6am. Roof leaks on a Sunday in a storm.\n\nThose callers aren't shopping around on price. They want whoever answers.\n\nThey're also the calls you're least likely to pick up, because you're asleep or already out on a job.\n\nThat gap is the whole reason I built this.\n\nhttps://pulsemint.co.uk",
+      "link": "https://pulsemint.co.uk",
+      "note": "Link kept in the post body: posting a first comment needs pages_manage_engagement."
+    },
+    {
+      "id": "2026-11-30-li-why-flat-price",
+      "platform": "linkedin",
+      "publishAt": "2026-11-30T08:10:00Z",
+      "status": "pending",
+      "text": "I spent a while looking at how answering services charge before I set my own price.\n\nMost of them bill per minute, or per call, or by bundles that run out. Which means the better your month goes, the bigger your bill. You get punished for being busy.\n\nI did not want a customer watching the meter while their phone rings.\n\nSo it is 199 pounds a month, flat, with 50 captured calls included. If you go over, I ring you and we agree something before anything is charged. No surprise invoice.\n\nI compared what the main services actually cost here: https://pulsemint.co.uk/blog/best-ai-answering-service-small-business/",
+      "link": "https://pulsemint.co.uk/blog/best-ai-answering-service-small-business/"
+    },
+    {
+      "id": "2026-11-30-fb-why-flat-price",
+      "platform": "facebook",
+      "publishAt": "2026-11-30T18:40:00Z",
+      "status": "pending",
+      "text": "Most answering services charge you per call or per minute.\n\nSo the busier your month, the bigger the bill. You get charged more for doing well.\n\nMine is 199 a month, flat, 50 calls included. Go over and I'll ring you first and agree it. No surprise bills.\n\nI compared what the big ones actually charge here: https://pulsemint.co.uk/blog/best-ai-answering-service-small-business/",
+      "link": "https://pulsemint.co.uk/blog/best-ai-answering-service-small-business/",
+      "note": "Link kept in the post body: posting a first comment needs pages_manage_engagement."
+    },
+    {
+      "id": "2026-12-02-li-what-you-get",
+      "platform": "linkedin",
+      "publishAt": "2026-12-02T12:40:00Z",
+      "status": "pending",
+      "text": "People ask what they actually receive when the assistant takes a call. It is a text, and it looks like this:\n\nNew call, 7:42pm. Dave, 07xxx xxxxxx. Shower not draining upstairs, says it has been getting slower for a week. NR33. Asked how soon someone could look. Told him you would ring back tonight or first thing.\n\nThat is it. No app to learn, no dashboard to log into, no training.\n\nYou read it in ten seconds at the end of a job and decide whether it is worth ringing back tonight.\n\nThe best software for someone who works with their hands is usually the software they do not have to think about.",
+      "link": "https://pulsemint.co.uk"
+    },
+    {
+      "id": "2026-12-02-fb-what-you-get",
+      "platform": "facebook",
+      "publishAt": "2026-12-02T19:10:00Z",
+      "status": "pending",
+      "text": "What you actually get is a text. Looks like this:\n\n\"New call, 7:42pm. Dave, 07xxx xxxxxx. Shower not draining upstairs, getting worse for a week. NR33. Asked how soon you could look.\"\n\nThat's it. No app, no dashboard, no logging in.\n\nYou read it in ten seconds in the van and decide if it's worth ringing back tonight.\n\nhttps://pulsemint.co.uk",
+      "link": "https://pulsemint.co.uk",
+      "note": "Link kept in the post body: posting a first comment needs pages_manage_engagement."
+    },
+    {
+      "id": "2026-12-04-li-free-pilot",
+      "platform": "linkedin",
+      "publishAt": "2026-12-04T07:50:00Z",
+      "status": "pending",
+      "text": "Every new customer starts with a free fortnight, and people keep asking what the catch is.\n\nThere isn't one, but there is a reason.\n\nNobody sensible hands their phone to something they have never heard. So for fourteen days it runs on your calls, you read what comes through, and you decide whether it caught anything you would otherwise have lost.\n\nIf it did not, you have lost ten minutes of setup time and you walk away.\n\nI would rather find out in two weeks that it is not right for your business than take your money for six months and have you resent it.",
+      "link": "https://pulsemint.co.uk"
+    },
+    {
+      "id": "2026-12-04-fb-free-pilot",
+      "platform": "facebook",
+      "publishAt": "2026-12-04T17:20:00Z",
+      "status": "pending",
+      "text": "Free for 14 days, then 199 a month if you keep it.\n\nThe catch? There isn't one. Here's why I do it.\n\nNobody hands their business phone over to something they've never heard. So for two weeks it answers your missed calls, you read what comes through, and you decide.\n\nIf it catches nothing, you've lost ten minutes setting it up. That's the whole risk.\n\nhttps://pulsemint.co.uk",
+      "link": "https://pulsemint.co.uk",
+      "note": "Link kept in the post body: posting a first comment needs pages_manage_engagement."
+    },
+    {
+      "id": "2026-12-07-li-listening-to-recordings",
+      "platform": "linkedin",
+      "publishAt": "2026-12-07T08:10:00Z",
+      "status": "pending",
+      "text": "Something I changed this month after sitting and listening to call recordings.\n\nThe assistant used to ask for the caller's name first. Sensible on paper. In practice it made the call feel like a form being filled in, and a few people got impatient within seconds.\n\nNow it asks what the problem is first, and picks up the name along the way.\n\nShorter calls, more detail, less of that stiff feeling.\n\nI do not think you can build this sort of thing from a spec. You build a version, you listen to real people talking to it, and you fix what made them hesitate.",
+      "link": "https://pulsemint.co.uk"
+    },
+    {
+      "id": "2026-12-07-fb-listening-to-recordings",
+      "platform": "facebook",
+      "publishAt": "2026-12-07T18:40:00Z",
+      "status": "pending",
+      "text": "Changed something this week after listening back to real calls.\n\nIt used to ask for your name first. Sounded sensible. But it made the call feel like filling in a form, and you could hear people getting impatient.\n\nNow it asks what the problem is first and picks the name up along the way.\n\nShorter calls, better details.\n\nYou can't design this stuff on paper. You have to listen to it going wrong.\n\nhttps://pulsemint.co.uk",
+      "link": "https://pulsemint.co.uk",
+      "note": "Link kept in the post body: posting a first comment needs pages_manage_engagement."
+    },
+    {
+      "id": "2026-12-09-li-who-its-not-for",
+      "platform": "linkedin",
+      "publishAt": "2026-12-09T12:40:00Z",
+      "status": "pending",
+      "text": "Who this is not for, since I would rather say it than waste anyone's afternoon.\n\nIf someone already answers your phone properly, you do not need me.\n\nIf your work comes entirely from one contract or one builder, you do not need me.\n\nIf your callers need a real decision on the spot, about safety or a price, an assistant taking a message is not going to cut it.\n\nIt earns its keep in one situation: you are on the tools, the phone rings, and that call currently hits voicemail and never comes back.\n\nIf that is not your problem, I am genuinely not the answer.",
+      "link": "https://pulsemint.co.uk"
+    },
+    {
+      "id": "2026-12-09-fb-who-its-not-for",
+      "platform": "facebook",
+      "publishAt": "2026-12-09T19:10:00Z",
+      "status": "pending",
+      "text": "Who this isn't for:\n\nIf someone already answers your phone, you don't need it.\nIf all your work comes from one builder or one contract, you don't need it.\nIf callers need a price or a safety answer on the spot, a message won't do.\n\nIt's for one thing: you're on the tools, the phone rings, and that call goes to voicemail and never comes back.\n\nIf that's not your problem, fair enough.\n\nhttps://pulsemint.co.uk",
+      "link": "https://pulsemint.co.uk",
+      "note": "Link kept in the post body: posting a first comment needs pages_manage_engagement."
+    },
+    {
+      "id": "2026-12-11-li-christmas-shutdown",
+      "platform": "linkedin",
+      "publishAt": "2026-12-11T07:50:00Z",
+      "status": "pending",
+      "text": "Something worth sorting before the end of the month.\n\nMost small firms wind down over Christmas. The phone does not. Boilers still fail, pipes still go, and people still ring round on the 27th looking for anyone who will answer.\n\nThe usual plan is a voicemail greeting saying you are back on the 5th. Which politely tells a paying customer to go and find somebody else.\n\nYou do not have to work through it. You just have to know who rang, so you can decide what is worth driving out for and what can wait until January.\n\nThat is a much nicer problem to have than coming back to an empty diary.",
+      "link": "https://pulsemint.co.uk"
+    },
+    {
+      "id": "2026-12-11-fb-christmas-shutdown",
+      "platform": "facebook",
+      "publishAt": "2026-12-11T17:20:00Z",
+      "status": "pending",
+      "text": "Worth sorting before Christmas.\n\nYou wind down. The phone doesn't. Boilers still go, pipes still burst, and people still ring round on the 27th for anyone who'll answer.\n\nThe usual answer is a voicemail saying you're back on the 5th. Which politely tells a paying customer to ring someone else.\n\nYou don't have to work through it. You just need to know who rang, so you can pick what's worth going out for.\n\nhttps://pulsemint.co.uk",
+      "link": "https://pulsemint.co.uk",
+      "note": "Link kept in the post body: posting a first comment needs pages_manage_engagement."
     }
   ]
 }
