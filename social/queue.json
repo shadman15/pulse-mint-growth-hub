@@ -86,10 +86,12 @@
       "id": "2026-11-20-fb-is-this-a-robot",
       "platform": "facebook",
       "publishAt": "2026-11-20T17:20:00Z",
-      "status": "pending",
+      "status": "posted",
       "text": "\"What happens when someone asks if it's a robot?\"\n\nIt tells them yes.\n\nNo funny voices, no pretending. It answers in your company name, asks what the job is, takes their number, and if they ask what it is, it says so.\n\nPeople do not mind talking to a machine that is useful. They mind being tricked.\n\nhttps://pulsemint.co.uk",
       "link": "https://pulsemint.co.uk",
-      "note": "Link kept in the post body: posting a first comment needs pages_manage_engagement."
+      "note": "Link kept in the post body: posting a first comment needs pages_manage_engagement.",
+      "postedAt": "2026-11-20T23:07:50.867Z",
+      "remoteId": "773344779189277_122188024262960635"
     },
     {
       "id": "2026-11-23-li-what-it-wont-do",
