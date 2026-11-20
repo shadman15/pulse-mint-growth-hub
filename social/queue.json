@@ -76,9 +76,11 @@
       "id": "2026-11-20-li-is-this-a-robot",
       "platform": "linkedin",
       "publishAt": "2026-11-20T07:50:00Z",
-      "status": "pending",
+      "status": "posted",
       "text": "People ask me what my assistant says when a caller asks \"am I talking to a robot?\"\n\nIt says yes.\n\nThat is not me being noble about it. It is the only version that survives contact with a real customer. Someone who finds out afterwards that they were fooled does not ring back, and they tell people.\n\nSo it answers in your business name, it takes the job, the address and the number, and if anyone asks what it is, it tells them straight.\n\nBeing useful and being honest were never actually in competition here.",
-      "link": "https://pulsemint.co.uk"
+      "link": "https://pulsemint.co.uk",
+      "postedAt": "2026-11-20T08:39:44.744Z",
+      "remoteId": "urn:li:share:7529463479930576896"
     },
     {
       "id": "2026-11-20-fb-is-this-a-robot",
