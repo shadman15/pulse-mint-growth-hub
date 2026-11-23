@@ -107,10 +107,12 @@
       "id": "2026-11-23-fb-what-it-wont-do",
       "platform": "facebook",
       "publishAt": "2026-11-23T18:40:00Z",
-      "status": "pending",
+      "status": "posted",
       "text": "What my phone assistant is NOT allowed to do:\n\nQuote a price.\nPromise a date.\nTry to sell anyone anything.\nPretend to be a person if asked.\n\nWhat it does: picks up when you can't, finds out what the job is, gets the name, number and address, and texts it to you in about a minute.\n\nThe quoting stays with you. That was always the point.\n\nhttps://pulsemint.co.uk",
       "link": "https://pulsemint.co.uk",
-      "note": "Link kept in the post body: posting a first comment needs pages_manage_engagement."
+      "note": "Link kept in the post body: posting a first comment needs pages_manage_engagement.",
+      "postedAt": "2026-11-23T20:30:01.365Z",
+      "remoteId": "773344779189277_122188390052960635"
     },
     {
       "id": "2026-11-25-li-voicemail-is-the-competitor",
