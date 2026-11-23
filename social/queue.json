@@ -97,9 +97,11 @@
       "id": "2026-11-23-li-what-it-wont-do",
       "platform": "linkedin",
       "publishAt": "2026-11-23T08:10:00Z",
-      "status": "pending",
+      "status": "posted",
       "text": "A short list of things my answering assistant is not allowed to do.\n\nIt does not quote a price. Not even a rough one, unless you have given it a range you are happy to stand behind.\n\nIt does not promise a date. It has no idea what your week looks like.\n\nIt does not argue with anyone or try to sell.\n\nIt does not keep ringing someone who has said no.\n\nAll it does is pick up, find out what the job is, and get the details to you fast enough that you can still win the work.\n\nMost of building this has been taking things away, not adding them.",
-      "link": "https://pulsemint.co.uk"
+      "link": "https://pulsemint.co.uk",
+      "postedAt": "2026-11-23T15:49:46.671Z",
+      "remoteId": "urn:li:share:7530658864405479425"
     },
     {
       "id": "2026-11-23-fb-what-it-wont-do",
