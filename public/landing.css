@@ -158,3 +158,100 @@ footer.site .row { display: flex; flex-wrap: wrap; justify-content: center; gap:
 
 /* Never let a table push the page sideways. */
 article table { display: block; overflow-x: auto; max-width: 100%; }
+
+/* Visual explainers. Built from HTML rather than SVG so the text stays at a
+   readable size on a phone instead of shrinking with a fixed viewBox. */
+figure.viz {
+  margin: 34px 0;
+  padding: 22px 22px 18px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+figure.viz h3 { margin: 0 0 18px; font-size: 20px; }
+figure.viz figcaption { margin-top: 16px; }
+
+figure.viz .tlabel {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+figure.viz .bad .tlabel { color: #f87171; }
+figure.viz .good .tlabel { color: var(--mint-soft); }
+
+figure.viz .track { margin-bottom: 20px; }
+figure.viz .track:last-of-type { margin-bottom: 0; }
+figure.viz .steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+figure.viz .steps li {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 15.5px;
+  line-height: 1.45;
+}
+figure.viz .steps li b { display: block; font-size: 13px; opacity: 0.75; margin-bottom: 2px; }
+figure.viz .bad .steps li { background: rgba(248, 113, 113, 0.1); border: 1px solid rgba(248, 113, 113, 0.32); }
+figure.viz .bad .steps li.end { background: rgba(248, 113, 113, 0.22); border-color: #f87171; }
+figure.viz .good .steps li { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.32); }
+figure.viz .good .steps li.end { background: rgba(16, 185, 129, 0.22); border-color: var(--mint); }
+
+figure.viz .phone {
+  max-width: 340px;
+  margin: 0 auto;
+  padding: 14px 14px 18px;
+  background: #05100c;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 26px;
+}
+figure.viz .phone .bar { width: 96px; height: 6px; border-radius: 3px; background: rgba(255, 255, 255, 0.16); margin: 0 auto 16px; }
+figure.viz .phone .from { margin: 0 0 8px; font-size: 13px; color: var(--muted); }
+figure.viz .bubble {
+  background: rgba(16, 185, 129, 0.13);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+figure.viz .bubble p { margin: 0 0 10px; font-size: 15.5px; line-height: 1.5; }
+figure.viz .bubble p:last-child { margin-bottom: 0; }
+figure.viz .bubble .urgent { color: #f87171; font-weight: 700; letter-spacing: 0.06em; }
+figure.viz .bubble .dim { color: var(--muted); }
+figure.viz .bubble .cb { color: var(--mint-soft); font-weight: 600; }
+
+figure.viz .cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+figure.viz .col { padding: 16px 18px; border-radius: 12px; }
+figure.viz .col.bad { background: rgba(248, 113, 113, 0.07); border: 1px solid rgba(248, 113, 113, 0.3); }
+figure.viz .col.good { background: rgba(16, 185, 129, 0.07); border: 1px solid rgba(16, 185, 129, 0.3); }
+figure.viz .col ul { margin: 0; padding-left: 18px; }
+figure.viz .col li { margin: 0 0 7px; font-size: 16px; }
+figure.viz .col .note { margin: 12px 0 0; font-size: 14.5px; color: var(--muted); }
+
+figure.viz .sum { display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px; }
+figure.viz .sum .cell {
+  flex: 1 1 128px;
+  padding: 14px 16px;
+  background: #05100c;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+}
+figure.viz .sum .cell span { display: block; font-size: 13.5px; color: var(--muted); margin-bottom: 6px; }
+figure.viz .sum .cell b { font-size: 22px; }
+figure.viz .sum .cell.price { background: rgba(16, 185, 129, 0.15); border-color: var(--mint); flex: 0 1 112px; }
+figure.viz .sum .op { align-self: center; color: var(--mint-soft); font-size: 20px; }
+
+@media (max-width: 640px) {
+  figure.viz { padding: 18px 16px 14px; }
+  figure.viz .steps { grid-template-columns: 1fr; }
+  figure.viz .cols { grid-template-columns: 1fr; }
+  figure.viz .sum { display: grid; grid-template-columns: 1fr; }
+  figure.viz .sum .op { display: none; }
+}
