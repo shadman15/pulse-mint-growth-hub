@@ -118,9 +118,11 @@
       "id": "2026-11-25-li-voicemail-is-the-competitor",
       "platform": "linkedin",
       "publishAt": "2026-11-25T12:40:00Z",
-      "status": "pending",
+      "status": "posted",
       "text": "When people ask who I am competing with, they expect me to name another answering service.\n\nI am competing with voicemail.\n\nThat is what nearly every small firm actually uses, and it loses. A customer with a leak is not leaving a message and waiting. They are already dialling the next number on the list.\n\nThe firm that wins is not the best one. It is the one that picked up.\n\nThat is a harsh thing to say about a trade where skill is everything. It is still true.",
-      "link": "https://pulsemint.co.uk"
+      "link": "https://pulsemint.co.uk",
+      "postedAt": "2026-11-25T15:40:00.054Z",
+      "remoteId": "urn:li:share:7531381180416524289"
     },
     {
       "id": "2026-11-25-fb-voicemail-is-the-competitor",
